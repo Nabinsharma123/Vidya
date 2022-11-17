@@ -73,7 +73,7 @@
 
 <div class="mt-12">
     <div class="flex">
-        <div class="border-2 border-gray-500 p-4 ">
+        <div class="border-2 rounded-md border-gray-500 p-4 ">
             <img class="w-40" src={`/${endpoint}.svg`} alt="" />
         </div>
         <div class=" flex items-center ml-6 ">
@@ -84,7 +84,7 @@
 <div class="relative">
     {#if !$authStatus}
         <div
-            class="absolute z-10 flex justify-center items-center backdrop-blur-sm w-full h-full top-0 left-0"
+            class="absolute border-2 bg-red-200/50 border-red-500 rounded-md z-10 flex justify-center items-center backdrop-blur-sm w-full h-full top-0 left-0"
         >
             <h1 class="text-xl text-red-500 font-bold">
                 You need to Log in in first
@@ -100,7 +100,7 @@
                 <h1 transition:fly={{ y: -20, duration: 500 }} class="text-xl">
                     {@html About}
                 </h1>
-            {:else}
+            {:else if $authStatus}
                 <div class="h-40 w-full flex justify-center items-center">
                     <img src="/loading.svg" alt="" />
                 </div>
@@ -136,7 +136,7 @@
                         {/each}
                     </div>
                 {/if}
-            {:else}
+            {:else if $authStatus}
                 <div class="h-40 w-full flex justify-center items-center">
                     <img src="/loading.svg" alt="" />
                 </div>
@@ -170,7 +170,7 @@
                     >
                         {@html TopicData}
                     </div>
-                {:else}
+                {:else if $authStatus}
                     <div
                         transition:fade={{ duration: 500 }}
                         class=" absolute top-[25px] left-0 w-full  flex justify-center items-center"

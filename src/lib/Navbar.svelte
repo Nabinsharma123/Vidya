@@ -25,7 +25,7 @@
   }
 </script>
 
-<nav class=" w-full bg-white ">
+<nav class=" w-full bg-white border">
   <!-- nav bar container -->
   <div class=" flex mx-24 justify-between items-center py-2 ">
     <!-- left side -->
@@ -42,9 +42,16 @@
         <div class="  navBarOptions">
           <h1>Course</h1>
         </div>
-        <div class="navBarOptions">
-          <h1>Tutorials</h1>
-        </div>
+        <a href="/tutorials">
+          <div class="navBarOptions">
+            <h1>Tutorials</h1>
+          </div>
+        </a>
+        <a href="/about">
+          <div class="navBarOptions">
+            <h1>About Us</h1>
+          </div>
+        </a>
       </div>
     </div>
     <!-- left side -->
@@ -70,7 +77,9 @@
           on:click={() => {
             LoginClicked = true;
           }}
-          class="transition ease-in-out duration-300 Login py-1 px-3 mr-4"
+          class="transition border-2 border-[#29686E]  rounded-md ease-in-out duration-300 text-lg font-semibold
+           text-[#29686E] Login py-1 px-3 mr-4 hover:bg-[#29686E]  hover:text-white
+          "
         >
           Log In
         </button>
@@ -78,7 +87,8 @@
           on:click={() => {
             SighupClicked = true;
           }}
-          class=" transition ease-in-out duration-300 Sighup border py-1 px-2 bg-[#6c63ff] text-white"
+          class=" transition ease-in-out duration-300 Sighup border-2 rounded-md text-lg font-semibold 
+          py-1 px-2 text-white bg-[#29686E] border-[#29686E] hover:text-[#29686E] hover:bg-white"
         >
           Sigh Up
         </button>
@@ -142,26 +152,5 @@
   .navBarOptions:hover {
     color: #0556f3;
     cursor: pointer;
-  }
-  .Login {
-    font-size: 1.2rem;
-    font-weight: 800;
-    border: 2px solid rgb(202, 56, 68);
-    border-radius: 10px;
-    color: rgb(202, 56, 68);
-  }
-  .Login:hover {
-    color: #fff;
-    background-color: rgb(202, 56, 68);
-  }
-  .Sighup {
-    font-size: 1.2rem;
-    font-weight: 800;
-    border: 2px solid #6c63ff;
-    border-radius: 10px;
-  }
-  .Sighup:hover {
-    background-color: #fff;
-    color: #6c63ff;
   }
 </style>

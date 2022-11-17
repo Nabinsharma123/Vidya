@@ -71,8 +71,7 @@
             console.log(errorMessage);
             loading = false;
             userData = {
-              firstName: "",
-              lastName: "",
+              userName: "",
               email: "",
               password: "",
             };
@@ -91,8 +90,7 @@
         console.log(errorMessage);
         loading = false;
         userData = {
-          firstName: "",
-          lastName: "",
+          userName: "",
           email: "",
           password: "",
         };
@@ -119,7 +117,7 @@
       <div class="avatar flex justify-center items-center w-1/3">
         <div class="flex flex-col items-center">
           <div class="w-20">
-            <img src={avatar} alt="" />
+            <img class="rounded-full" src={avatar} alt="" />
           </div>
           {#if userData.userName == ""}
             <h1>Username</h1>
@@ -139,7 +137,7 @@
 
     <button on:click={submitData} class="Sighup-button ">
       {#if loading}
-        <div class="w-full flex justify-center">
+        <div class="w-full  flex justify-center">
           <img src="/loading.svg" alt="" />
         </div>
       {:else}
