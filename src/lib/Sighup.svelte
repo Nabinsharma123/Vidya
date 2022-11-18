@@ -105,7 +105,7 @@
 >
   <div class="w-full  pr-8">
     <h1 class="text-3xl mb-5 ">Sign Up</h1>
-    <div class="flex items-center mb-[15px] ">
+    <div class="flex items-center  ">
       <div class="w-2/3 ">
         <input
           bind:value={userData.userName}
@@ -117,13 +117,14 @@
       <div class="avatar flex justify-center items-center w-1/3">
         <div class="flex flex-col items-center">
           <div class="w-20">
-            <img class="rounded-full" src={avatar} alt="" />
+            <img class="rounded-md " src={avatar} alt="" />
           </div>
-          {#if userData.userName == ""}
+
+          <!-- {#if userData.userName == ""}
             <h1>Username</h1>
           {:else}
             <h1 class="">{userData.userName}</h1>
-          {/if}
+          {/if} -->
         </div>
       </div>
     </div>
@@ -180,17 +181,20 @@
     font-weight: 800;
   }
   input::placeholder {
-    color: rgb(110, 110, 110);
+    color: rgb(70, 70, 70);
+    font-weight: 900;
   }
   input {
     font-family: monospace;
     width: 100%;
-    margin-bottom: 15px;
-    color: white;
+    margin: 5px 0;
+    color: #000;
     height: 50px;
-    background-color: #333;
+    font-weight: 900;
+    font-size: large;
+    /* background-color: #333; */
     outline: none;
-    border: none;
+    border: 2px solid black;
     padding: 0 20px;
     border-radius: 5px;
   }
@@ -198,10 +202,10 @@
     font-weight: 800;
     font-size: 1.2rem;
     width: 100%;
-
+    margin-top: 20px;
     color: white;
     height: 50px;
-    background-color: #6c63ff;
+    background-color: #29686e;
     outline: none;
     border: none;
     padding: 0 20px;
@@ -209,14 +213,12 @@
     z-index: 99;
   }
 
-  .avatar h1 {
+  /* .avatar h1 {
     font-weight: 700;
     margin-top: 5px;
     padding: 2px;
     outline: none;
-    color: #fff;
+    color: #000;
     border-radius: 5px;
-    border: none;
-    background-color: rgb(233, 102, 102);
-  }
+  } */
 </style>

@@ -90,7 +90,7 @@
           class=" transition ease-in-out duration-300 Sighup border-2 rounded-md text-lg font-semibold 
           py-1 px-2 text-white bg-[#29686E] border-[#29686E] hover:text-[#29686E] hover:bg-white"
         >
-          Sigh Up
+          Sign Up
         </button>
       </div>
     {/if}

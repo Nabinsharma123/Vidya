@@ -76,7 +76,7 @@
           <img src="/loading.svg" alt="" />
         </div>
       {:else}
-        Sign Up
+        Log In
       {/if}</button
     >
     <div class="my-2 w-full flex items-center justify-center">
@@ -114,17 +114,20 @@
     font-weight: 800;
   }
   input::placeholder {
-    color: rgb(110, 110, 110);
+    color: rgb(70, 70, 70);
+    font-weight: 900;
   }
   input {
     font-family: monospace;
     width: 100%;
-    margin: 10px 0;
-    color: white;
+    margin: 5px 0;
+    color: #000;
     height: 50px;
-    background-color: #333;
+    font-weight: 900;
+    font-size: large;
+    /* background-color: #333; */
     outline: none;
-    border: none;
+    border: 2px solid black;
     padding: 0 20px;
     border-radius: 5px;
   }
@@ -136,7 +139,7 @@
 
     color: white;
     height: 50px;
-    background-color: rgb(202, 56, 68);
+    background-color: #29686e;
     outline: none;
     border: none;
     padding: 0 20px;

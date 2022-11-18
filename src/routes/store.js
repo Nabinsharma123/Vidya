@@ -1,8 +1,8 @@
 import { writable } from "svelte/store";
 
-export var authStatus=writable(false)
-export var notification=writable(false)
-export var userAuthData=writable()
+export var authStatus = writable(false)
+export var notification = writable(false)
+export var userAuthData = writable()
 export var options = writable([
     {
         name: "Python",
@@ -42,4 +42,5 @@ export var options = writable([
         name: "Computer Architecture",
         endpoint: "/Computer-Architecture"
     },
+
 ])

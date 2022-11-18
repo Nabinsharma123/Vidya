@@ -13,24 +13,25 @@
         topicClicked($options[0].name);
     }
     function topicClicked(name) {
-        selectedTopic = name;
-        name = name.replace(/\s+/g, "-");
-
         loading = true;
-        const collectionRef = collection(db, name);
-        getDoc(doc(collectionRef, "Tutorials")).then((res) => {
-            if (res.exists()) {
-                videoId = res.data().VideoId;
-                loading = false;
-            } else videoId = false;
-        });
+        if (authStatus) {
+            selectedTopic = name;
+            name = name.replace(/\s+/g, "-");
+            const collectionRef = collection(db, name);
+            getDoc(doc(collectionRef, "Tutorials")).then((res) => {
+                if (res.exists()) {
+                    videoId = res.data().VideoId;
+                    loading = false;
+                } else videoId = false;
+            });
+        }
     }
 </script>
 
-<div>
+<div class="w-full flex justify-center">
     <!-- <h1 class="text-3xl font-bold my-6">Video Tutorials</h1> -->
     <div
-        class="relative mt-5 flex  rounded-md  border-2 border-gray-400"
+        class="relative max-w-[1000px] w-full mt-5 flex  h-[470px] rounded-lg  border border-gray-400"
         transition:fly={{ y: 200, duration: 500 }}
     >
         {#if !$authStatus}
@@ -42,14 +43,19 @@
                 </h1>
             </div>
         {/if}
-        <div class="flex-1">
+        <div class=" w-[200px] border-r border-gray-400 overflow-auto">
             {#each $options as { name, endpoint }}
                 <div
-                    class="border-2 border-gray-400 border-b-0 border-l-0 p-3 hover:bg-gray-300 first:border-t-0 cursor-pointer"
+                    class="tutorialOptions p-2 hover:bg-slate-300 first:rounded-t-md first:rounded-r-none 
+                     cursor-pointer "
                     class:selectedTopic={selectedTopic === name}
                     on:click={topicClicked(name)}
                 >
-                    <h1>{name}</h1>
+                    <h1
+                        class="text-right h-full text-gray-600 text-lg font-semibold"
+                    >
+                        {name}
+                    </h1>
                 </div>
             {/each}
         </div>
@@ -61,12 +67,10 @@
                     </div>
                 {/if}
             {:else}
-                <div
-                    class="overflow-hidden border h-full w-full border-black  relative rounded-lg"
-                >
+                <div class="overflow-hidden h-full w-full  relative rounded-lg">
                     <iframe
                         class="h-full absolute w-full top-0 left-0"
-                        title="SQL"
+                        title={selectedTopic}
                         src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
                     />
                 </div>
@@ -77,7 +81,12 @@
 
 <style>
     .selectedTopic {
-        background-color: rgb(156 163 175);
+        background-color: #39414d;
+    }
+    .selectedTopic h1 {
+        color: #fff;
+    }
+    .tutorialOptions:hover h1 {
         color: #fff;
     }
 </style>
