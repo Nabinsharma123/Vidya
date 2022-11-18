@@ -86,7 +86,4 @@
     .selectedTopic h1 {
         color: #fff;
     }
-    .tutorialOptions:hover h1 {
-        color: #fff;
-    }
 </style>
