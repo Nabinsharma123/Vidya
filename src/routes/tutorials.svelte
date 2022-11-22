@@ -67,7 +67,9 @@
                     </div>
                 {/if}
             {:else}
-                <div class="overflow-hidden h-full w-full  relative rounded-lg">
+                <div
+                    class="overflow-hidden border border-black h-full w-full  relative rounded-lg"
+                >
                     <iframe
                         class="h-full absolute w-full top-0 left-0"
                         title={selectedTopic}

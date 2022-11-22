@@ -15,7 +15,7 @@
 
     import { db } from "../firebaseConfig";
     import { collection, doc, getDoc } from "firebase/firestore";
-    import { fade, fly } from "svelte/transition";
+    import { fade, fly, scale } from "svelte/transition";
     import { authStatus } from "../store";
 
     var Topics;
@@ -65,7 +65,7 @@
             const docSnap = await getDoc(doc(collectionRef, selectedTopic));
             if (docSnap.exists()) {
                 TopicData = docSnap.data().Data;
-                TopicDataContainer.scrollTo(0, 0);
+                TopicDataContainer.scrollIntoView();
             } else TopicData = "Comming Soon";
         }
     }
@@ -88,7 +88,7 @@
                     class=" w-fit h-fit border-2 rounded-md border-gray-500 p-4 "
                 >
                     <img
-                        transition:fly={{ y: 100, duration: 500 }}
+                        transition:fade
                         class="w-40"
                         src={`/${endpoint}.svg`}
                         alt=""
@@ -101,7 +101,7 @@
                 </h1>
                 <!-- about -->
 
-                <div class="mt-4">
+                <div bind:this={TopicDataContainer} class="mt-4">
                     {#if About}
                         <h1
                             transition:fly={{ y: -20, duration: 500 }}
@@ -121,12 +121,13 @@
             </div>
         </div>
     </div>
+
     <div>
         <!-- main course -->
         <div class="flex gap-8 w-full justify-between my-5 ">
             <!-- Topics -->
             <div
-                class="flex-1 w-72 h-fit  border border-gray-300 rounded-md shadow-md"
+                class="flex-1 sticky top-16 w-72 h-fit  border border-gray-300 rounded-md shadow-md"
             >
                 <div
                     class="pl-5 border-gray-300  rounded-t-md py-4 w-full border-b"
@@ -143,10 +144,13 @@
                                     class=" topic  hover:bg-slate-300 cursor-pointer pl-5 py-4"
                                     class:Selected={selectedTopic === Topic}
                                     on:click={topicClicked(Topic)}
-                                    transition:fly={{ y: 100, duration: 1000 }}
+                                    transition:fly={{
+                                        y: 100,
+                                        duration: 1000,
+                                    }}
                                 >
                                     <h1
-                                        class="font-semibold text-lg text-gray-600 w-full"
+                                        class="font-semibold  text-lg text-gray-600 w-full"
                                     >
                                         {Topic}
                                     </h1>
@@ -182,10 +186,7 @@
                         <h1>loading...</h1>
                     {/if}
                 </div>
-                <div
-                    class="px-10 py-5 min-h-[100px] h-fit max-h-[440px] relative overflow-y-auto "
-                    bind:this={TopicDataContainer}
-                >
+                <div class="px-10 py-5 min-h-[100px]  h-fit relative ">
                     {#if TopicData}
                         <div
                             transition:fly={{ y: 100, duration: 1000 }}
