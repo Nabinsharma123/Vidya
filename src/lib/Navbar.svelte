@@ -9,6 +9,7 @@
 
   var LoginClicked = false;
   var SighupClicked = false;
+  var leftPannelClick = false;
 
   function SignOut() {
     const auth = getAuth();
@@ -27,30 +28,35 @@
 
 <nav class=" w-full bg-white border">
   <!-- nav bar container -->
-  <div class=" flex mx-24 justify-between items-center py-2 ">
+  <div class=" flex mx-5 lg:mx-24 justify-between items-center py-2 ">
     <!-- left side -->
-    <div class="flex items-center ">
+    <div class="flex gap-10 items-center ">
       <!-- logo -->
-      <div class="w-32">
+      <div class="flex gap-4">
+        <img
+          class="w-6 md:hidden"
+          on:click={() => {
+            leftPannelClick = true;
+          }}
+          src="menu.svg"
+          alt=""
+        />
         <a href="/">
-          <img src="/logo.jpeg" alt="" />
+          <img class="w-32 hidden sm:block" src="/logo.jpeg" alt="" />
+          <img class=" h-7 sm:hidden" src="/logoSmall.jpeg" alt="" />
         </a>
       </div>
 
       <!-- course and tutorials -->
-      <div class="flex  ">
-        <div class="  navBarOptions">
+      <div class="hidden md:flex items-center gap-10 ">
+        <a class="navBarOptions" href="/#start">
           <h1>Course</h1>
-        </div>
-        <a href="/tutorials">
-          <div class="navBarOptions">
-            <h1>Tutorials</h1>
-          </div>
         </a>
-        <a href="/about">
-          <div class="navBarOptions">
-            <h1>About Us</h1>
-          </div>
+        <a class="navBarOptions" href="/tutorials">
+          <h1>Tutorials</h1>
+        </a>
+        <a class="navBarOptions" href="/about">
+          <h1>About Us</h1>
         </a>
       </div>
     </div>
@@ -65,11 +71,13 @@
           src={$userAuthData.photoURL}
           alt=""
         />
-        <h1 class="mr-4">{$userAuthData.displayName}</h1>
-        <button
-          class="border-2 border-black rounded-lg py-0.5 px-2 text-lg font-semibold hover:bg-black hover:text-white "
-          on:click={SignOut}>Sign Out</button
-        >
+        <div class="hidden sm:flex sm:items-center">
+          <h1 class="mr-4">{$userAuthData.displayName}</h1>
+          <button
+            class="border-2 border-black rounded-lg py-0.5 px-2 text-lg font-semibold hover:bg-black hover:text-white "
+            on:click={SignOut}>Sign Out</button
+          >
+        </div>
       </div>
     {:else}
       <div class="flex items-center ">
@@ -110,6 +118,10 @@
         on:close={() => {
           LoginClicked = false;
         }}
+        on:newUser={() => {
+          LoginClicked = false;
+          SighupClicked = true;
+        }}
       />
     </div>
   </div>
@@ -126,7 +138,73 @@
         on:close={() => {
           SighupClicked = false;
         }}
+        on:oldUser={() => {
+          SighupClicked = false;
+          LoginClicked = true;
+        }}
       />
+    </div>
+  </div>
+{/if}
+
+{#if leftPannelClick}
+  <div
+    transition:fade
+    class="md:hidden top-0 left-0 fixed h-screen w-full"
+    style="background-color: rgba(0, 0, 0, 0.5);"
+  >
+    <div
+      transition:fly={{ x: -300 }}
+      use:clickOutside
+      on:outclick={() => (leftPannelClick = false)}
+      class="p-4 absolute left-0 top-0 h-screen w-[250px] rounded-tr-2xl rounded-br-2xl bg-white"
+    >
+      <div class="w-full py-2 border-b border-black">
+        <a
+          on:click={() => {
+            leftPannelClick = false;
+          }}
+          href="/"
+        >
+          <img class="w-32" src="logo.jpeg" alt="" />
+        </a>
+      </div>
+
+      <div class="mt-5 flex flex-col gap-3">
+        <a
+          on:click={() => {
+            leftPannelClick = false;
+          }}
+          class="navBarOptions"
+          href="/#start"
+        >
+          <h1>Course</h1>
+        </a>
+        <a
+          on:click={() => {
+            leftPannelClick = false;
+          }}
+          class="navBarOptions"
+          href="/tutorials"
+        >
+          <h1>Tutorials</h1>
+        </a>
+        <a
+          on:click={() => {
+            leftPannelClick = false;
+          }}
+          class="navBarOptions"
+          href="/about"
+        >
+          <h1>About Us</h1>
+        </a>
+      </div>
+      {#if $authStatus}
+        <button
+          class="border-2 mt-5 border-black rounded-lg py-0.5 px-2 text-lg font-semibold hover:bg-black hover:text-white "
+          on:click={SignOut}>Sign Out</button
+        >
+      {/if}
     </div>
   </div>
 {/if}
@@ -144,8 +222,10 @@
     z-index: 40;
     background-color: rgba(0, 0, 0, 0.5);
   }
+  .navBarOptions {
+    width: fit-content;
+  }
   .navBarOptions h1 {
-    margin-left: 3rem;
     font-family: sans-serif;
     font-size: 1.1rem;
   }

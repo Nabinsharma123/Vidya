@@ -3,7 +3,7 @@
 </script>
 
 <div
-    class="flex border-2 mt-8 p-3 border-black rounded-md"
+    class="flex flex-col md:flex-row border-2 mt-8 p-3 border-black rounded-md"
     transition:fly={{ y: 200, duration: 500 }}
 >
     <div class="flex-1 flex flex-col justify-center items-center">

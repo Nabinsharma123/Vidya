@@ -135,7 +135,16 @@
       type="Password"
       placeholder="Password"
     />
-
+    <div
+      on:click={() => {
+        dispatch("oldUser");
+      }}
+      class="w-full flex justify-end"
+    >
+      <h1 class="text-md hover:text-[#29686e] cursor-pointer">
+        Already have an account?
+      </h1>
+    </div>
     <button on:click={submitData} class="Sighup-button ">
       {#if loading}
         <div class="w-full  flex justify-center">

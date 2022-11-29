@@ -82,8 +82,8 @@
         </div>
     {/if}
     <div class="my-12">
-        <div class="flex ">
-            <div class="flex-1">
+        <div class="flex flex-col md:flex-row">
+            <div class="flex-1 flex justify-center md:block">
                 <div
                     class=" w-fit h-fit border-2 rounded-md border-gray-500 p-4 "
                 >
@@ -95,8 +95,8 @@
                     />
                 </div>
             </div>
-            <div class=" flex-[4] flex flex-col ml-6 ">
-                <h1 class="text-4xl font-bold text-[#1a2c47]">
+            <div class=" flex-[4] flex flex-col mt-5 md:mt-0 md:ml-6 ">
+                <h1 class="text-4xl text-center md:text-left font-bold text-[#1a2c47]">
                     Learn {endpoint}
                 </h1>
                 <!-- about -->
@@ -127,7 +127,7 @@
         <div class="flex gap-8 w-full justify-between my-5 ">
             <!-- Topics -->
             <div
-                class="flex-1 sticky top-16 w-72 h-fit  border border-gray-300 rounded-md shadow-md"
+                class="hidden  md:block flex-1 sticky top-16 w-72 h-fit  border border-gray-300 rounded-md shadow-md"
             >
                 <div
                     class="pl-5 border-gray-300  rounded-t-md py-4 w-full border-b"
@@ -186,7 +186,7 @@
                         <h1>loading...</h1>
                     {/if}
                 </div>
-                <div class="px-10 py-5 min-h-[100px]  h-fit relative ">
+                <div class=" px-5 py-2 md:px-10 md:py-5 min-h-[100px]  h-fit relative ">
                     {#if TopicData}
                         <div
                             transition:fly={{ y: 100, duration: 1000 }}

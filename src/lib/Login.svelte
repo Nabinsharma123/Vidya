@@ -70,6 +70,16 @@
       type="Password"
       placeholder="Password"
     />
+    <div
+      on:click={() => {
+        dispatch("newUser");
+      }}
+      class="w-full flex justify-end"
+    >
+      <h1 class="text-md hover:text-[#29686e] cursor-pointer">
+        New?SignUp here
+      </h1>
+    </div>
     <button class="loginButton" on:click={submitData}>
       {#if loading}
         <div class="w-full flex justify-center">

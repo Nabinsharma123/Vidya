@@ -42,7 +42,10 @@
         </div>
         <!-- nav bar -->
         <!-- middle content -->
-        <div transition:fly={{ y: 100, duration: 500 }} class=" mx-24">
+        <div
+            transition:fly={{ y: 100, duration: 500 }}
+            class="mx-5  lg:mx-24 "
+        >
             <slot />
         </div>
     </div>
