@@ -11,7 +11,9 @@
         class=" flex flex-col items-center mt-10 md:mt-0 md:flex-row md:justify-center w-full  "
     >
         <div class="flex-1 flex  flex-col md:w-1/2 ">
-            <Heading customSize="text-6xl font-extrabold " class=" mb-5 "
+            <Heading
+                customSize="text-3xl sm:text-6xl font-extrabold "
+                class=" mb-5 "
                 >Learn <span
                     class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400"
                     >{"<Coding/>"}</span
@@ -20,7 +22,7 @@
             >
 
             <p
-                class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"
+                class="text-base sm:text-xl font-normal text-gray-500  dark:text-gray-400"
             >
                 Unlock your potential with our interactive online courses and
                 take your learning to the next level!
@@ -48,7 +50,7 @@
     <!-- choose what to learn -->
     <div class="mb-16 ">
         <Heading
-            customSize="text-6xl text-center font-extrabold "
+            customSize="text-3xl sm:text-6xl text-center font-extrabold "
             class=" mb-5 "
             >Choose what to <span
                 class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400"
