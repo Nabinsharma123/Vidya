@@ -168,14 +168,14 @@
     >
       <img class="w-full" src="/Login.svg" alt="" />
     </div>
+    {#if loading}
+      <div
+        class="absolute flex justify-center items-center top-0 left-0 z-50 rounded-md w-full h-full bg-white/70"
+      >
+        <Spinner size="10" />
+      </div>
+    {/if}
   </div>
-  {#if loading}
-    <div
-      class="absolute flex justify-center items-center top-0 left-0 z-50 rounded-md w-full h-full bg-white/70"
-    >
-      <Spinner size="10" />
-    </div>
-  {/if}
 </div>
 
 <style>

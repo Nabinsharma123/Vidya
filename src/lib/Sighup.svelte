@@ -14,6 +14,7 @@
     signInWithPopup,
     onAuthStateChanged,
     signOut,
+    sendEmailVerification,
   } from "firebase/auth";
   import { notification } from "../routes/store";
   import { userAuthData } from "../routes/store";
@@ -31,7 +32,7 @@
       gender == "M"
         ? "&hair=dougFunny,fonze,mrClean,mrT,turban&facialHairProbability=50&facialHair=scruff&earringsProbability=0"
         : "&hair=dannyPhantom,full,pixie&facialHairProbability=0&earringsProbability=80"
-    }&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf&backgroundType=gradientLinear&mouth=laughing,pucker,smile,smirk`;
+    }&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf&backgroundType=gradientLinear&mouth=laughing,pucker,smile,smirk&baseColor=ac6651,f9c9b6`;
   }
 
   onMount(() => {
@@ -244,15 +245,14 @@
     >
       <img class="w-full " src="/Sighup.svg" alt="" />
     </div>
+    {#if loading}
+      <div
+        class="absolute flex justify-center items-center top-0 left-0 z-50 rounded-md w-full h-full bg-white/70"
+      >
+        <Spinner color="green" size="10" />
+      </div>
+    {/if}
   </div>
-
-  {#if loading}
-    <div
-      class="absolute flex justify-center items-center top-0 left-0 z-50 rounded-md w-full h-full bg-white/70"
-    >
-      <Spinner color="green" size="10" />
-    </div>
-  {/if}
 </div>
 
 <style>

@@ -1,6 +1,5 @@
-<hr class="h-px mt-8 mb-20 bg-gray-200 border-0 dark:bg-gray-700" />
-
 <footer class=" bg-white  dark:bg-gray-900">
+    <hr class="h-px mt-8 mb-20 bg-gray-200 border-0 dark:bg-gray-700" />
     <div class="md:flex md:justify-between">
         <div class="mb-6 md:mb-0">
             <a href="/" class="flex items-center">

@@ -4,23 +4,33 @@
     import { fade, fly } from "svelte/transition";
     import { onMount } from "svelte";
     import Notification from "../lib/Notification.svelte";
+    import Emailvarification from "../lib/Emailvarification.svelte";
     import { notification, authStatus, userAuthData } from "./store";
-    import { getAuth, onAuthStateChanged } from "firebase/auth";
+    import {
+        getAuth,
+        onAuthStateChanged,
+        sendEmailVerification,
+    } from "firebase/auth";
     import Footer from "../lib/Footer.svelte";
 
     var loading = true;
+    var emailvarification = false;
 
     const auth = getAuth();
 
     onAuthStateChanged(auth, (user) => {
+        loading = false;
+
         if (user) {
             console.log(user);
-            $authStatus = true;
             $userAuthData = user;
-        } else {
-            $authStatus = false;
+            if (user.emailVerified) {
+                $authStatus = true;
+            } else {
+                $authStatus = false;
+                emailvarification = true;
+            }
         }
-        loading = false;
     });
 </script>
 
@@ -39,21 +49,17 @@
             <img class="h-[50px]" src="/logo.jpeg" alt="" />
         </div>
     {:else}
-        <!-- whole container -->
-        <!-- nav bar -->
-        <div
-            class="sticky top-0 z-20"
-            transition:fly={{ y: -100, duration: 500 }}
-        >
+        <div class="  relative h-screen flex flex-col justify-between ">
             <Navbar />
-        </div>
-        <!-- nav bar -->
-        <!-- middle content -->
-        <div transition:fly={{ y: 100, duration: 500 }} class="mx-5  lg:mx-14 ">
-            <slot />
-        </div>
-        <div class="mx-5  lg:mx-14 ">
-            <Footer />
+
+            <div
+                transition:fly={{ y: 100, duration: 500 }}
+                class="mt-[61px] h-full px-5 lg:px-14 dark:bg-gray-900"
+            >
+                <slot />
+            </div>
+
+            <!-- <Footer /> -->
         </div>
     {/if}
 </div>
@@ -65,6 +71,13 @@
         text={$notification.text}
         on:close={() => {
             $notification = false;
+        }}
+    />
+{/if}
+{#if emailvarification}
+    <Emailvarification
+        on:close={() => {
+            emailvarification = false;
         }}
     />
 {/if}

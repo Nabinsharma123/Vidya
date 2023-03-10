@@ -19,6 +19,7 @@
     signOut(auth)
       .then(() => {
         $authStatus = false;
+        $userAuthData = false;
         $notification = {
           color: "yellow",
 
@@ -29,9 +30,12 @@
   }
 </script>
 
-<nav class=" w-full bg-white border">
+<nav
+  transition:fly={{ y: -100, duration: 500 }}
+  class="fixed top-0 left-0  w-full   py-1 bg-white border-b"
+>
   <!-- nav bar container -->
-  <div class=" flex mx-5 lg:mx-14 justify-between items-center py-1">
+  <div class="mx-5 lg:mx-14 flex  justify-between items-center">
     <!-- left side -->
 
     <!-- logo -->
@@ -42,7 +46,7 @@
           leftPannelClick = true;
         }}
       >
-        <img src="menu.svg" alt="" />
+        <img src="/menu.svg" alt="" />
       </button>
       <a href="/">
         <img class="w-32 hidden sm:block" src="/logo.jpeg" alt="" />
@@ -61,6 +65,9 @@
       <a href="/tutorials">
         <h1 class="font-medium text-xl hover:text-blue-500">Tutorials</h1>
       </a>
+      <a href="/Examprep">
+        <h1 class="font-medium text-xl hover:text-blue-500">Exam prep</h1>
+      </a>
       <a href="/about">
         <h1 class="font-medium text-xl hover:text-blue-500">About Us</h1>
       </a>
@@ -70,11 +77,11 @@
 
     <!-- right side -->
 
-    {#if $authStatus}
+    {#if $userAuthData}
       <div class="relative">
         <button id="b1" class=" ">
           <img
-            class="w-10 mr-2 rounded-full"
+            class="w-10 h-10 mr-2 rounded-full"
             src={$userAuthData.photoURL}
             alt=""
           />
