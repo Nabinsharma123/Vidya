@@ -11,7 +11,7 @@
         <div class="mt-16 flex gap-4  items-center justify-center">
             <a
                 href="/Examprep/JECA"
-                class="button block group hover:-mt-3 hover:shadow-xl hover:shadow-red-400/70  hover:bg-red-400 hover:border-red-400 max-w-sm p-6 bg-white border border-red-400 rounded-lg shadow  dark:bg-gray-800  dark:border-red-400 dark:hover:bg-red-400"
+                class="button block group hover:-translate-y-3  hover:shadow-xl hover:shadow-red-400/70  hover:bg-red-400 hover:border-red-400 max-w-sm p-6 bg-white border border-red-400 rounded-lg shadow  dark:bg-gray-800  dark:border-red-400 dark:hover:bg-red-400"
                 style="transition: 0.3s;"
             >
                 <h1
@@ -22,7 +22,7 @@
             </a>
             <a
                 href="/"
-                class="button relative block group hover:-mt-3 hover:shadow-xl hover:shadow-green-400/70  hover:bg-green-400 hover:border-green-400 max-w-sm p-6 bg-white border border-green-400 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+                class="button relative block group hover:-translate-y-3  hover:shadow-xl hover:shadow-green-400/70  hover:bg-green-400 hover:border-green-400 max-w-sm p-6 bg-white border border-green-400 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
                 style="transition: 0.3s;"
             >
                 <h1
@@ -38,7 +38,7 @@
 
             <a
                 href="/"
-                class="button relative block group hover:-mt-3 hover:shadow-xl hover:shadow-blue-400/70  hover:bg-blue-400 hover:border-blue-400 max-w-sm p-6 bg-white border border-blue-400 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+                class="button relative block group hover:-translate-y-3  hover:shadow-xl hover:shadow-blue-400/70  hover:bg-blue-400 hover:border-blue-400 max-w-sm p-6 bg-white border border-blue-400 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
                 style="transition: 0.3s;"
             >
                 <h1

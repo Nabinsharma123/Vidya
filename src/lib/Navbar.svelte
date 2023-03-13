@@ -79,7 +79,7 @@
 
     {#if $userAuthData}
       <div class="relative">
-        <button id="b1" class=" ">
+        <button id="b1" class="h-14 ">
           <img
             class="w-10 h-10 mr-2 rounded-full"
             src={$userAuthData.photoURL}
