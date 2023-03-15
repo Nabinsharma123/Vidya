@@ -8,6 +8,7 @@
         collection,
         updateDoc,
         arrayUnion,
+        arrayRemove,
         doc,
         getDoc,
         addDoc,
@@ -16,26 +17,35 @@
     var loading = false;
     var subjects = [];
     var newSubject = "";
-    var SelectedSubject = "";
+    var prevsub;
+    var SelectedSubject = 0;
+    $: console.log(subjects[SelectedSubject]);
+
     var mainData = {
+        id: 0,
         Question: "",
         Options: ["", "", "", ""],
         Answer: 1,
     };
-    // $: console.log(mainData);
 
     const QuizdocRef = doc(db, "JECA", "Quiz");
+
     getSubjectList();
     function getSubjectList() {
         getDoc(QuizdocRef)
             .then((e) => {
                 subjects = e.data().subjects;
-                SelectedSubject = subjects[0];
+                subjects.map((a, index) => {
+                    if (a.name == prevsub) {
+                        SelectedSubject = index;
+                    }
+                });
+                loading = false;
             })
             .catch((e) => {
+                loading = false;
                 $notification = {
                     color: "red",
-
                     text: e,
                 };
             });
@@ -43,26 +53,51 @@
 
     async function addQuestion() {
         loading = true;
-        const QuizcolRef = collection(QuizdocRef, SelectedSubject);
+
+        mainData.id = subjects[SelectedSubject].lastId + 1;
+        var newSublist = [];
+        subjects.map((e) => {
+            if (e.name == subjects[SelectedSubject].name)
+                newSublist = [
+                    ...newSublist,
+                    {
+                        name: subjects[SelectedSubject].name,
+                        lastId: mainData.id,
+                    },
+                ];
+            else newSublist = [...newSublist, e];
+        });
+        // console.log(newSublist);
+        prevsub = subjects[SelectedSubject].name;
+        const QuizcolRef = collection(
+            QuizdocRef,
+            subjects[SelectedSubject].name
+        );
+
         addDoc(QuizcolRef, mainData)
             .then((e) => {
                 console.log(e);
-                loading = false;
-                $notification = {
-                    color: "green",
 
-                    text: "Added",
-                };
-                mainData = {
-                    Question: "",
-                    Options: ["", "", "", ""],
-                    Answer: 1,
-                };
+                updateDoc(QuizdocRef, {
+                    subjects: newSublist,
+                }).then(() => {
+                    getSubjectList();
+
+                    $notification = {
+                        color: "green",
+                        text: "Added",
+                    };
+                    mainData = {
+                        id: 0,
+                        Question: "",
+                        Options: ["", "", "", ""],
+                        Answer: 1,
+                    };
+                });
             })
             .catch((e) => {
                 $notification = {
                     color: "red",
-
                     text: e,
                 };
             });
@@ -74,8 +109,8 @@
         <h1 class="mb-3 text-xl">Choose subject</h1>
         <div>
             <select required bind:value={SelectedSubject} name="" id="">
-                {#each subjects as subject}
-                    <option value={subject}>{subject}</option>
+                {#each subjects as subject, index}
+                    <option value={index}>{subject.name}</option>
                 {/each}
             </select>
             <div class="mt-3">
@@ -89,7 +124,10 @@
                         if (newSubject != "" || newSubject != " ") {
                             loading = true;
                             updateDoc(QuizdocRef, {
-                                subjects: arrayUnion(newSubject),
+                                subjects: arrayUnion({
+                                    name: newSubject,
+                                    lastId: 0,
+                                }),
                             }).then((e) => {
                                 getSubjectList();
                                 console.log(e);

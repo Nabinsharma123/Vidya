@@ -62,7 +62,7 @@
       <a class=" " href="/#start">
         <h1 class="font-medium text-xl hover:text-blue-500">Course</h1>
       </a>
-      <a href="/tutorials">
+      <a href="/">
         <h1 class="font-medium text-xl hover:text-blue-500">Tutorials</h1>
       </a>
       <a href="/Examprep">
@@ -79,7 +79,7 @@
 
     {#if $userAuthData}
       <div class="relative">
-        <button id="b1" class="h-14 ">
+        <button id="b1" class="h-[52px] ">
           <img
             class="w-10 h-10 mr-2 rounded-full"
             src={$userAuthData.photoURL}
