@@ -10,6 +10,10 @@
 
     var selectedAnswer = 0;
 
+    $: if (timeout) {
+        dispatch("wrongAnswer");
+    }
+
     $: if (selectedAnswer != 0) {
         if (selectedAnswer == Question.Answer) {
             dispatch("rightAnswer");

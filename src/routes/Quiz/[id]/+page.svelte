@@ -33,18 +33,28 @@
             .data()
             .subjects.find((e) => (e.name = subject));
         totalQuestion = totalQuestion.lastId;
+        var QuestionIds = [];
+        while (QuestionIds.length < 5) {
+            var id = Math.floor(Math.random() * totalQuestion + 1);
+            if (!QuestionIds.includes(id)) QuestionIds.push(id);
+        }
+
+        console.log(QuestionIds);
 
         const QuizcolRef = collection(QuizdocRef, subject);
-        var res = await getDocs(query(QuizcolRef, where("id", "==", 1)));
+        var res = await getDocs(
+            query(QuizcolRef, where("id", "in", QuestionIds))
+        );
         res.forEach((doc) => {
             Question = [...Question, doc.data()];
         });
+        console.log(Question);
         Quizready = true;
         startTimer();
     }
 
     var timer;
-    var second = 45;
+    var second = 10;
     function startTimer() {
         timer = setInterval(() => {
             second--;
@@ -137,7 +147,7 @@
                 on:nextQuestion={() => {
                     QuestionNum++;
                     // if (QuestionNum == Question.length) lastQuestion = true;
-                    second = 45;
+                    second = 10;
                     startTimer();
                 }}
                 on:rightAnswer={() => {
