@@ -70,13 +70,13 @@
 >
     {#if Quizready}
         <div
-            class=" flex justify-between py-1 px-7 shadow-md  bg-white absolute top-0 left-0 mb-5 w-full  font-bold"
+            class=" flex flex-col items-center md:flex-row md:justify-between py-1 px-3 md:px-7 shadow-md  bg-white absolute top-0 left-0 mb-5 w-full  font-bold"
         >
             <Heading customSize="text-3xl">◼ {subject} - Quiz</Heading>
 
             {#if !QuizFinished}
                 <div
-                    class=" text-center bg-blue-300 w-[170px] rounded-md py-2 px-1 border border-blue-400"
+                    class=" text-center mt-4 md:mt-0 bg-blue-300 w-[170px] rounded-md py-2 px-1 border border-blue-400"
                     class:blink_me={second == 0}
                 >
                     <h1 class=" text-xl">
