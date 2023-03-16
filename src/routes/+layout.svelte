@@ -12,6 +12,7 @@
         sendEmailVerification,
     } from "firebase/auth";
     import Footer from "../lib/Footer.svelte";
+    import { page } from "$app/stores";
 
     var loading = true;
     var emailvarification = false;
@@ -50,7 +51,9 @@
         </div>
     {:else}
         <div class="  relative h-screen flex flex-col justify-between ">
-            <Navbar />
+            {#if $page.route.id != "/Quiz/[id]"}
+                <Navbar />
+            {/if}
 
             <div
                 transition:fly={{ y: 100, duration: 500 }}

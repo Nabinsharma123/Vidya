@@ -32,7 +32,7 @@
 
 <nav
   transition:fly={{ y: -100, duration: 500 }}
-  class="fixed top-0 left-0  w-full   py-1 bg-white border-b"
+  class="fixed z-10 top-0 left-0  w-full   py-1 bg-white border-b"
 >
   <!-- nav bar container -->
   <div class="mx-5 lg:mx-14 flex  justify-between items-center">
