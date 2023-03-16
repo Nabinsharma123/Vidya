@@ -37,7 +37,7 @@
     class="block select-none m-3 w-full max-w-[600px]  py-5 px-7 bg-white border border-gray-200 rounded-lg shadow-2xl  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
 >
     <h5
-        class="mb-2 text-3xl font-semibold tracking-tight text-gray-900 dark:text-white"
+        class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"
     >
         {Question.num}.
         {Question.Question}

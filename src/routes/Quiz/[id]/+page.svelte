@@ -70,7 +70,7 @@
 >
     {#if Quizready}
         <div
-            class=" flex flex-col items-center md:flex-row md:justify-between py-1 px-3 md:px-7 shadow-md  bg-white absolute top-0 left-0 mb-5 w-full  font-bold"
+            class=" flex flex-col h-[54px] items-center md:flex-row md:justify-between py-1 px-3 md:px-7 shadow-md  bg-white absolute top-0 left-0 mb-5 w-full  font-bold"
         >
             <Heading customSize="text-3xl">◼ {subject} - Quiz</Heading>
 
@@ -87,7 +87,7 @@
         </div>
         {#if QuizFinished}
             <div
-                class="bg-white w-[500px] h-[350px] flex-col rounded-lg p-4 flex justify-center items-center "
+                class="bg-white m-3 w-[500px] h-[350px] flex-col rounded-lg p-4 flex justify-center items-center "
             >
                 <h1 class="mb-5 text-4xl font-bold">Quiz completed!!</h1>
 
