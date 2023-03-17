@@ -34,7 +34,7 @@
             .subjects.find((e) => (e.name = subject));
         totalQuestion = totalQuestion.lastId;
         var QuestionIds = [];
-        while (QuestionIds.length < 5) {
+        while (QuestionIds.length < 10) {
             var id = Math.floor(Math.random() * totalQuestion + 1);
             if (!QuestionIds.includes(id)) QuestionIds.push(id);
         }
@@ -54,7 +54,7 @@
     }
 
     var timer;
-    var second = 10;
+    var second = 15;
     function startTimer() {
         timer = setInterval(() => {
             second--;
@@ -147,7 +147,7 @@
                 on:nextQuestion={() => {
                     QuestionNum++;
                     // if (QuestionNum == Question.length) lastQuestion = true;
-                    second = 10;
+                    second = 15;
                     startTimer();
                 }}
                 on:rightAnswer={() => {

@@ -83,7 +83,7 @@
 
 <div
   transition:fade
-  class="fixed top-0 left-0 flex justify-center items-end md:items-center w-screen h-screen bg-black/50 "
+  class="fixed z-20 top-0 left-0 flex justify-center items-end md:items-center w-screen h-screen bg-black/50 "
 >
   <div
     transition:fly={{ y: 500, duration: 500 }}

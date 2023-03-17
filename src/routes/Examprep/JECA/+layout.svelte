@@ -18,12 +18,12 @@
                     Dashboard</Heading
                 >
             </a>
-            <a href="/Examprep/JECA" class="p-4 hover:bg-gray-800">
+            <a href="/Examprep/JECA/instructions" class="p-4 hover:bg-gray-800">
                 <Heading customSize="text-2xl font-bold" class="text-white"
                     >Insructions</Heading
                 >
             </a>
-            <a href="/Examprep/JECA" class="p-4 hover:bg-gray-800">
+            <a href="/Examprep/JECA/mockTest" class="p-4 hover:bg-gray-800">
                 <Heading customSize="text-2xl font-bold" class="text-white"
                     >Mock Test</Heading
                 >

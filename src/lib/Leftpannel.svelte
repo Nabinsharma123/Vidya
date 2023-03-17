@@ -8,7 +8,7 @@
 
 <div
     transition:fade
-    class="md:hidden top-0 left-0 fixed h-screen w-full"
+    class="md:hidden z-30 top-0 left-0 fixed h-screen w-full"
     style="background-color: rgba(0, 0, 0, 0.5);"
 >
     <div
@@ -36,7 +36,7 @@
                 class="navBarOptions"
                 href="/#start"
             >
-                <h1>Course</h1>
+                <h1 class="font-medium text-xl hover:text-blue-500">Course</h1>
             </a>
             <a
                 on:click={() => {
@@ -45,7 +45,20 @@
                 class="navBarOptions"
                 href="/tutorials"
             >
-                <h1>Tutorials</h1>
+                <h1 class="font-medium text-xl hover:text-blue-500">
+                    Tutorials
+                </h1>
+            </a>
+            <a
+                on:click={() => {
+                    dispatch("close");
+                }}
+                class="navBarOptions"
+                href="/Examprep"
+            >
+                <h1 class="font-medium text-xl hover:text-blue-500">
+                    Examprep
+                </h1>
             </a>
             <a
                 on:click={() => {
@@ -54,16 +67,10 @@
                 class="navBarOptions"
                 href="/about"
             >
-                <h1>About Us</h1>
+                <h1 class="font-medium text-xl hover:text-blue-500">
+                    About Us
+                </h1>
             </a>
         </div>
-        {#if $authStatus}
-            <button
-                class="border-2 mt-5 border-black rounded-lg py-0.5 px-2 text-lg font-semibold hover:bg-black hover:text-white "
-                on:click={() => {
-                    dispatch("signout");
-                }}>Sign Out</button
-            >
-        {/if}
     </div>
 </div>

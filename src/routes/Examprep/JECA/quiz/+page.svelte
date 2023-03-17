@@ -16,7 +16,9 @@
     }
 </script>
 
-<Heading customSize="text-4xl font-bold" class="text-white">Quiz</Heading>
+<Heading customSize="text-4xl font-bold" class="text-white pb-2 border-b"
+    >Quiz</Heading
+>
 {#if !loading}
     <div class=" mt-7">
         {#each subjects as subject}

@@ -45,24 +45,30 @@
     {#if loading}
         <div
             transition:fade
-            class="absolute top-0 left-0 w-screen h-screen flex justify-center items-center bg-white"
+            class=" absolute top-0 left-0 w-screen h-screen flex justify-center items-center bg-white"
         >
-            <img class="h-[50px]" src="/logo.jpeg" alt="" />
+            <div class="flex flex-col justify-center">
+                <img class="h-[50px]" src="/logo.jpeg" alt="" />
+                <div class="loader-line" />
+            </div>
         </div>
     {:else}
-        <div class="  relative h-screen flex flex-col justify-between ">
+        <div class="  relative h-screen  ">
             {#if $page.route.id != "/Quiz/[id]"}
                 <Navbar />
             {/if}
 
             <div
                 transition:fly={{ y: 100, duration: 500 }}
-                class="mt-[61px] h-full px-5 lg:px-14 dark:bg-gray-900"
+                class="mt-[61px]  px-5 lg:px-14 dark:bg-gray-900"
+                style="min-height: calc(100vh - 61px)"
             >
                 <slot />
             </div>
 
-            <!-- <Footer /> -->
+            <div class="">
+                <Footer />
+            </div>
         </div>
     {/if}
 </div>
@@ -90,5 +96,46 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+    }
+
+    .loader-line {
+        width: 100%;
+        height: 3px;
+        position: relative;
+        overflow: hidden;
+        background-color: #ddd;
+        margin-top: 20px;
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 20px;
+    }
+
+    .loader-line:before {
+        content: "";
+        position: absolute;
+        left: -50%;
+        height: 3px;
+        width: 40%;
+        background-color: #29686e;
+        -webkit-animation: lineAnim 1s linear infinite;
+        -moz-animation: lineAnim 1s linear infinite;
+        animation: lineAnim 1s linear infinite;
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 20px;
+    }
+
+    @keyframes lineAnim {
+        0% {
+            left: -40%;
+        }
+        50% {
+            left: 20%;
+            width: 80%;
+        }
+        100% {
+            left: 100%;
+            width: 100%;
+        }
     }
 </style>

@@ -32,7 +32,7 @@
 
 <nav
   transition:fly={{ y: -100, duration: 500 }}
-  class="fixed z-10 top-0 left-0  w-full   py-1 bg-white border-b"
+  class="fixed z-20 top-0 left-0  w-full   py-1 bg-white border-b shadow-md"
 >
   <!-- nav bar container -->
   <div class="mx-5 lg:mx-14 flex  justify-between items-center">
@@ -62,13 +62,13 @@
       <a class=" " href="/#start">
         <h1 class="font-medium text-xl hover:text-blue-500">Course</h1>
       </a>
-      <a href="/">
+      <a href="/Tutorials">
         <h1 class="font-medium text-xl hover:text-blue-500">Tutorials</h1>
       </a>
       <a href="/Examprep">
-        <h1 class="font-medium text-xl hover:text-blue-500">Exam prep</h1>
+        <h1 class="font-medium text-xl hover:text-blue-500">Examprep</h1>
       </a>
-      <a href="/about">
+      <a href="/About">
         <h1 class="font-medium text-xl hover:text-blue-500">About Us</h1>
       </a>
     </div>
