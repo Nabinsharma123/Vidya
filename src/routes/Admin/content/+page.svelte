@@ -101,7 +101,7 @@
         loading = true;
         await fetchInitialData();
         let script = document.createElement("script");
-        script.src = "/src/lib/editor/ckeditor.js";
+        script.src = "/editor/ckeditor.js";
         document.head.append(script);
         script.onload = function () {
             DecoupledDocumentEditor.create(Editor, {
