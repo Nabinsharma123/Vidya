@@ -101,12 +101,13 @@
         loading = true;
         await fetchInitialData();
         let script = document.createElement("script");
-        script.src = "/src/routes/Admin/content/editor/ckeditor.js";
+        script.src = "/src/lib/editor/ckeditor.js";
         document.head.append(script);
         script.onload = function () {
             DecoupledDocumentEditor.create(Editor, {
                 codeBlock: {
                     languages: [
+                        { language: "plaintext", label: "Plain text" },
                         { language: "c", label: "C" },
 
                         { language: "cpp", label: "C++" },
@@ -148,6 +149,7 @@
         loading = true;
         var dom = document.createElement("div");
         dom.innerHTML = Editor.ckeditorInstance.getData();
+        console.log(dom);
         data = htmltojson(dom);
         await setDoc(ContentDocRef, {
             data: data,
