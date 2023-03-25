@@ -19,16 +19,16 @@
     var TopicDataHead;
     var About;
     var endpoint = $page.params.id;
-    var loading = true;
+    var loading = false;
+
+    $: if ($authStatus) {
+        fetchInitialData();
+    }
 
     // const collectionRef = collection(db, endpoint);
     const subjectDocRef = doc(db, "Subjects", endpoint);
 
     var contentColref;
-
-    $: if ($authStatus) {
-        fetchInitialData();
-    }
 
     async function fetchInitialData() {
         var subjectDocData = await getDoc(subjectDocRef);
@@ -92,9 +92,8 @@
             console.log(contentDocData.data().data);
             TopicData.appendChild(jsontohtml(contentDocData.data().data));
 
-            setTimeout(() => {
-                hljs.highlightAll();
-            }, 0);
+            hljs.highlightAll();
+
             loading = false;
         } else {
             loading = false;
@@ -113,18 +112,6 @@
         //     } else TopicData = "Comming Soon";
         // }
     }
-
-    import { onMount } from "svelte";
-
-    onMount(() => {
-        let script = document.createElement("script");
-        script.src =
-            "//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js";
-        document.head.append(script);
-        script.onload = function () {
-            hljs.highlightAll();
-        };
-    });
 </script>
 
 <svelte:head>
@@ -132,6 +119,9 @@
         rel="stylesheet"
         href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"
     />
+    <script
+        src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"
+    ></script>
 </svelte:head>
 
 <div class="relative mt-24">

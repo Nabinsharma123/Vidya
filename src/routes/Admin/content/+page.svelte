@@ -22,6 +22,7 @@
     var SelectedSubject;
     var TopicList = [];
     var selectedTopic;
+    var demo;
     var addnew = {
         subject: {
             status: false,
@@ -52,7 +53,9 @@
                 if (e.nodeType == 3) {
                     JsonLocal.content.push({
                         type: "text",
-                        textContent: e.nodeValue,
+                        textContent: e.nodeValue
+                            .replace("<", "&lt;")
+                            .replace(">", "&gt;"),
                     });
                 } else {
                     JsonLocal.content.push(htmltojson(e));
@@ -149,11 +152,11 @@
         loading = true;
         var dom = document.createElement("div");
         dom.innerHTML = Editor.ckeditorInstance.getData();
-        console.log(dom);
         data = htmltojson(dom);
+        console.log(data);
+
         await setDoc(ContentDocRef, {
             data: data,
-            name: "Introduction",
         });
         $notification = {
             color: "green",
@@ -245,6 +248,8 @@
     <Button
         class="mb-5"
         on:click={() => {
+            // console.log(Editor.ckeditorInstance.getData());
+
             UploadToDatabase();
         }}>Upload to Database</Button
     >
@@ -330,7 +335,6 @@
                         await setDoc(
                             doc(db, "Subjects", addnew.subject.newSubjectName),
                             {
-                                name: addnew.subject.newSubjectName,
                                 about: addnew.subject.about,
                                 topics: [],
                             }
