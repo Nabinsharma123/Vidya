@@ -62,9 +62,9 @@
       <a class=" " href="/#start">
         <h1 class="font-medium text-xl hover:text-blue-500">Course</h1>
       </a>
-      <a href="/Tutorials">
+      <!-- <a href="/Tutorials">
         <h1 class="font-medium text-xl hover:text-blue-500">Tutorials</h1>
-      </a>
+      </a> -->
       <a href="/Examprep">
         <h1 class="font-medium text-xl hover:text-blue-500">Examprep</h1>
       </a>
