@@ -18,7 +18,7 @@
     var TopicData;
     var TopicDataHead;
     var About;
-    var endpoint = $page.params.id;
+    var endpoint = $page.params.id.replace("-", " ");
     var loading = false;
 
     $: if ($authStatus) {
@@ -33,14 +33,14 @@
     async function fetchInitialData() {
         var subjectDocData = await getDoc(subjectDocRef);
 
-        if (subjectDocData.exists()) {
-            About = subjectDocData.data().about;
+        About = subjectDocData.data().about;
+        if (subjectDocData.data().topics.length != 0) {
             Topics = subjectDocData.data().topics;
             topicClicked(Topics[0]);
         } else {
             loading = false;
             TopicData.innerHTML = "Commimg Soon";
-            About = "Comming Soon";
+
             Topics = "Comming Soon";
         }
 

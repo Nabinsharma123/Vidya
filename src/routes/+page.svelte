@@ -1,6 +1,29 @@
 <script>
-    import { options } from "./store";
     import { Heading, P, A, Mark, Secondary } from "flowbite-svelte";
+    import {
+        collection,
+        doc,
+        getDoc,
+        getDocs,
+        limit,
+        query,
+        where,
+    } from "firebase/firestore";
+    import { db } from "./firebaseConfig";
+
+    var SubjectList;
+
+    fetchInitialData();
+
+    async function fetchInitialData() {
+        try {
+            var res = await getDoc(doc(db, "SubjectList", "List"));
+            SubjectList = res.data().names;
+            console.log(SubjectList);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 </script>
 
 <!-- middle container -->
@@ -58,30 +81,32 @@
             >
         </Heading>
     </div>
-    <div class="flex justify-center gap-5">
+    <div class="flex justify-center gap-5 mb-20">
         <div class="flex-[4] lg:flex lg:items-center hidden ">
             <img class="" src="/Choose.svg" alt="" />
         </div>
         <div class="flex-[6] flex flex-col  ">
-            <div class="option-container">
-                {#each $options as { name, endpoint }}
-                    <a
-                        href={endpoint}
-                        class=" rounded-md shadow-md hover:shadow-xl flex items-center border-2 p-5   transition hover:scale-110   "
-                    >
-                        <div>
-                            <img
-                                class="flex-1 w-12"
-                                src={`/${endpoint.slice(1)}.svg`}
-                                alt=""
-                            />
-                        </div>
-                        <div class="flex-[3] ml-2">
-                            <h1>Learn {name}</h1>
-                        </div>
-                    </a>
-                {/each}
-            </div>
+            {#if SubjectList}
+                <div class="option-container">
+                    {#each SubjectList as Subject}
+                        <a
+                            href={Subject.replace(/ /g, "-")}
+                            class=" rounded-md shadow-md hover:shadow-xl flex items-center border-2 p-5   transition hover:scale-110   "
+                        >
+                            <div>
+                                <img
+                                    class="flex-1 w-12"
+                                    src={`/${Subject}.svg`}
+                                    alt=""
+                                />
+                            </div>
+                            <div class="flex-[3] ml-2">
+                                <h1>Learn {Subject}</h1>
+                            </div>
+                        </a>
+                    {/each}
+                </div>
+            {/if}
         </div>
     </div>
     <!-- choose what to learn -->
