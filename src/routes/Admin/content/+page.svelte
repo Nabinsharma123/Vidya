@@ -148,6 +148,8 @@
     $: if (selectedTopic)
         ContentDocRef = doc(SubjectDocRef, "content", selectedTopic);
 
+    $: console.log(addnew.topic.newTopicName, addnew.subject.newSubjectName);
+
     async function UploadToDatabase() {
         loading = true;
         var dom = document.createElement("div");
@@ -269,8 +271,14 @@
             >
                 <h1 class="font-bold text-lg">New Topic</h1>
                 <input
-                    bind:value={addnew.topic.newTopicName}
                     class="rounded-md"
+                    on:input={(e) => {
+                        e.target.value = e.target.value.replace(
+                            /[^a-zA-Z0-9- ]/g,
+                            ""
+                        );
+                        addnew.topic.newTopicName = e.target.value;
+                    }}
                     type="text"
                 />
                 <button
@@ -315,7 +323,13 @@
 
                 <h1>Name</h1>
                 <input
-                    bind:value={addnew.subject.newSubjectName}
+                    on:input={(e) => {
+                        e.target.value = e.target.value.replace(
+                            /[^a-zA-Z0-9- ]/g,
+                            ""
+                        );
+                        addnew.subject.newSubjectName = e.target.value;
+                    }}
                     class="rounded-md"
                     type="text"
                 />
