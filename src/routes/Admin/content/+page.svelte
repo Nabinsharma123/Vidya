@@ -296,8 +296,6 @@
     <Button
         class="mb-5"
         on:click={() => {
-            // console.log(Editor.ckeditorInstance.getData());
-
             UploadToDatabase();
         }}>Upload to Database</Button
     >
