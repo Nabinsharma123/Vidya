@@ -135,41 +135,79 @@
                 })
                 .catch((error) => {
                     console.error(error);
+                    $notification = {
+                        color: "red",
+
+                        text: error,
+                    };
                 });
         };
     });
 
     var SubjectDocRef;
 
-    $: if (SelectedSubject)
-        SubjectDocRef = doc(db, "Subjects", SelectedSubject);
+    $: if (SelectedSubject) {
+        try {
+            SubjectDocRef = doc(db, "Subjects", SelectedSubject);
+        } catch (e) {
+            $notification = {
+                color: "red",
+
+                text: e,
+            };
+        }
+    }
 
     var ContentDocRef;
-    $: if (selectedTopic)
-        ContentDocRef = doc(SubjectDocRef, "content", selectedTopic);
+    $: if (selectedTopic) {
+        try {
+            ContentDocRef = doc(SubjectDocRef, "content", selectedTopic);
+        } catch (e) {
+            $notification = {
+                color: "red",
 
-    $: console.log(addnew.topic.newTopicName, addnew.subject.newSubjectName);
+                text: e,
+            };
+        }
+    }
 
     async function UploadToDatabase() {
         loading = true;
-        var dom = document.createElement("div");
-        dom.innerHTML = Editor.ckeditorInstance.getData();
-        data = htmltojson(dom);
-        console.log(data);
+        try {
+            var dom = document.createElement("div");
+            dom.innerHTML = Editor.ckeditorInstance.getData();
+            data = htmltojson(dom);
+            console.log(data);
 
-        await setDoc(ContentDocRef, {
-            data: data,
-        });
-        $notification = {
-            color: "green",
+            await setDoc(ContentDocRef, {
+                data: data,
+            });
+            $notification = {
+                color: "green",
 
-            text: "Added",
-        };
-        loading = false;
+                text: "Added",
+            };
+            loading = false;
+        } catch (e) {
+            loading = false;
+            $notification = {
+                color: "red",
+
+                text: e,
+            };
+        }
     }
     async function onSubjectChange(sub) {
-        var res = await getDoc(doc(db, "Subjects", sub));
-        TopicList = res.data().topics;
+        try {
+            var res = await getDoc(doc(db, "Subjects", sub));
+            TopicList = res.data().topics;
+        } catch (e) {
+            $notification = {
+                color: "red",
+
+                text: e,
+            };
+        }
     }
 </script>
 
@@ -202,19 +240,27 @@
         <div>
             <h1>Topics</h1>
             <select
-                on:change={(e) => {
-                    getDoc(doc(SubjectDocRef, "content", e.target.value)).then(
-                        (res) => {
-                            if (res.exists()) {
-                                console.log(res.data().data);
-                                Editor.ckeditorInstance.setData(
-                                    jsontohtml(res.data().data).innerHTML
-                                );
-                            } else {
-                                Editor.ckeditorInstance.setData("");
-                            }
+                on:change={async (e) => {
+                    try {
+                        var res = await getDoc(
+                            doc(SubjectDocRef, "content", e.target.value)
+                        );
+
+                        if (res.exists()) {
+                            console.log(res.data().data);
+                            Editor.ckeditorInstance.setData(
+                                jsontohtml(res.data().data).innerHTML
+                            );
+                        } else {
+                            Editor.ckeditorInstance.setData("");
                         }
-                    );
+                    } catch (e) {
+                        $notification = {
+                            color: "red",
+
+                            text: e,
+                        };
+                    }
                 }}
                 disabled={!SelectedSubject}
                 bind:value={selectedTopic}
@@ -284,13 +330,14 @@
                 <button
                     disabled={!addnew.topic.newTopicName}
                     class="text-white disabled:opacity-60 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                    on:click={() => {
+                    on:click={async () => {
                         loading = true;
-                        updateDoc(SubjectDocRef, {
-                            topics: arrayUnion(addnew.topic.newTopicName),
-                        }).then((e) => {
-                            console.log(e);
-                            onSubjectChange(SelectedSubject);
+                        try {
+                            var res = await updateDoc(SubjectDocRef, {
+                                topics: arrayUnion(addnew.topic.newTopicName),
+                            });
+                            console.log(res);
+                            await onSubjectChange(SelectedSubject);
                             $notification = {
                                 color: "green",
 
@@ -299,7 +346,15 @@
                             addnew.topic.newTopicName = "";
                             addnew.topic.status = false;
                             loading = false;
-                        });
+                        } catch (e) {
+                            loading = false;
+
+                            $notification = {
+                                color: "red",
+
+                                text: e,
+                            };
+                        }
                     }}>Add</button
                 >
             </div>
@@ -346,27 +401,43 @@
                     class="text-white disabled:opacity-60 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                     on:click={async () => {
                         loading = true;
-                        await setDoc(
-                            doc(db, "Subjects", addnew.subject.newSubjectName),
-                            {
-                                about: addnew.subject.about,
-                                topics: [],
-                            }
-                        );
-                        await updateDoc(doc(db, "SubjectList", "List"), {
-                            names: arrayUnion(addnew.subject.newSubjectName),
-                        });
-                        await fetchInitialData();
+                        try {
+                            await setDoc(
+                                doc(
+                                    db,
+                                    "Subjects",
+                                    addnew.subject.newSubjectName
+                                ),
+                                {
+                                    about: addnew.subject.about,
+                                    topics: [],
+                                }
+                            );
+                            await updateDoc(doc(db, "SubjectList", "List"), {
+                                names: arrayUnion(
+                                    addnew.subject.newSubjectName
+                                ),
+                            });
+                            await fetchInitialData();
 
-                        $notification = {
-                            color: "green",
+                            $notification = {
+                                color: "green",
 
-                            text: "Added",
-                        };
-                        addnew.subject.newSubjectName = "";
-                        addnew.subject.about = "";
-                        addnew.subject.status = false;
-                        loading = false;
+                                text: "Added",
+                            };
+                            addnew.subject.newSubjectName = "";
+                            addnew.subject.about = "";
+                            addnew.subject.status = false;
+                            loading = false;
+                        } catch (e) {
+                            loading = false;
+
+                            $notification = {
+                                color: "red",
+
+                                text: e,
+                            };
+                        }
                     }}>Add</button
                 >
             </div>
