@@ -36,6 +36,9 @@
                 <Heading customSize="text-xl font-bold"
                     >Please Check your inbox
                 </Heading>
+                <Heading customSize="text-xl font-bold"
+                    >*Reload the page after verified your email
+                </Heading>
             </div>
         {:else}
             <div class="flex flex-col items-center gap-6">

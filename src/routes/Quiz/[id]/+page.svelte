@@ -4,6 +4,7 @@
     import { Button, Spinner } from "flowbite-svelte";
     import { Heading } from "flowbite-svelte";
     import { db } from "../../firebaseConfig";
+    import { notification } from "../../store";
     import {
         collection,
         doc,
@@ -27,30 +28,46 @@
     var Question = [];
     startQuiz();
     async function startQuiz() {
-        const QuizdocRef = doc(db, "JECA", "Quiz");
-        const subjectlist = await getDoc(QuizdocRef);
-        var totalQuestion = subjectlist
-            .data()
-            .subjects.find((e) => (e.name = subject));
-        totalQuestion = totalQuestion.lastId;
-        var QuestionIds = [];
-        while (QuestionIds.length < 10) {
-            var id = Math.floor(Math.random() * totalQuestion + 1);
-            if (!QuestionIds.includes(id)) QuestionIds.push(id);
+        try {
+            const QuizdocRef = doc(db, "JECA", "Quiz");
+            const subjectlist = await getDoc(QuizdocRef);
+
+            var totalQuestion = subjectlist
+                .data()
+                .subjects.find((e) => e.name == subject);
+            totalQuestion = totalQuestion.lastId;
+
+            var QuestionIds = [];
+            if (totalQuestion >= 10) {
+                while (QuestionIds.length < 10) {
+                    var id = Math.floor(Math.random() * totalQuestion + 1);
+                    if (!QuestionIds.includes(id)) QuestionIds.push(id);
+                }
+            } else {
+                Quizready = true;
+                QuizFinished = true;
+                throw "Not enough questions available";
+            }
+
+            console.log(QuestionIds);
+
+            const QuizcolRef = collection(QuizdocRef, subject);
+            var res = await getDocs(
+                query(QuizcolRef, where("id", "in", QuestionIds))
+            );
+            res.forEach((doc) => {
+                Question = [...Question, doc.data()];
+            });
+            console.log(Question);
+            Quizready = true;
+            startTimer();
+        } catch (e) {
+            $notification = {
+                color: "red",
+
+                text: e,
+            };
         }
-
-        console.log(QuestionIds);
-
-        const QuizcolRef = collection(QuizdocRef, subject);
-        var res = await getDocs(
-            query(QuizcolRef, where("id", "in", QuestionIds))
-        );
-        res.forEach((doc) => {
-            Question = [...Question, doc.data()];
-        });
-        console.log(Question);
-        Quizready = true;
-        startTimer();
     }
 
     var timer;

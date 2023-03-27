@@ -2,15 +2,12 @@
     import "../app.css";
     import Navbar from "../lib/Navbar.svelte";
     import { fade, fly } from "svelte/transition";
-    import { onMount } from "svelte";
+
     import Notification from "../lib/Notification.svelte";
     import Emailvarification from "../lib/Emailvarification.svelte";
     import { notification, authStatus, userAuthData } from "./store";
-    import {
-        getAuth,
-        onAuthStateChanged,
-        sendEmailVerification,
-    } from "firebase/auth";
+    import { getAuth, onAuthStateChanged } from "firebase/auth";
+
     import Footer from "../lib/Footer.svelte";
     import { page } from "$app/stores";
 
