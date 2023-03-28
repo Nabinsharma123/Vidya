@@ -4,14 +4,12 @@
 
     import { doc, getDoc } from "firebase/firestore";
     var subjects = [];
-    var loading = false;
+
     const QuizdocRef = doc(db, "JECA", "Quiz");
     getSubjectList();
     function getSubjectList() {
-        loading = true;
         getDoc(QuizdocRef).then((e) => {
             subjects = e.data().subjects;
-            loading = false;
         });
     }
 </script>
@@ -19,8 +17,9 @@
 <Heading customSize="text-4xl font-bold" class="text-white pb-2 border-b"
     >Quiz</Heading
 >
-{#if !loading}
-    <div class=" mt-7">
+
+{#if subjects.length != 0}
+    <div class="mt-7 ">
         {#each subjects as subject}
             <a
                 href={`/Quiz/${subject.name}`}

@@ -62,10 +62,11 @@
             >
                 <slot />
             </div>
-
-            <div class="">
-                <Footer />
-            </div>
+            {#if $page.route.id != "/Quiz/[id]"}
+                <div class="">
+                    <Footer />
+                </div>
+            {/if}
         </div>
     {/if}
 </div>

@@ -37,7 +37,7 @@
                     >Please Check your inbox
                 </Heading>
                 <Heading customSize="text-xl font-bold"
-                    >*Reload the page after verified your email
+                    >*Reload the page after verify your email
                 </Heading>
             </div>
         {:else}

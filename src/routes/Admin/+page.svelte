@@ -30,24 +30,24 @@
     const QuizdocRef = doc(db, "JECA", "Quiz");
 
     getSubjectList();
-    function getSubjectList() {
-        getDoc(QuizdocRef)
-            .then((e) => {
-                subjects = e.data().subjects;
-                subjects.map((a, index) => {
-                    if (a.name == prevsub) {
-                        SelectedSubject = index;
-                    }
-                });
-                loading = false;
-            })
-            .catch((e) => {
-                loading = false;
-                $notification = {
-                    color: "red",
-                    text: e,
-                };
+    async function getSubjectList() {
+        try {
+            var res = await getDoc(QuizdocRef);
+
+            subjects = res.data().subjects;
+            subjects.map((a, index) => {
+                if (a.name == prevsub) {
+                    SelectedSubject = index;
+                }
             });
+            loading = false;
+        } catch (e) {
+            loading = false;
+            $notification = {
+                color: "red",
+                text: e,
+            };
+        }
     }
 
     async function addQuestion() {
@@ -119,17 +119,17 @@
                     placeholder="Add new Subject"
                 />
                 <Button
-                    on:click={() => {
-                        if (newSubject != "" || newSubject != " ") {
-                            loading = true;
-                            updateDoc(QuizdocRef, {
-                                subjects: arrayUnion({
-                                    name: newSubject,
-                                    lastId: 0,
-                                }),
-                            }).then((e) => {
-                                getSubjectList();
-                                console.log(e);
+                    on:click={async () => {
+                        try {
+                            if (newSubject != "" || newSubject != " ") {
+                                loading = true;
+                                await updateDoc(QuizdocRef, {
+                                    subjects: arrayUnion({
+                                        name: newSubject,
+                                        lastId: 0,
+                                    }),
+                                });
+                                await getSubjectList();
 
                                 loading = false;
 
@@ -138,8 +138,16 @@
 
                                     text: "Added",
                                 };
-                            });
-                            newSubject = "";
+
+                                newSubject = "";
+                            }
+                        } catch (e) {
+                            loading = false;
+
+                            $notification = {
+                                color: "red",
+                                text: e,
+                            };
                         }
                     }}>Add</Button
                 >

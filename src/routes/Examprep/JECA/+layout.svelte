@@ -1,5 +1,6 @@
 <script>
     import { Heading } from "flowbite-svelte";
+    import { page } from "$app/stores";
 </script>
 
 <div
@@ -13,22 +14,39 @@
             JECA
         </h1>
         <div class="flex  flex-col ">
-            <a href="/Examprep/JECA" class="p-4 hover:bg-gray-800">
+            <a
+                href="/Examprep/JECA"
+                class="p-4 hover:bg-gray-800"
+                class:bg-gray-800={$page.route.id == "/Examprep/JECA"}
+            >
                 <Heading customSize="text-2xl font-bold" class="text-white">
                     Dashboard</Heading
                 >
             </a>
-            <a href="/Examprep/JECA/instructions" class="p-4 hover:bg-gray-800">
+            <a
+                href="/Examprep/JECA/instructions"
+                class="p-4 hover:bg-gray-800"
+                class:bg-gray-800={$page.route.id ==
+                    "/Examprep/JECA/instructions"}
+            >
                 <Heading customSize="text-2xl font-bold" class="text-white"
-                    >Insructions</Heading
+                    >Instructions</Heading
                 >
             </a>
-            <a href="/Examprep/JECA/mockTest" class="p-4 hover:bg-gray-800">
+            <a
+                href="/Examprep/JECA/mockTest"
+                class="p-4 hover:bg-gray-800"
+                class:bg-gray-800={$page.route.id == "/Examprep/JECA/mockTest"}
+            >
                 <Heading customSize="text-2xl font-bold" class="text-white"
                     >Mock Test</Heading
                 >
             </a>
-            <a href="/Examprep/JECA/quiz" class="p-4 hover:bg-gray-800">
+            <a
+                href="/Examprep/JECA/quiz"
+                class="p-4 hover:bg-gray-800"
+                class:bg-gray-800={$page.route.id == "/Examprep/JECA/quiz"}
+            >
                 <Heading customSize="text-2xl font-bold" class="text-white"
                     >Quiz</Heading
                 >
