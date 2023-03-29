@@ -161,12 +161,12 @@
                     required
                     bind:value={mainData.Question}
                     id="question"
-                    class="w-[300px]"
+                    class="w-[600px]"
                     type="text"
                 />
             </div>
             <h1>Options</h1>
-            <div class="grid grid-cols-2 w-[300px] gap-2 mb-4">
+            <div class="grid grid-cols-2 w-[600px] gap-2 mb-4">
                 {#each mainData.Options as option, index}
                     <div class="flex items-center">
                         <span>{index + 1}</span>
