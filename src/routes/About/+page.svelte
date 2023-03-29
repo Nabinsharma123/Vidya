@@ -4,7 +4,7 @@
 </script>
 
 <div
-    class="flex flex-col  lg:gap-10 lg:flex-row  mt-20 p-3 rounded-md"
+    class="flex flex-col  lg:gap-10 lg:flex-row  lg:mt-20 p-3 rounded-md"
     in:fly={{ y: 200, duration: 300 }}
 >
     <div class="flex-1 flex flex-col  items-center">

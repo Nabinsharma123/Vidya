@@ -24,7 +24,7 @@
                 }}
                 href="/"
             >
-                <img class="w-32" src="logo.jpeg" alt="" />
+                <img class="w-32" src="/logo.jpeg" alt="" />
             </a>
         </div>
 
@@ -74,7 +74,7 @@
                     dispatch("close");
                 }}
                 class="navBarOptions"
-                href="/about"
+                href="/About"
             >
                 <h1 class="font-medium text-xl hover:text-blue-500">
                     About Us

@@ -57,7 +57,7 @@
 
             <div
                 transition:fly={{ y: 100, duration: 500 }}
-                class=" h-full min-h-[calc(100vh-61px)] px-5 lg:px-14 dark:bg-gray-900"
+                class=" h-full  min-h-[calc(100vh-50px)] md:min-h-[calc(100vh-61px)] px-5 lg:px-14 dark:bg-gray-900"
             >
                 <slot />
             </div>

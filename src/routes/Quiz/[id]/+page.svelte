@@ -97,24 +97,27 @@
 </script>
 
 <div
-    class="flex wrapper h-screen  -mx-5 lg:-mx-14  items-center justify-center"
+    class="flex flex-1 wrapper h-screen  -mx-5 lg:-mx-14  items-center justify-center"
 >
     <!-- heading -->
     <div
-        class=" flex flex-col h-[54px] items-center md:flex-row md:justify-between py-1 px-3 md:px-7 shadow-md  bg-white absolute top-0 left-0 mb-5 w-full  font-bold"
+        class=" flex flex-col  justify-center items-center sm:flex-row sm:justify-between py-1 px-3 sm:px-7 shadow-md  bg-white absolute top-0 left-0 mb-5 w-full  font-bold"
     >
-        <Heading customSize="text-3xl">◼ {subject} - Quiz</Heading>
-        {#if Quizstatus == "start"}
-            <!-- timer -->
-            <div
-                class=" text-center mt-4 md:mt-0 bg-blue-300 w-[170px] rounded-md py-2 px-1 border border-blue-400"
-                class:blink_me={second == 0}
-            >
-                <h1 class=" text-xl">
-                    Time {second == 0 ? `Out!` : `Left : ${second}`}
-                </h1>
-            </div>
-        {/if}
+        <Heading customSize="text-2xl md:text-3xl lg:text-4xl" class="py-1"
+            >◼ {subject} - Quiz</Heading
+        >
+        <div class="flex justify-center">
+            {#if Quizstatus == "start"}
+                <button
+                    class=" text-center  md:mt-0 bg-blue-300 w-[170px] rounded-md py-2 px-1 border border-blue-400"
+                    class:blink_me={second == 0}
+                >
+                    <h1 class=" text-xl">
+                        Time {second == 0 ? `Out!` : `Left : ${second}`}
+                    </h1>
+                </button>
+            {/if}
+        </div>
     </div>
 
     {#if Quizstatus == "menu"}
@@ -148,71 +151,87 @@
         </div>
     {:else if Quizstatus == "start"}
         <!-- quiz start -->
-        <MCQ
-            Question={{ ...Question[QuestionNum - 1], num: QuestionNum }}
-            totalQuestion={Question.length}
-            timeout={second == 0}
-            lastQuestion={QuestionNum == Question.length}
-            on:nextQuestion={() => {
-                QuestionNum++;
+        <div>
+            <MCQ
+                Question={{ ...Question[QuestionNum - 1], num: QuestionNum }}
+                totalQuestion={Question.length}
+                timeout={second == 0}
+                lastQuestion={QuestionNum == Question.length}
+                on:nextQuestion={() => {
+                    QuestionNum++;
 
-                second = 15;
-                startTimer();
-            }}
-            on:rightAnswer={() => {
-                clearInterval(timer);
+                    second = 15;
+                    startTimer();
+                }}
+                on:rightAnswer={() => {
+                    clearInterval(timer);
 
-                userGivenAnswer.right++;
-            }}
-            on:wrongAnswer={() => {
-                clearInterval(timer);
-                userGivenAnswer.wrong++;
-            }}
-            on:finish={async () => {
-                Quizstatus = "loading";
-                $notification = {
-                    color: "yellow",
-                    text: " We are saving your Progress please wait...",
-                };
-                try {
-                    clearInterval(totalTimer);
-                    console.log(totalTime);
-                    var LeaderboardDocRef = doc(db, "JECA", "QuizLeaderboard");
-
-                    var userQuizData = await getDoc(
-                        doc(LeaderboardDocRef, subject, $userAuthData.uid)
-                    );
-                    if (userQuizData.exists()) {
-                        await updateDoc(
-                            doc(LeaderboardDocRef, subject, $userAuthData.uid),
-                            {
-                                score: userGivenAnswer.right,
-                                time: totalTime,
-                            }
+                    userGivenAnswer.right++;
+                }}
+                on:wrongAnswer={() => {
+                    clearInterval(timer);
+                    userGivenAnswer.wrong++;
+                }}
+                on:finish={async () => {
+                    Quizstatus = "loading";
+                    $notification = {
+                        color: "yellow",
+                        text: " We are saving your Progress please wait...",
+                    };
+                    try {
+                        clearInterval(totalTimer);
+                        console.log(totalTime);
+                        var LeaderboardDocRef = doc(
+                            db,
+                            "JECA",
+                            "QuizLeaderboard"
                         );
-                    } else {
-                        await setDoc(
-                            doc(LeaderboardDocRef, subject, $userAuthData.uid),
-                            {
-                                name: $userAuthData.displayName,
-                                score: userGivenAnswer.right,
-                                time: totalTime,
-                            }
+
+                        var userQuizData = await getDoc(
+                            doc(LeaderboardDocRef, subject, $userAuthData.uid)
                         );
+                        if (userQuizData.exists()) {
+                            await updateDoc(
+                                doc(
+                                    LeaderboardDocRef,
+                                    subject,
+                                    $userAuthData.uid
+                                ),
+                                {
+                                    score: userGivenAnswer.right,
+                                    time: totalTime,
+                                }
+                            );
+                        } else {
+                            await setDoc(
+                                doc(
+                                    LeaderboardDocRef,
+                                    subject,
+                                    $userAuthData.uid
+                                ),
+                                {
+                                    name: $userAuthData.displayName,
+                                    score: userGivenAnswer.right,
+                                    time: totalTime,
+                                }
+                            );
+                        }
+                    } catch (e) {
+                        console.log(e);
                     }
-                } catch (e) {
-                    console.log(e);
-                }
 
-                Quizstatus = "finished";
-            }}
-        />
+                    Quizstatus = "finished";
+                }}
+            />
+        </div>
     {:else if Quizstatus == "finished"}
         <!-- finished -->
         <div
-            class="bg-white m-3  flex-col rounded-lg py-5 px-12 flex justify-center items-center "
+            class="bg-white m-3 w-full max-w-[400px] mx-2  flex-col rounded-lg py-5 px-5 md:px-7 lg:px-12 flex justify-center items-center "
         >
-            <h1 class="mb-5 text-4xl font-bold">Quiz completed!!</h1>
+            <h1 class="mb-5 text-2xl lg:text-4xl font-bold">
+                Quiz completed!!
+            </h1>
 
             <h1 class="mb-5 text-2xl font-bold">
                 Out of {Question.length}

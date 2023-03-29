@@ -45,8 +45,9 @@
     <title>JECA</title>
 </svelte:head>
 
-<Heading customSize="text-4xl font-bold " class="text-white pb-2 border-b"
-    >Dashboard</Heading
+<Heading
+    customSize=" text-3xl md:text-4xl  font-bold "
+    class="text-white text-right md:text-left pb-2 border-b">Dashboard</Heading
 >
 
 <div class="bg-gray-900 mt-14  p-4   rounded-lg">
@@ -59,46 +60,46 @@
         <div class="flex">
             <div class="flex-1">
                 <Heading
-                    customSize="text-7xl font-bold "
+                    customSize="text-3xl md:text-5xl lg:text-7xl font-bold "
                     class="text-white mb-2 text-center"
                     >{timervalue.days}</Heading
                 >
                 <Heading
-                    customSize="text-xl  font-bold"
+                    customSize="text-sm md:text-lg lg:text-xl  font-bold"
                     class="text-white text-center">Days</Heading
                 >
             </div>
             <div class="flex-1">
                 <Heading
-                    customSize="text-7xl font-bold "
+                    customSize="text-3xl md:text-5xl lg:text-7xl font-bold "
                     class="text-white mb-2 text-center"
                     >{timervalue.hours}</Heading
                 >
                 <Heading
-                    customSize="text-xl  font-bold"
+                    customSize="text-sm md:text-lg lg:text-xl  font-bold"
                     class="text-white text-center">Hours</Heading
                 >
             </div>
             <div class="flex-1">
                 <Heading
-                    customSize="text-7xl font-bold "
+                    customSize="text-3xl md:text-5xl lg:text-7xl font-bold "
                     class="text-white mb-2 text-center"
                     >{timervalue.minutes}</Heading
                 >
                 <Heading
-                    customSize="text-xl  font-bold"
+                    customSize="text-sm md:text-lg lg:text-xl  font-bold"
                     class="text-white text-center">Minutes</Heading
                 >
             </div>
 
             <div class="flex-1">
                 <Heading
-                    customSize="text-7xl font-bold "
+                    customSize="text-3xl md:text-5xl lg:text-7xl font-bold "
                     class="text-white mb-2 text-center"
                     >{timervalue.seconds}</Heading
                 >
                 <Heading
-                    customSize="text-xl  font-bold"
+                    customSize="text-sm md:text-lg lg:text-xl  font-bold"
                     class="text-white text-center">Seconds</Heading
                 >
             </div>
@@ -110,10 +111,11 @@
     {/if}
 </div>
 
-<div class="mt-6 flex gap-6 ">
-    <div class="bg-gray-900 flex-1 p-4 rounded-lg">
-        <Heading customSize="text-4xl font-extrabold" class="text-white"
-            >8th July</Heading
+<div class="mt-6 flex gap-2 md:gap-4 lg:gap-6 ">
+    <div class="bg-gray-900 flex-1  p-2 md:p-4 rounded-lg">
+        <Heading
+            customSize="text-xl md:text-2xl lg:text-4xl font-extrabold"
+            class="text-white">8th July</Heading
         >
         <h1
             class="text-lg mt-2 font-bold leading-none tracking-tight text-blue-400   dark:text-white"
@@ -121,9 +123,10 @@
             Exam Date
         </h1>
     </div>
-    <div class="bg-gray-900 flex-1 p-4   rounded-lg">
-        <Heading customSize="text-4xl font-extrabold" class="text-white"
-            >120 min</Heading
+    <div class="bg-gray-900 flex-1  p-2 md:p-4   rounded-lg">
+        <Heading
+            customSize="text-xl md:text-2xl lg:text-4xl font-extrabold"
+            class="text-white">120 min</Heading
         >
         <h1
             class="text-lg mt-2 font-bold leading-none tracking-tight text-blue-400   dark:text-white"
@@ -132,9 +135,10 @@
         </h1>
     </div>
 
-    <div class="bg-gray-900 flex-1 p-4 rounded-lg">
-        <Heading customSize="text-4xl font-extrabold" class="text-white"
-            >120</Heading
+    <div class="bg-gray-900 flex-1  p-2 md:p-4 rounded-lg">
+        <Heading
+            customSize="text-xl md:text-2xl lg:text-4xl font-extrabold"
+            class="text-white">120</Heading
         >
         <h1
             class="text-lg mt-2 font-bold leading-none tracking-tight text-blue-400   dark:text-white"

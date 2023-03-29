@@ -2,13 +2,17 @@
     import { Heading } from "flowbite-svelte";
 </script>
 
-<Heading customSize="text-4xl font-bold" class="text-white pb-2 border-b"
+<Heading
+    customSize="text-3xl md:text-4xl font-bold"
+    class="text-white text-right md:text-left pb-2 border-b"
     >Insructions</Heading
 >
 
-<div class="flex mt-7 justify-center">
-    <div class="w-[700px]">
-        <h1 class="text-green-400 font-extrabold text-4xl text-center mb-6">
+<div class="flex my-7 justify-center">
+    <div class="max-w-[700px]">
+        <h1
+            class="text-green-400 font-extrabold text-2xl md:text-4xl text-center mb-6"
+        >
             Category - I (1 to 80) :
         </h1>
         <p class="text-white font-bold text-xl mb-5">
@@ -16,7 +20,9 @@
             incorrect answer or any combination of more than one answer,1/4 mark
             will be deducted.
         </p>
-        <h1 class="text-green-400 font-extrabold text-4xl text-center mb-6">
+        <h1
+            class="text-green-400 font-extrabold text-2xl md:text-4xl text-center mb-6"
+        >
             Category - II (81 to 100) :
         </h1>
         <p class="text-white font-bold text-xl">

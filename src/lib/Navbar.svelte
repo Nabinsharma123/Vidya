@@ -1,6 +1,6 @@
 <script>
   import Login from "./Login.svelte";
-  import Leftpannel from "./Leftpannel.svelte";
+  import Rightpannel from "./Rightpannel.svelte";
   import { clickOutside } from "./click_outside.js";
   import { fade, fly } from "svelte/transition";
   import Sighup from "./Sighup.svelte";
@@ -12,7 +12,7 @@
 
   var LoginClicked = false;
   var SighupClicked = false;
-  var leftPannelClick = false;
+  var RightpannelClick = false;
 
   function SignOut() {
     const auth = getAuth();
@@ -32,7 +32,7 @@
 
 <nav
   in:fly={{ y: -100, duration: 500 }}
-  class="sticky flex items-center z-20 top-0 left-0  w-full h-[40px] md:h-[61px]  py-1 bg-white border-b shadow-md"
+  class="sticky flex items-center z-20 top-0 left-0  w-full h-[50px] md:h-[61px]  py-1 bg-white border-b shadow-md"
 >
   <!-- nav bar container -->
   <div class="mx-5 w-full lg:mx-14 flex  justify-between items-center">
@@ -73,7 +73,7 @@
         <div class="relative">
           <button id="b1" class="h-[52px] ">
             <img
-              class="w-7 md:w-10 h-7 md:h-10 mr-2 rounded-full"
+              class="w-8 md:w-10 h-8 md:h-10 mr-2 rounded-full"
               src={$userAuthData.photoURL}
               alt=""
             />
@@ -128,7 +128,7 @@
       <button
         class="md:hidden ml-1"
         on:click={() => {
-          leftPannelClick = true;
+          RightpannelClick = true;
         }}
       >
         <img class="h-4" src="/menu.svg" alt="" />
@@ -163,10 +163,10 @@
   />
 {/if}
 
-{#if leftPannelClick}
-  <Leftpannel
+{#if RightpannelClick}
+  <Rightpannel
     on:close={() => {
-      leftPannelClick = false;
+      RightpannelClick = false;
     }}
     on:login={() => {
       LoginClicked = true;

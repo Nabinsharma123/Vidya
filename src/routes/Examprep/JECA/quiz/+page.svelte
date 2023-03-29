@@ -14,8 +14,9 @@
     }
 </script>
 
-<Heading customSize="text-4xl font-bold" class="text-white pb-2 border-b"
-    >Quiz</Heading
+<Heading
+    customSize="text-3xl md:text-4xl font-bold"
+    class="text-white text-right md:text-left pb-2 border-b">Quiz</Heading
 >
 
 {#if subjects.length != 0}

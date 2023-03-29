@@ -69,7 +69,7 @@
 </script>
 
 <div
-    class="relative bg-white m-3 max-h-[500px] h-fit overflow-y-auto overflow-x-hidden flex-col rounded-lg py-5 px-10 flex  items-center "
+    class="relative bg-white m-3 max-h-[500px] h-fit  overflow-auto  flex-col rounded-lg py-5 px-10 flex items-center "
 >
     <Heading customSize="text-4xl text-center mb-5 font-bold"
         >Leaderboard</Heading
