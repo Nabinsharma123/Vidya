@@ -43,8 +43,8 @@
             totalQuestion = totalQuestion.lastId;
 
             var QuestionIds = [];
-            if (totalQuestion >= 10) {
-                while (QuestionIds.length < 10) {
+            if (totalQuestion >= 20) {
+                while (QuestionIds.length < 20) {
                     var id = Math.floor(Math.random() * totalQuestion + 1);
                     if (!QuestionIds.includes(id)) QuestionIds.push(id);
                 }
@@ -54,19 +54,38 @@
             }
 
             console.log(QuestionIds);
+            console.log(QuestionIds.slice(0, 10));
+            console.log(QuestionIds.slice(10, 20));
 
             const QuizcolRef = collection(QuizdocRef, subject);
-            var res = await getDocs(
-                query(QuizcolRef, where("id", "in", QuestionIds))
-            );
-            res.forEach((doc) => {
-                Question = [...Question, doc.data()];
+            var res = await Promise.all([
+                await getDocs(
+                    query(
+                        QuizcolRef,
+                        where("id", "in", QuestionIds.slice(0, 10))
+                    )
+                ),
+                await getDocs(
+                    query(
+                        QuizcolRef,
+                        where("id", "in", QuestionIds.slice(10, 20))
+                    )
+                ),
+            ]);
+
+            res.forEach((e) => {
+                e.forEach((doc) => {
+                    Question = [...Question, doc.data()];
+                });
             });
+            // console.log(res);
+
             console.log(Question);
             Quizstatus = "start";
             TotalTimer();
             startTimer();
         } catch (e) {
+            console.log(e);
             $notification = {
                 color: "red",
 
@@ -140,6 +159,12 @@
                     class=" text-white disabled:opacity-60 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-2xl px-5 py-2 text-center"
                     >Leaderboard</button
                 >
+                <a href="/Examprep/JECA/quiz">
+                    <button
+                        class="w-full text-white disabled:opacity-60 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-2xl px-5 py-2 text-center"
+                        >Back</button
+                    >
+                </a>
             </div>
         </div>
     {:else if Quizstatus == "loading"}
@@ -275,9 +300,26 @@
                     >Quit the Quiz</button
                 >
             </a>
+
+            <button
+                on:click={() => {
+                    Quizstatus = "menu";
+                }}
+                class=" mt-4 text-white disabled:opacity-60 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-2xl px-5 py-2 text-center"
+                >Back</button
+            >
         </div>
     {:else if (Quizstatus = "Leaderboard")}
-        <Leaderboard {subject} />
+        <div class="flex flex-col items-center">
+            <Leaderboard {subject} />
+            <button
+                on:click={() => {
+                    Quizstatus = "menu";
+                }}
+                class=" mt-4 text-white disabled:opacity-60 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-2xl px-5 py-2 text-center"
+                >Back</button
+            >
+        </div>
     {/if}
 </div>
 
