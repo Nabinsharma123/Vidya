@@ -1,9 +1,14 @@
 <script>
     import { Heading } from "flowbite-svelte";
+    import { fly } from "svelte/transition";
     import { authStatus } from "../store";
 </script>
 
-<div class="relative flex justify-center mt-[100px]">
+<svelte:head>
+    <title>Exampreb</title>
+</svelte:head>
+
+<div in:fly={{ y: 200, duration: 500 }} class=" mt-7 flex justify-center">
     {#if !$authStatus}
         <div
             class="absolute border-2 bg-red-200/50 border-red-500 rounded-md z-10 flex justify-center items-center backdrop-blur-sm w-full h-full top-0 left-0"

@@ -1,27 +1,24 @@
 <script>
-    import { Heading, P, A, Mark, Secondary } from "flowbite-svelte";
-    import {
-        collection,
-        doc,
-        getDoc,
-        getDocs,
-        limit,
-        query,
-        where,
-    } from "firebase/firestore";
+    import { Heading } from "flowbite-svelte";
+    import { doc, getDoc } from "firebase/firestore";
     import { db } from "./firebaseConfig";
-
+    import { subjects } from "./store";
     var SubjectList;
 
     fetchInitialData();
 
     async function fetchInitialData() {
-        try {
-            var res = await getDoc(doc(db, "SubjectList", "List"));
-            SubjectList = res.data().names;
-            console.log(SubjectList);
-        } catch (err) {
-            console.log(err);
+        if ($subjects.length != 0) {
+            SubjectList = $subjects;
+        } else {
+            try {
+                var res = await getDoc(doc(db, "SubjectList", "List"));
+                SubjectList = res.data().names;
+                $subjects = SubjectList;
+                console.log(SubjectList);
+            } catch (err) {
+                console.log(err);
+            }
         }
     }
 </script>

@@ -50,15 +50,14 @@
             </div>
         </div>
     {:else}
-        <div class="  relative h-screen  ">
+        <div class="   ">
             {#if $page.route.id != "/Quiz/[id]"}
                 <Navbar />
             {/if}
 
             <div
                 transition:fly={{ y: 100, duration: 500 }}
-                class="mt-[61px]  px-5 lg:px-14 dark:bg-gray-900"
-                style="min-height: calc(100vh - 61px)"
+                class=" h-full min-h-[calc(100vh-61px)] px-5 lg:px-14 dark:bg-gray-900"
             >
                 <slot />
             </div>

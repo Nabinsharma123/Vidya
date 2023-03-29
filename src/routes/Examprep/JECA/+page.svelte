@@ -41,6 +41,10 @@
     }
 </script>
 
+<svelte:head>
+    <title>JECA</title>
+</svelte:head>
+
 <Heading customSize="text-4xl font-bold " class="text-white pb-2 border-b"
     >Dashboard</Heading
 >

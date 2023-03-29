@@ -95,7 +95,7 @@
                         <TableBodyCell>{index + 1}</TableBodyCell>
                         <TableBodyCell>{name}</TableBodyCell>
                         <TableBodyCell>{score}</TableBodyCell>
-                        <TableBodyCell>{time}</TableBodyCell>
+                        <TableBodyCell>{time} sec</TableBodyCell>
                     </TableBodyRow>
                 {/each}
             </TableBody>

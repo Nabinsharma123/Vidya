@@ -115,6 +115,7 @@
 </script>
 
 <svelte:head>
+    <title>{endpoint}</title>
     <link
         rel="stylesheet"
         href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"
@@ -140,12 +141,7 @@
                 <div
                     class=" w-fit h-fit border-2 rounded-md border-gray-500 p-4 "
                 >
-                    <img
-                        transition:fade
-                        class="w-40"
-                        src={`/${endpoint}.svg`}
-                        alt=""
-                    />
+                    <img in:fade class="w-40" src={`/${endpoint}.svg`} alt="" />
                 </div>
             </div>
             <div class=" flex-[4] flex flex-col mt-5 md:mt-0 md:ml-6 ">
@@ -158,10 +154,7 @@
 
                 <div bind:this={TopicDataContainer} class="mt-4">
                     {#if About}
-                        <h1
-                            transition:fly={{ y: -20, duration: 500 }}
-                            class="text-lg "
-                        >
+                        <h1 in:fly={{ y: -20, duration: 500 }} class="text-lg ">
                             {@html About}
                         </h1>
                     {:else if $authStatus}
@@ -203,7 +196,7 @@
 
                                         topicClicked(Topic);
                                     }}
-                                    transition:fly={{
+                                    in:fly={{
                                         y: 100,
                                         duration: 1000,
                                     }}

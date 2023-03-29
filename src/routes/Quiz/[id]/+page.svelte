@@ -97,7 +97,7 @@
 </script>
 
 <div
-    class="flex wrapper h-screen  -mx-5 lg:-mx-14 -mt-[61px] items-center justify-center"
+    class="flex wrapper h-screen  -mx-5 lg:-mx-14  items-center justify-center"
 >
     <!-- heading -->
     <div

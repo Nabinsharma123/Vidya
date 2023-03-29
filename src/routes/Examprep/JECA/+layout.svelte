@@ -7,7 +7,7 @@
     class="flex bg-gray-900  -mx-5 lg:-mx-14"
     style="min-height: calc(100vh - 61px);"
 >
-    <div class="flex-1 sticky top-[61px]  h-fit   ">
+    <div class="flex-1 hidden md:block sticky top-[61px]  h-fit   ">
         <h1
             class="text-2xl text-center border-b py-4  font-extrabold leading-none tracking-tight text-red-400 md:text-5xl  dark:text-white"
         >

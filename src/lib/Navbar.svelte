@@ -31,8 +31,8 @@
 </script>
 
 <nav
-  transition:fly={{ y: -100, duration: 500 }}
-  class="fixed flex items-center z-20 top-0 left-0  w-full h-[40px] sm:h-[61px]  py-1 bg-white border-b shadow-md"
+  in:fly={{ y: -100, duration: 500 }}
+  class="sticky flex items-center z-20 top-0 left-0  w-full h-[40px] md:h-[61px]  py-1 bg-white border-b shadow-md"
 >
   <!-- nav bar container -->
   <div class="mx-5 w-full lg:mx-14 flex  justify-between items-center">
@@ -41,8 +41,8 @@
     <!-- logo -->
     <div class="flex gap-4">
       <a href="/">
-        <img class="w-32 hidden sm:block" src="/logo.jpeg" alt="" />
-        <img class=" h-7 sm:hidden" src="/logoSmall.jpeg" alt="" />
+        <img class="w-28 lg:w-32 " src="/logo.jpeg" alt="" />
+        <!-- <img class=" h-7 sm:hidden" src="/logoSmall.jpeg" alt="" /> -->
       </a>
     </div>
 
@@ -167,6 +167,9 @@
   <Leftpannel
     on:close={() => {
       leftPannelClick = false;
+    }}
+    on:login={() => {
+      LoginClicked = true;
     }}
     on:signout={SignOut}
     on:register={() => {
