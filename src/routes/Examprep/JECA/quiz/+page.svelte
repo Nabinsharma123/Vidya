@@ -10,9 +10,7 @@
     async function getSubjectList() {
         var res = await getDoc(QuizdocRef);
 
-        for (const key in res.data()) {
-            subjects = [...subjects, key];
-        }
+        subjects = res.data().subjectList;
     }
 </script>
 

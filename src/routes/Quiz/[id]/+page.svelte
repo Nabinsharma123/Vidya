@@ -40,7 +40,7 @@
             // var totalQuestion = subjectlist
             //     .data()
             //     .subjects.find((e) => e.name == subject);
-            var totalQuestion = subjectlist.data()[subject];
+            var totalQuestion = subjectlist.data().lastId[subject];
             console.log(totalQuestion);
             // totalQuestion = totalQuestion.lastId;
 
@@ -75,6 +75,7 @@
                     )
                 ),
             ]);
+            Question = [];
 
             res.forEach((e) => {
                 e.forEach((doc) => {

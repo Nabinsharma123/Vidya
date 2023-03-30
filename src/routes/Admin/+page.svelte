@@ -11,6 +11,7 @@
         doc,
         getDoc,
         addDoc,
+        increment,
     } from "firebase/firestore";
 
     var loading = false;
@@ -36,16 +37,29 @@
 
             subjects = [];
             // subjects = res.data();
-            for (const key in res.data()) {
+
+            // for (const key in res.data()) {
+            //     subjects = [
+            //         ...subjects,
+            //         {
+            //             name: key,
+
+            //             lastId: res.data()[key],
+            //         },
+            //     ];
+            // }
+
+            res.data().subjectList.forEach((e) => {
                 subjects = [
                     ...subjects,
                     {
-                        name: key,
+                        name: e,
 
-                        lastId: res.data()[key],
+                        lastId: res.data().lastId[e],
                     },
                 ];
-            }
+            });
+
             console.log(subjects);
             subjects.map((a, index) => {
                 if (a.name == prevsub) {
@@ -74,7 +88,8 @@
 
             await addDoc(QuizcolRef, mainData);
             await updateDoc(QuizdocRef, {
-                [subjects[SelectedSubject].name]: mainData.id,
+                [`lastId.${subjects[SelectedSubject].name}`]: mainData.id,
+                // [`lastId.${subjects[SelectedSubject].name}`]: increment(1),
             });
 
             getSubjectList();
@@ -158,7 +173,8 @@
                                 // });
 
                                 await updateDoc(QuizdocRef, {
-                                    [newSubject]: 0,
+                                    [`lastId.${newSubject}`]: 0,
+                                    subjectList: arrayUnion(newSubject),
                                 });
                                 await getSubjectList();
 
