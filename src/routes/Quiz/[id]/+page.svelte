@@ -37,10 +37,12 @@
             const QuizdocRef = doc(db, "JECA", "Quiz");
             const subjectlist = await getDoc(QuizdocRef);
 
-            var totalQuestion = subjectlist
-                .data()
-                .subjects.find((e) => e.name == subject);
-            totalQuestion = totalQuestion.lastId;
+            // var totalQuestion = subjectlist
+            //     .data()
+            //     .subjects.find((e) => e.name == subject);
+            var totalQuestion = subjectlist.data()[subject];
+            console.log(totalQuestion);
+            // totalQuestion = totalQuestion.lastId;
 
             var QuestionIds = [];
             if (totalQuestion >= 20) {
@@ -58,6 +60,7 @@
             console.log(QuestionIds.slice(10, 20));
 
             const QuizcolRef = collection(QuizdocRef, subject);
+
             var res = await Promise.all([
                 await getDocs(
                     query(

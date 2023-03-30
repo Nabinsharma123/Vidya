@@ -7,10 +7,12 @@
 
     const QuizdocRef = doc(db, "JECA", "Quiz");
     getSubjectList();
-    function getSubjectList() {
-        getDoc(QuizdocRef).then((e) => {
-            subjects = e.data().subjects;
-        });
+    async function getSubjectList() {
+        var res = await getDoc(QuizdocRef);
+
+        for (const key in res.data()) {
+            subjects = [...subjects, key];
+        }
     }
 </script>
 
@@ -23,14 +25,14 @@
     <div class="mt-7 ">
         {#each subjects as subject}
             <a
-                href={`/Quiz/${subject.name}`}
+                href={`/Quiz/${subject}`}
                 class="button inline-block mr-4 mt-4 group hover:-translate-y-2 hover:shadow-xl hover:shadow-yellow-400/70  hover:bg-yellow-400 hover:border-yellow-400 max-w-sm p-4 bg-gray-800 border border-yellow-400 rounded-lg shadow  dark:bg-gray-800  dark:border-yellow-400 dark:hover:bg-yellow-400"
                 style="transition: 0.3s;"
             >
                 <h1
                     class="text-xl md:text-2xl font-extrabold leading-none tracking-tight text-yellow-400  dark:text-white"
                 >
-                    {subject.name}
+                    {subject}
                 </h1>
             </a>
         {/each}

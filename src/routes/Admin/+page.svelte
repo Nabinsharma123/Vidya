@@ -34,7 +34,19 @@
         try {
             var res = await getDoc(QuizdocRef);
 
-            subjects = res.data().subjects;
+            subjects = [];
+            // subjects = res.data();
+            for (const key in res.data()) {
+                subjects = [
+                    ...subjects,
+                    {
+                        name: key,
+
+                        lastId: res.data()[key],
+                    },
+                ];
+            }
+            console.log(subjects);
             subjects.map((a, index) => {
                 if (a.name == prevsub) {
                     SelectedSubject = index;
@@ -51,55 +63,70 @@
     }
 
     async function addQuestion() {
-        loading = true;
+        try {
+            loading = true;
+            mainData.id = subjects[SelectedSubject].lastId + 1;
+            prevsub = subjects[SelectedSubject].name;
+            const QuizcolRef = collection(
+                QuizdocRef,
+                subjects[SelectedSubject].name
+            );
 
-        mainData.id = subjects[SelectedSubject].lastId + 1;
-        var newSublist = [];
-        subjects.map((e) => {
-            if (e.name == subjects[SelectedSubject].name)
-                newSublist = [
-                    ...newSublist,
-                    {
-                        name: subjects[SelectedSubject].name,
-                        lastId: mainData.id,
-                    },
-                ];
-            else newSublist = [...newSublist, e];
-        });
-        // console.log(newSublist);
-        prevsub = subjects[SelectedSubject].name;
-        const QuizcolRef = collection(
-            QuizdocRef,
-            subjects[SelectedSubject].name
-        );
-
-        addDoc(QuizcolRef, mainData)
-            .then((e) => {
-                console.log(e);
-
-                updateDoc(QuizdocRef, {
-                    subjects: newSublist,
-                }).then(() => {
-                    getSubjectList();
-
-                    $notification = {
-                        color: "green",
-                        text: "Added",
-                    };
-                    mainData = {
-                        id: 0,
-                        Question: "",
-                        Options: ["", "", "", ""],
-                        Answer: 1,
-                    };
-                });
-            })
-            .catch((e) => {
-                $notification = {
-                    color: "red",
-                    text: e,
-                };
+            await addDoc(QuizcolRef, mainData);
+            await updateDoc(QuizdocRef, {
+                [subjects[SelectedSubject].name]: mainData.id,
             });
+
+            getSubjectList();
+
+            $notification = {
+                color: "green",
+                text: "Added",
+            };
+            mainData = {
+                id: 0,
+                Question: "",
+                Options: ["", "", "", ""],
+                Answer: 1,
+            };
+
+            loading = false;
+        } catch (e) {
+            loading = false;
+
+            $notification = {
+                color: "red",
+                text: e,
+            };
+        }
+
+        // addDoc(QuizcolRef, mainData)
+        //     .then((e) => {
+        //         console.log(e);
+
+        //         updateDoc(QuizdocRef, {
+        //             subjects: newSublist,
+        //         }).then(() => {
+        //             getSubjectList();
+
+        //             $notification = {
+        //                 color: "green",
+        //                 text: "Added",
+        //             };
+        //             mainData = {
+        //                 id: 0,
+        //                 Question: "",
+        //                 Options: ["", "", "", ""],
+        //                 Answer: 1,
+        //             };
+        //         });
+        //     })
+        //     .catch((e) => {
+        //         $notification = {
+        //             color: "red",
+        //             text: e,
+        //         };
+        //     });
     }
 </script>
 
@@ -123,11 +150,15 @@
                         try {
                             if (newSubject != "" || newSubject != " ") {
                                 loading = true;
+                                // await updateDoc(QuizdocRef, {
+                                //     subjects: arrayUnion({
+                                //         name: newSubject,
+                                //         lastId: 0,
+                                //     }),
+                                // });
+
                                 await updateDoc(QuizdocRef, {
-                                    subjects: arrayUnion({
-                                        name: newSubject,
-                                        lastId: 0,
-                                    }),
+                                    [newSubject]: 0,
                                 });
                                 await getSubjectList();
 
