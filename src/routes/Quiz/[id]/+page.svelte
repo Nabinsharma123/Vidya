@@ -32,6 +32,11 @@
 
     async function startQuiz() {
         Quizstatus = "loading";
+        userGivenAnswer = {
+            right: 0,
+            wrong: 0,
+        };
+        QuestionNum = 1;
 
         try {
             const QuizdocRef = doc(db, "JECA", "Quiz");

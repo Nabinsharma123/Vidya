@@ -86,11 +86,13 @@
                 subjects[SelectedSubject].name
             );
 
-            await addDoc(QuizcolRef, mainData);
-            await updateDoc(QuizdocRef, {
-                [`lastId.${subjects[SelectedSubject].name}`]: mainData.id,
-                // [`lastId.${subjects[SelectedSubject].name}`]: increment(1),
-            });
+            await Promise.all([
+                await addDoc(QuizcolRef, mainData),
+                await updateDoc(QuizdocRef, {
+                    [`lastId.${subjects[SelectedSubject].name}`]: mainData.id,
+                    // [`lastId.${subjects[SelectedSubject].name}`]: increment(1),
+                }),
+            ]);
 
             getSubjectList();
 
