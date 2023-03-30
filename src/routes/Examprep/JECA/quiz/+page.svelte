@@ -1,6 +1,7 @@
 <script>
     import { Heading, Button, Spinner } from "flowbite-svelte";
     import { db } from "../../../firebaseConfig";
+    import { JECAQuizList, notification } from "../../../store";
 
     import { doc, getDoc } from "firebase/firestore";
     var subjects = [];
@@ -8,9 +9,20 @@
     const QuizdocRef = doc(db, "JECA", "Quiz");
     getSubjectList();
     async function getSubjectList() {
-        var res = await getDoc(QuizdocRef);
-
-        subjects = res.data().subjectList;
+        try {
+            if ($JECAQuizList.length != 0) {
+                subjects = $JECAQuizList;
+            } else {
+                var res = await getDoc(QuizdocRef);
+                subjects = res.data().subjectList;
+                $JECAQuizList = subjects;
+            }
+        } catch (e) {
+            $notification = {
+                color: "red",
+                text: e,
+            };
+        }
     }
 </script>
 

@@ -80,6 +80,6 @@
 <style>
     .button:hover h1 {
         color: #fff;
-        transition: 1.5s;
+        transition: 0.5s;
     }
 </style>

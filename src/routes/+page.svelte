@@ -1,5 +1,5 @@
 <script>
-    import { Heading } from "flowbite-svelte";
+    import { Heading, Spinner } from "flowbite-svelte";
     import { doc, getDoc } from "firebase/firestore";
     import { db } from "./firebaseConfig";
     import { subjects } from "./store";
@@ -28,11 +28,11 @@
 <div class="">
     <!-- tagline -->
     <div
-        class=" flex flex-col items-center mt-10 md:mt-0 md:flex-row md:justify-center w-full  "
+        class=" flex flex-col items-center  mt-10 md:flex-row md:justify-center w-full  "
     >
         <div class="flex-1 flex  flex-col md:w-1/2 ">
             <Heading
-                customSize="text-3xl sm:text-6xl font-extrabold "
+                customSize="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold "
                 class=" mb-5 "
                 >Learn <span
                     class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400"
@@ -82,7 +82,7 @@
         <div class="flex-[4] lg:flex lg:items-center hidden ">
             <img class="" src="/Choose.svg" alt="" />
         </div>
-        <div class="flex-[6] flex flex-col  ">
+        <div class="flex-[6] flex flex-col   ">
             {#if SubjectList}
                 <div class="option-container">
                     {#each SubjectList as Subject}
@@ -102,6 +102,12 @@
                             </div>
                         </a>
                     {/each}
+                </div>
+            {:else}
+                <div class="flex h-full justify-center items-center">
+                    <Spinner color="green" size={8} /><span
+                        class="ml-2 text-xl font-bold">Loading...</span
+                    >
                 </div>
             {/if}
         </div>
