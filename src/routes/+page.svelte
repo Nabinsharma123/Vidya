@@ -96,7 +96,7 @@
                         {SubjectList[0]}
                     </span>
                     <div
-                        class="blink_me -ml-3 h-[50px] inline-block w-1 bg-gray-600"
+                        class="blink_me -ml-1 md:-ml-2 h-6 md:h-10 lg:h-12 inline-block w-[2px] md:w-1 bg-gray-600"
                     />
                 {/if}
 
