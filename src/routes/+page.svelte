@@ -3,7 +3,9 @@
     import { doc, getDoc } from "firebase/firestore";
     import { db } from "./firebaseConfig";
     import { subjects } from "./store";
-    var SubjectList;
+
+    import { onMount } from "svelte";
+    var SubjectList = [];
 
     fetchInitialData();
 
@@ -21,6 +23,56 @@
             }
         }
     }
+
+    var sublistIndex = -1;
+
+    var TypewriterText;
+    var TypewriterElementLoaded = false;
+    var wordIsWritten = false;
+
+    $: if (!TypewriterElementLoaded && TypewriterText) {
+        typewriter();
+        TypewriterElementLoaded = true;
+    }
+    function typewriter() {
+        if (wordIsWritten) {
+            var inter = setInterval(() => {
+                TypewriterText.innerHTML = TypewriterText.innerHTML.slice(
+                    0,
+                    -1
+                );
+                if (TypewriterText.innerHTML == "") {
+                    clearInterval(inter);
+                    wordIsWritten = false;
+
+                    typewriter();
+                }
+            }, 100);
+        } else {
+            if (sublistIndex == SubjectList.length - 1) {
+                sublistIndex = 0;
+            } else {
+                sublistIndex++;
+            }
+            TypewriterText.innerHTML = SubjectList[sublistIndex];
+            var text = TypewriterText.innerHTML;
+            TypewriterText.innerHTML = "";
+            var i = 0;
+            var inter = setInterval(() => {
+                TypewriterText.innerHTML =
+                    TypewriterText.innerHTML + text.slice(i, i + 1);
+                i++;
+
+                if (TypewriterText.innerHTML == text) {
+                    clearInterval(inter);
+                    setTimeout(() => {
+                        wordIsWritten = true;
+                        typewriter();
+                    }, 1500);
+                }
+            }, 200);
+        }
+    }
 </script>
 
 <!-- middle container -->
@@ -34,10 +86,20 @@
             <Heading
                 customSize="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold "
                 class=" mb-5 "
-                >Learn <span
-                    class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400"
-                    >{"<Coding/>"}</span
-                >
+                >Learn
+
+                {#if SubjectList.length != 0}
+                    <span
+                        bind:this={TypewriterText}
+                        class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400"
+                    >
+                        {SubjectList[0]}
+                    </span>
+                    <div
+                        class="blink_me -ml-3 h-[50px] inline-block w-1 bg-gray-600"
+                    />
+                {/if}
+
                 anytime, anywhere with just a click.</Heading
             >
 
@@ -116,6 +178,14 @@
 </div>
 
 <style>
+    .blink_me {
+        animation: blinker 0.7s linear infinite;
+    }
+    @keyframes blinker {
+        50% {
+            opacity: 0;
+        }
+    }
     .option-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));

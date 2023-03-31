@@ -104,7 +104,8 @@
     }
 
     var timer;
-    var second = 15;
+    var perQuestionTime = 20;
+    var second = perQuestionTime;
     function startTimer() {
         timer = setInterval(() => {
             second--;
@@ -194,7 +195,7 @@
                 on:nextQuestion={() => {
                     QuestionNum++;
 
-                    second = 15;
+                    second = perQuestionTime;
                     startTimer();
                 }}
                 on:rightAnswer={() => {
