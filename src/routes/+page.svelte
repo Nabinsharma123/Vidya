@@ -4,7 +4,7 @@
     import { db } from "./firebaseConfig";
     import { subjects } from "./store";
 
-    import { onMount } from "svelte";
+    import { onDestroy, onMount } from "svelte";
     var SubjectList = [];
 
     fetchInitialData();
@@ -34,45 +34,55 @@
         typewriter();
         TypewriterElementLoaded = true;
     }
+
+    var inter;
     function typewriter() {
-        if (wordIsWritten) {
-            var inter = setInterval(() => {
-                TypewriterText.innerHTML = TypewriterText.innerHTML.slice(
-                    0,
-                    -1
-                );
-                if (TypewriterText.innerHTML == "") {
-                    clearInterval(inter);
-                    wordIsWritten = false;
+        try {
+            if (wordIsWritten) {
+                inter = setInterval(() => {
+                    TypewriterText.innerHTML = TypewriterText.innerHTML.slice(
+                        0,
+                        -1
+                    );
+                    if (TypewriterText.innerHTML == "") {
+                        clearInterval(inter);
+                        wordIsWritten = false;
 
-                    typewriter();
-                }
-            }, 100);
-        } else {
-            if (sublistIndex == SubjectList.length - 1) {
-                sublistIndex = 0;
-            } else {
-                sublistIndex++;
-            }
-            TypewriterText.innerHTML = SubjectList[sublistIndex];
-            var text = TypewriterText.innerHTML;
-            TypewriterText.innerHTML = "";
-            var i = 0;
-            var inter = setInterval(() => {
-                TypewriterText.innerHTML =
-                    TypewriterText.innerHTML + text.slice(i, i + 1);
-                i++;
-
-                if (TypewriterText.innerHTML == text) {
-                    clearInterval(inter);
-                    setTimeout(() => {
-                        wordIsWritten = true;
                         typewriter();
-                    }, 1500);
+                    }
+                }, 100);
+            } else {
+                if (sublistIndex == SubjectList.length - 1) {
+                    sublistIndex = 0;
+                } else {
+                    sublistIndex++;
                 }
-            }, 200);
+                TypewriterText.innerHTML = SubjectList[sublistIndex];
+                var text = TypewriterText.innerHTML;
+                TypewriterText.innerHTML = "";
+                var i = 0;
+                inter = setInterval(() => {
+                    TypewriterText.innerHTML =
+                        TypewriterText.innerHTML + text.slice(i, i + 1);
+                    i++;
+
+                    if (TypewriterText.innerHTML == text) {
+                        clearInterval(inter);
+                        setTimeout(() => {
+                            wordIsWritten = true;
+                            typewriter();
+                        }, 1500);
+                    }
+                }, 200);
+            }
+        } catch (e) {
+            console.log(e);
         }
     }
+
+    onDestroy(() => {
+        clearInterval(inter);
+    });
 </script>
 
 <!-- middle container -->
