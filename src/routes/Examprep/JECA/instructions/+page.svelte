@@ -2,6 +2,9 @@
     import { Heading } from "flowbite-svelte";
 </script>
 
+<svelte:head>
+    <title>JECA - Instuction</title>
+</svelte:head>
 <Heading
     customSize="text-3xl md:text-4xl font-bold"
     class="text-white text-right md:text-left pb-2 border-b"

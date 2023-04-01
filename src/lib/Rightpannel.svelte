@@ -2,7 +2,7 @@
     import { clickOutside } from "./click_outside.js";
     import { fade, fly } from "svelte/transition";
     import { createEventDispatcher } from "svelte";
-    import { authStatus } from "../routes/store.js";
+    import { authStatus, userAuthData } from "../routes/store.js";
     const dispatch = createEventDispatcher();
 </script>
 
@@ -15,20 +15,39 @@
         transition:fly={{ x: 300 }}
         use:clickOutside
         on:outclick={() => dispatch("close")}
-        class="p-4 absolute right-0 top-0 h-screen w-[250px] rounded-tl-lg rounded-bl-lg bg-white"
+        class="p-4 absolute right-0 top-0 h-screen max-w-[350px] w-full  rounded-tl-lg rounded-bl-lg bg-white"
     >
-        <div class="w-full py-2 border-b border-black">
-            <a
-                on:click={() => {
-                    dispatch("close");
-                }}
-                href="/"
-            >
-                <img class="w-32" src="/logo.jpeg" alt="" />
-            </a>
-        </div>
+        <button
+            on:click={() => {
+                dispatch("close");
+            }}
+            class="absolute right-1 top-1"
+        >
+            <img class="w-12 h-12 mr-2 rounded-full" src="/close.svg" alt="" />
+        </button>
+        {#if $authStatus}
+            <div class="w-full  pb-2 border-b border-black">
+                <div
+                    class="flex flex-col text-center  justify-between items-center"
+                >
+                    <img
+                        class="w-10 h-10  rounded-full"
+                        src={$userAuthData.photoURL}
+                        alt=""
+                    />
+                    <div>
+                        <h1 class="font-bold text-lg">
+                            {$userAuthData.displayName}
+                        </h1>
+                        <h1 class="font-bold text-gray-400 text-sm">
+                            {$userAuthData.email}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        {/if}
 
-        <div class="mt-5 flex flex-col gap-3">
+        <div class="mt-5 flex flex-col text-center mb-10 gap-5">
             <a
                 on:click={() => {
                     dispatch("close");
@@ -88,7 +107,7 @@
                     dispatch("signout");
                 }}
                 type="button"
-                class="w-full mt-4 text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                class="w-full  text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-md px-5 py-2.5 text-center "
                 >Sign Out</button
             >
         {:else}
@@ -99,7 +118,7 @@
                     // SighupClicked = true;
                 }}
                 type="button"
-                class="w-full font-bold mt-4 text-blue-500 hover:text-white border border-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300  rounded-lg text-md px-5 py-2 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+                class="w-full font-bold  text-blue-500 hover:text-white border border-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300  rounded-lg text-md px-5 py-2 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
                 >Log In</button
             >
             <button

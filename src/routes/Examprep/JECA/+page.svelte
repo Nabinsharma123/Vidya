@@ -42,7 +42,7 @@
 </script>
 
 <svelte:head>
-    <title>JECA</title>
+    <title>JECA - Dashboard</title>
 </svelte:head>
 
 <Heading

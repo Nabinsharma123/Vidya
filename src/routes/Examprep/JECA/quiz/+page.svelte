@@ -26,6 +26,9 @@
     }
 </script>
 
+<svelte:head>
+    <title>JECA - Quiz</title>
+</svelte:head>
 <Heading
     customSize="text-3xl md:text-4xl font-bold"
     class="text-white text-right md:text-left pb-2 border-b">Quiz</Heading

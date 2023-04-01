@@ -78,7 +78,11 @@
               alt=""
             />
           </button>
-          <Popover defaultClass="p-0 m-0" triggeredBy="#b1" placement="bottom">
+          <Popover
+            defaultClass="p-0 hidden md:block m-0"
+            triggeredBy="#b1"
+            placement="bottom"
+          >
             <div
               class="z-50  text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
               id="user-dropdown"

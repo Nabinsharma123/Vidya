@@ -3,6 +3,9 @@
     import { Heading, P } from "flowbite-svelte";
 </script>
 
+<svelte:head>
+    <title>About Us</title>
+</svelte:head>
 <div
     class="flex flex-col  lg:gap-10 lg:flex-row  lg:mt-20  rounded-md"
     in:fly={{ y: 200, duration: 300 }}

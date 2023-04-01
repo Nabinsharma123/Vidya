@@ -1,5 +1,5 @@
 <script>
-    import { Heading, Spinner } from "flowbite-svelte";
+    import { Heading, Spinner, Button } from "flowbite-svelte";
     import { doc, getDoc } from "firebase/firestore";
     import { db } from "./firebaseConfig";
     import { subjects } from "./store";
@@ -28,27 +28,25 @@
 
     var TypewriterText;
     var TypewriterElementLoaded = false;
-    var wordIsWritten = false;
 
     $: if (!TypewriterElementLoaded && TypewriterText) {
-        typewriter();
+        typewriter(false);
         TypewriterElementLoaded = true;
     }
 
-    var inter;
-    function typewriter() {
+    var Interval, waitTimeout;
+    function typewriter(wordIsWritten) {
         try {
             if (wordIsWritten) {
-                inter = setInterval(() => {
+                Interval = setInterval(() => {
                     TypewriterText.innerHTML = TypewriterText.innerHTML.slice(
                         0,
                         -1
                     );
                     if (TypewriterText.innerHTML == "") {
-                        clearInterval(inter);
-                        wordIsWritten = false;
+                        clearInterval(Interval);
 
-                        typewriter();
+                        typewriter(false);
                     }
                 }, 100);
             } else {
@@ -61,16 +59,15 @@
                 var text = TypewriterText.innerHTML;
                 TypewriterText.innerHTML = "";
                 var i = 0;
-                inter = setInterval(() => {
+                Interval = setInterval(() => {
                     TypewriterText.innerHTML =
                         TypewriterText.innerHTML + text.slice(i, i + 1);
                     i++;
 
                     if (TypewriterText.innerHTML == text) {
-                        clearInterval(inter);
-                        setTimeout(() => {
-                            wordIsWritten = true;
-                            typewriter();
+                        clearInterval(Interval);
+                        waitTimeout = setTimeout(() => {
+                            typewriter(true);
                         }, 1500);
                     }
                 }, 200);
@@ -81,9 +78,14 @@
     }
 
     onDestroy(() => {
-        clearInterval(inter);
+        clearInterval(Interval);
+        clearTimeout(waitTimeout);
     });
 </script>
+
+<svelte:head>
+    <title>Home</title>
+</svelte:head>
 
 <!-- middle container -->
 
