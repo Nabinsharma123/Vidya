@@ -18,7 +18,7 @@
     var TopicData;
     var TopicDataHead;
     var About;
-    var endpoint = $page.params.id.replace("-", " ");
+    var endpoint = $page.params.Subject.replace("-", " ");
     var loading = false;
 
     $: if ($authStatus) {

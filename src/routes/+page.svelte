@@ -157,7 +157,7 @@
             <img class="" src="/Choose.svg" alt="" />
         </div>
         <div class="flex-[6] flex flex-col   ">
-            {#if SubjectList}
+            {#if SubjectList.length != 0}
                 <div class="option-container">
                     {#each SubjectList as Subject}
                         <a

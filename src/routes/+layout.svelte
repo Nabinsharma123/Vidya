@@ -33,9 +33,7 @@
 </script>
 
 <svelte:head>
-    <link rel="prefetch" href="/loading.svg" as="document" />
-    <link rel="prefetch" href="/correct.svg" as="document" />
-    <link rel="prefetch" href="/wrong.svg" as="document" />
+    <link rel="prefetch" href="/close.svg" as="document" />
 </svelte:head>
 
 <div class="relative ">
