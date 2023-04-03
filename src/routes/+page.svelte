@@ -158,7 +158,7 @@
         </div>
         <div class="flex-[6] flex flex-col   ">
             {#if SubjectList.length != 0}
-                <div class="option-container">
+                <div class="option-container gap-5">
                     {#each SubjectList as Subject}
                         <a
                             href={Subject.replace(/ /g, "-")}
@@ -201,6 +201,5 @@
     .option-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-        gap: 20px;
     }
 </style>

@@ -45,7 +45,7 @@
     <div class="flex flex-col mt-5">
         {#each Question.Options as option, index}
             <button
-                disabled={selectedAnswer != 0}
+                disabled={selectedAnswer != 0 || timeout}
                 on:click={() => {
                     selectedAnswer = index + 1;
                 }}

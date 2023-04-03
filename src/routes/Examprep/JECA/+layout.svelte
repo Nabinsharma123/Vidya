@@ -1,9 +1,9 @@
 <script>
     import { Heading } from "flowbite-svelte";
-    import JECARightpannel from "../../../lib/JECARightpannel.svelte";
+    import JECALeftPannel from "../../../lib/JECALeftPannel.svelte";
     import { page } from "$app/stores";
 
-    var Rightpannel = false;
+    var Leftpannel = false;
 </script>
 
 <div
@@ -60,7 +60,7 @@
         <button
             class="fixed top-16 left-2 bg-white p-2 rounded-lg  md:hidden ml-1"
             on:click={() => {
-                Rightpannel = true;
+                Leftpannel = true;
             }}
         >
             <img class="h-4" src="/menu.svg" alt="" />
@@ -68,10 +68,10 @@
     </div>
 </div>
 
-{#if Rightpannel}
-    <JECARightpannel
+{#if Leftpannel}
+    <JECALeftPannel
         on:close={() => {
-            Rightpannel = false;
+            Leftpannel = false;
         }}
     />
 {/if}
