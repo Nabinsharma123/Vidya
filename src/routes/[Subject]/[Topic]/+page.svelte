@@ -13,6 +13,7 @@
     import { page } from "$app/stores";
     import { authStatus } from "../../store";
     import { Spinner } from "flowbite-svelte";
+    import ContentLeftPannel from "../../../lib/ContentLeftPannel.svelte";
 
     var TopicList;
     var TopicData;
@@ -20,6 +21,7 @@
     var About;
     var subject = $page.params.Subject.replace(/-/g, " ");
     var topic = $page.params.Topic.replace(/-/g, " ");
+    var Leftpannel = false;
 
     console.log(topic);
     var loading = false;
@@ -107,6 +109,15 @@
         </div>
     {/if}
 
+    <button
+        class="fixed z-10  border border-gray-800 top-16 left-5 bg-white p-2 rounded-lg  md:hidden "
+        on:click={() => {
+            Leftpannel = true;
+        }}
+    >
+        <img class="h-4" src="/menu.svg" alt="" />
+    </button>
+
     <!-- <div class="my-12 ">
         <div class="flex flex-col md:flex-row">
             <div class="flex-1 flex justify-center md:block">
@@ -144,7 +155,7 @@
 
     <div bind:this={TopicDataContainer} class="my-1">
         <!-- main course -->
-        <div class="flex gap-8 w-full justify-between  ">
+        <div class="flex gap-8 w-full justify-between mb-10 ">
             <!-- Topics -->
             <div
                 class="hidden  md:block flex-1 sticky top-16 w-72 h-fit  border border-gray-300 rounded-md shadow-md"
@@ -152,7 +163,7 @@
                 <div
                     class="pl-5 border-gray-300  rounded-t-md py-4 w-full border-b"
                 >
-                    <h1 class=" text-2xl">Page Index</h1>
+                    <h1 class=" text-2xl font-semibold">Page Index</h1>
                 </div>
                 {#if TopicList}
                     {#if TopicList === "Comming Soon"}
@@ -199,7 +210,7 @@
 
             <!-- Topic Data -->
             <div
-                class="flex-[4] h-fit w-full border border-gray-300 rounded-md shadow-md"
+                class="flex-[4]  h-fit w-full border border-gray-300 rounded-md shadow-md"
             >
                 <div
                     class="px-5 py-4 w-full border-b border-gray-300 rounded-t-md  "
@@ -236,6 +247,23 @@
         </div>
     </div>
 </div>
+{#if Leftpannel}
+    <ContentLeftPannel
+        {TopicList}
+        {subject}
+        {selectedTopic}
+        on:close={() => {
+            Leftpannel = false;
+        }}
+        on:TopicClicked={(e) => {
+            console.log(e.detail.Topic);
+            TopicDataContainer.scrollIntoView();
+
+            topicClicked(e.detail.Topic);
+            Leftpannel = false;
+        }}
+    />
+{/if}
 
 <!-- main course -->
 <style>
