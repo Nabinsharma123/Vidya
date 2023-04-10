@@ -1,8 +1,8 @@
 <script>
     import { Button, Spinner } from "flowbite-svelte";
     import { fade, fly } from "svelte/transition";
-    import { notification, authStatus } from "../store";
-    import { db } from "../firebaseConfig";
+    import { notification, authStatus } from "../../store";
+    import { db } from "../../firebaseConfig";
 
     import {
         collection,
@@ -251,11 +251,11 @@
 {#if loading}
     <div
         transition:fade
-        class="fixed top-0 left-0 flex justify-center items-center  w-screen h-screen bg-black/50"
+        class="fixed top-0 left-0 flex justify-center items-center w-screen h-screen bg-black/50"
     >
         <div
             transition:fly={{ y: 500, duration: 500 }}
-            class=" relative   p-10 justify-center  bg-white   rounded-md shadow-md "
+            class=" relative p-10 justify-center bg-white rounded-md shadow-md"
         >
             <Spinner />
         </div>
@@ -264,11 +264,11 @@
 {#if !$authStatus}
     <div
         transition:fade
-        class="fixed top-0 left-0 flex justify-center items-center  w-screen h-screen bg-black/50"
+        class="fixed top-0 left-0 flex justify-center items-center w-screen h-screen bg-black/50"
     >
         <div
             transition:fly={{ y: 500, duration: 500 }}
-            class=" relative   p-10 justify-center  bg-white   rounded-md shadow-md "
+            class=" relative p-10 justify-center bg-white rounded-md shadow-md"
         >
             Please Log In
         </div>

@@ -98,7 +98,7 @@
     ></script>
 </svelte:head>
 
-<div class="relative ">
+<div class="relative">
     {#if !$authStatus}
         <div
             class="absolute border-2 bg-red-200/50 border-red-500 rounded-md z-10 flex justify-center items-center backdrop-blur-sm w-full h-full top-0 left-0"
@@ -110,7 +110,7 @@
     {/if}
 
     <button
-        class="fixed z-10  border border-gray-800 top-16 left-5 bg-white p-2 rounded-lg  md:hidden "
+        class="fixed z-10 border border-gray-800 top-16 left-5 bg-white p-2 rounded-lg md:hidden"
         on:click={() => {
             Leftpannel = true;
         }}
@@ -155,13 +155,13 @@
 
     <div bind:this={TopicDataContainer} class="my-1">
         <!-- main course -->
-        <div class="flex gap-8 w-full justify-between mb-10 ">
+        <div class="flex gap-8 w-full justify-between mb-10">
             <!-- Topics -->
             <div
-                class="hidden  md:block flex-1 sticky top-16 w-72 h-fit  border border-gray-300 rounded-md shadow-md"
+                class="hidden md:block flex-1 sticky top-16 w-72 h-fit border border-gray-300 rounded-md shadow-md"
             >
                 <div
-                    class="pl-5 border-gray-300  rounded-t-md py-4 w-full border-b"
+                    class="pl-5 border-gray-300 rounded-t-md py-4 w-full border-b"
                 >
                     <h1 class=" text-2xl font-semibold">Page Index</h1>
                 </div>
@@ -178,7 +178,7 @@
                                     )}`}
                                 >
                                     <button
-                                        class=" w-full text-left topic  hover:bg-slate-300 cursor-pointer pl-5 py-4"
+                                        class=" w-full text-left topic hover:bg-slate-300 cursor-pointer pl-5 py-4"
                                         class:Selected={selectedTopic === Topic}
                                         on:click={() => {
                                             TopicDataContainer.scrollIntoView();
@@ -191,7 +191,7 @@
                                         }}
                                     >
                                         <h1
-                                            class="font-semibold  text-lg text-gray-600 w-full"
+                                            class="font-semibold text-lg text-gray-600 w-full"
                                         >
                                             {Topic}
                                         </h1>
@@ -210,10 +210,10 @@
 
             <!-- Topic Data -->
             <div
-                class="flex-[4]  h-fit w-full border border-gray-300 rounded-md shadow-md"
+                class="flex-[4] h-fit w-full border border-gray-300 rounded-md shadow-md"
             >
                 <div
-                    class="px-5 py-4 w-full border-b border-gray-300 rounded-t-md  "
+                    class="px-5 py-4 w-full border-b border-gray-300 rounded-t-md"
                 >
                     {#if TopicDataHead}
                         {#key TopicDataHead}
@@ -229,13 +229,13 @@
                     {/if}
                 </div>
                 <div
-                    class=" px-5 py-2 md:px-10 md:py-5 min-h-[100px]  h-fit relative "
+                    class=" px-5 py-2 md:px-10 md:py-5 min-h-[100px] h-fit relative"
                 >
-                    <div bind:this={TopicData} class="TopicData ">
+                    <div bind:this={TopicData} class="TopicData">
                         {#if loading}
                             <div
                                 transition:fade={{ duration: 100 }}
-                                class=" absolute top-[25px] left-0 w-full  flex justify-center items-center"
+                                class=" absolute top-[25px] left-0 w-full flex justify-center items-center"
                             >
                                 <Spinner />
                             </div>

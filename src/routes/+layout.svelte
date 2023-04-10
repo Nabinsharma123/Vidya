@@ -36,7 +36,7 @@
     <link rel="prefetch" href="/close.svg" as="document" />
 </svelte:head>
 
-<div class="relative ">
+<div class="relative">
     {#if loading}
         <div
             transition:fade
@@ -49,17 +49,17 @@
         </div>
     {:else}
         <div class="   ">
-            {#if $page.route.id != "/Quiz/[id]"}
+            {#if $page.route.id != "/Quiz/[id]" && $page.route.id != "/MockTest"}
                 <Navbar />
             {/if}
 
             <div
                 transition:fly={{ y: 100, duration: 500 }}
-                class=" h-full  min-h-[calc(100vh-50px)] md:min-h-[calc(100vh-61px)] px-3 md:px-5 lg:px-14 dark:bg-gray-900"
+                class=" h-full min-h-[calc(100vh-50px)] md:min-h-[calc(100vh-61px)] px-3 md:px-5 lg:px-14 dark:bg-gray-900"
             >
                 <slot />
             </div>
-            {#if $page.route.id != "/Quiz/[id]"}
+            {#if $page.route.id != "/Quiz/[id]" && $page.route.id != "/MockTest"}
                 <div class="">
                     <Footer />
                 </div>
