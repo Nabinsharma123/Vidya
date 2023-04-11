@@ -29,6 +29,10 @@
     $: if ($authStatus) {
         fetchInitialData();
     }
+    // $: subject = $page.params.Subject.replace(/-/g, " ");
+    $: topic = $page.params.Topic.replace(/-/g, " ");
+
+    $: topicClicked(topic);
 
     // const collectionRef = collection(db, subject);
     const subjectDocRef = doc(db, "Subjects", subject);
@@ -118,41 +122,6 @@
         <img class="h-4" src="/menu.svg" alt="" />
     </button>
 
-    <!-- <div class="my-12 ">
-        <div class="flex flex-col md:flex-row">
-            <div class="flex-1 flex justify-center md:block">
-                <div
-                    class=" w-fit h-fit border-2 rounded-md border-gray-500 p-4 "
-                >
-                    <img in:fade class="w-40" src={`/${subject}.svg`} alt="" />
-                </div>
-            </div>
-            <div class=" flex-[4] flex flex-col mt-5 md:mt-0 md:ml-6 ">
-                <h1
-                    class="text-4xl text-center md:text-left font-bold text-[#1a2c47]"
-                >
-                    Learn {subject}
-                </h1>
-               
-
-                <div bind:this={TopicDataContainer} class="mt-4">
-                    {#if About}
-                        <h1 in:fly={{ y: -20, duration: 500 }} class="text-lg ">
-                            {@html About}
-                        </h1>
-                    {:else if $authStatus}
-                        <div
-                            class="h-40 w-full flex justify-center items-center"
-                        >
-                            <Spinner />
-                        </div>
-                    {/if}
-                </div>
-          
-            </div>
-        </div>
-    </div> -->
-
     <div bind:this={TopicDataContainer} class="my-1">
         <!-- main course -->
         <div class="flex gap-8 w-full justify-between mb-10">
@@ -183,7 +152,7 @@
                                         on:click={() => {
                                             TopicDataContainer.scrollIntoView();
 
-                                            topicClicked(Topic);
+                                            // topicClicked(Topic);
                                         }}
                                         in:fly={{
                                             y: 100,
@@ -256,10 +225,8 @@
             Leftpannel = false;
         }}
         on:TopicClicked={(e) => {
-            console.log(e.detail.Topic);
             TopicDataContainer.scrollIntoView();
 
-            topicClicked(e.detail.Topic);
             Leftpannel = false;
         }}
     />

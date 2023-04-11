@@ -10,7 +10,7 @@
 
     var About;
     var subject = $page.params.Subject.replace(/-/g, " ");
-
+    var loading = true;
     $: if ($authStatus) {
         fetchInitialData();
     }
@@ -26,9 +26,8 @@
         About = subjectDocData.data().about;
         if (subjectDocData.data().topics.length != 0) {
             TopicList = subjectDocData.data().topics;
-        } else {
-            TopicList = "Comming Soon";
         }
+        loading = false;
     }
 </script>
 
@@ -53,16 +52,16 @@
             </h1>
         </div>
     {/if}
-    <div class="my-12 ">
+    <div class="my-12">
         <div class="flex flex-col md:flex-row">
             <div class="flex-1 flex justify-center md:block">
                 <div
-                    class=" w-fit h-fit border-2 rounded-md border-gray-500 p-4 "
+                    class=" w-fit h-fit border-2 rounded-md border-gray-500 p-4"
                 >
                     <img in:fade class="w-40" src={`/${subject}.svg`} alt="" />
                 </div>
             </div>
-            <div class=" flex-[4] flex flex-col mt-5 md:mt-0 md:ml-6 ">
+            <div class=" flex-[4] flex flex-col mt-5 md:mt-0 md:ml-6">
                 <h1
                     class="text-4xl text-center md:text-left font-bold text-[#1a2c47]"
                 >
@@ -72,7 +71,7 @@
 
                 <div class="mt-4">
                     {#if About}
-                        <h1 in:fly={{ y: -20, duration: 500 }} class="text-lg ">
+                        <h1 in:fly={{ y: -20, duration: 500 }} class="text-lg">
                             {@html About}
                         </h1>
                     {:else if $authStatus}
@@ -87,8 +86,12 @@
             </div>
         </div>
     </div>
-    {#if TopicList.length != 0}
-        <div class="option-container gap-3 ">
+    {#if loading}
+        <div class="w-full flex justify-center">
+            <Spinner />
+        </div>
+    {:else if TopicList.length != 0}
+        <div class="option-container gap-3">
             {#each TopicList as Topic}
                 <a href={`/${subject}/${Topic.replace(/ /g, "-")}`}>
                     <button
@@ -103,6 +106,8 @@
                 </a>
             {/each}
         </div>
+    {:else}
+        <Heading customSize="text-4xl font-bold">Comming Soon</Heading>
     {/if}
 </div>
 
