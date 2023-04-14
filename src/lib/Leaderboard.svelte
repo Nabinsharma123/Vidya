@@ -26,9 +26,9 @@
 
     const dispatch = createEventDispatcher();
 
-    export var subject;
-    var LeaderboardDocRef = doc(db, "JECA", "QuizLeaderboard");
-    var LeaderboardcolRef = collection(LeaderboardDocRef, subject);
+    export var prop;
+    var LeaderboardDocRef = doc(db, "JECA", `${prop.type}Leaderboard`);
+    var LeaderboardcolRef = collection(LeaderboardDocRef, prop.subject);
 
     // query(LeaderboardcolRef, orderBy("score","desc"), orderBy("time", "asc"))
     var userList = [];
@@ -54,8 +54,6 @@
 
             res.forEach((doc) => {
                 userList = [...userList, doc.data()];
-
-                console.log(doc.data());
             });
         },
         (err) => {
@@ -69,7 +67,7 @@
 </script>
 
 <div
-    class="relative bg-white m-3 max-h-[500px] h-fit  overflow-auto  flex-col rounded-lg py-5 px-10 flex items-center "
+    class="relative bg-white m-3 max-h-[500px] h-fit overflow-auto flex-col rounded-lg py-5 px-10 flex items-center"
 >
     <Heading customSize="text-4xl text-center mb-5 font-bold"
         >Leaderboard</Heading
@@ -95,7 +93,14 @@
                         <TableBodyCell>{index + 1}</TableBodyCell>
                         <TableBodyCell>{name}</TableBodyCell>
                         <TableBodyCell>{score}</TableBodyCell>
-                        <TableBodyCell>{time} sec</TableBodyCell>
+                        <TableBodyCell
+                            >{Math.floor(time / 60)
+                                ? Math.floor(time / 60) + "min"
+                                : ""}
+                            {Math.floor(time % 60)
+                                ? Math.floor(time % 60) + "sec"
+                                : ""}</TableBodyCell
+                        >
                     </TableBodyRow>
                 {/each}
             </TableBody>

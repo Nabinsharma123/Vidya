@@ -23,7 +23,7 @@
         $notification = {
           color: "yellow",
 
-          text: "Successfully Sighout",
+          text: "Successfully Signout",
         };
       })
       .catch((error) => {});
@@ -32,22 +32,22 @@
 
 <nav
   in:fly={{ y: -100, duration: 500 }}
-  class="sticky flex items-center z-20 top-0 left-0  w-full h-[50px] md:h-[61px]  py-1 bg-white border-b shadow-md"
+  class="sticky flex items-center z-20 top-0 left-0 w-full h-[50px] md:h-[61px] py-1 bg-white border-b shadow-md"
 >
   <!-- nav bar container -->
-  <div class="mx-5 w-full lg:mx-14 flex  justify-between items-center">
+  <div class="mx-5 w-full lg:mx-14 flex justify-between items-center">
     <!-- left side -->
 
     <!-- logo -->
     <div class="flex gap-4">
       <a href="/">
-        <img class="w-28 lg:w-32 " src="/logo.jpeg" alt="" />
+        <img class="w-28 lg:w-32" src="/logo.jpeg" alt="" />
         <!-- <img class=" h-7 sm:hidden" src="/logoSmall.jpeg" alt="" /> -->
       </a>
     </div>
 
     <!-- course and tutorials -->
-    <div class="hidden md:flex justify-between items-center gap-5 lg:gap-10 ">
+    <div class="hidden md:flex justify-between items-center gap-5 lg:gap-10">
       <a class=" " href="/">
         <h1 class="font-medium text-xl hover:text-blue-500">Home</h1>
       </a>
@@ -71,7 +71,7 @@
     <div class="flex">
       {#if $userAuthData}
         <div class="relative">
-          <button id="b1" class="h-[52px] ">
+          <button id="b1" class="h-[52px]">
             <img
               class="w-8 md:w-10 h-8 md:h-10 mr-2 rounded-full"
               src={$userAuthData.photoURL}
@@ -84,7 +84,7 @@
             placement="bottom"
           >
             <div
-              class="z-50  text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+              class="z-50 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
               id="user-dropdown"
             >
               <div class="px-4 py-3">
@@ -115,7 +115,7 @@
             on:click={() => {
               LoginClicked = true;
             }}
-            class="mr-2 font-semibold text-lg hover:text-blue-500 "
+            class="mr-2 font-semibold text-lg hover:text-blue-500"
             >Log in</button
           >
 
@@ -124,7 +124,7 @@
               SighupClicked = true;
             }}
             type="button"
-            class=" hidden md:inline-block translate-y-1 text-md text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg  px-5 py-2.5 text-center mr-2 mb-2 "
+            class=" hidden md:inline-block translate-y-1 text-md text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg px-5 py-2.5 text-center mr-2 mb-2"
             >Join for free</button
           >
         </div>

@@ -314,9 +314,9 @@
                 >Back</button
             >
         </div>
-    {:else if (Quizstatus = "Leaderboard")}
+    {:else if Quizstatus == "Leaderboard"}
         <Leaderboard
-            {subject}
+            prop={{ type: "Quiz", subject: subject }}
             on:back={() => {
                 Quizstatus = "menu";
             }}

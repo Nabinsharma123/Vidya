@@ -91,7 +91,7 @@
     var TopicDataContainer;
 </script>
 
-<svelte:head>
+<!-- <svelte:head>
     <title>{subject}</title>
     <link
         rel="stylesheet"
@@ -100,7 +100,7 @@
     <script
         src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"
     ></script>
-</svelte:head>
+</svelte:head> -->
 
 <div class="relative">
     {#if !$authStatus}

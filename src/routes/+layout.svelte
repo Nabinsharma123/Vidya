@@ -34,6 +34,15 @@
 
 <svelte:head>
     <link rel="prefetch" href="/close.svg" as="document" />
+
+    <title>MockTest</title>
+    <link
+        rel="stylesheet"
+        href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"
+    />
+    <script
+        src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"
+    ></script>
 </svelte:head>
 
 <div class="relative">
