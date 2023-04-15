@@ -1,6 +1,29 @@
 <script>
-    import { Heading, Button } from "flowbite-svelte";
-    // var ismockTestClick=false
+    import { Heading, Button, Spinner } from "flowbite-svelte";
+    import { JECAMockTestList, notification } from "../../../store";
+    import { db } from "../../../firebaseConfig";
+    import { doc, getDoc } from "firebase/firestore";
+
+    var tests = [];
+    fetchdata();
+    async function fetchdata() {
+        try {
+            if ($JECAMockTestList.length != 0) {
+                tests = $JECAMockTestList;
+            } else {
+                var res = await getDoc(doc(db, "JECA", "MockTest"));
+                tests = res.data().test;
+                console.log(tests);
+
+                $JECAMockTestList = tests;
+            }
+        } catch (e) {
+            $notification = {
+                color: "red",
+                text: e,
+            };
+        }
+    }
 </script>
 
 <svelte:head>
@@ -15,11 +38,31 @@
         >
     </div>
 
-    <div>
-        <a href="/MockTest?id=1">
-            <Button shadow="green" gradient color="green" size="xl"
-                >Mock Test 1</Button
-            >
-        </a>
-    </div>
+    {#if tests.length != 0}
+        {#each tests as { id, active }}
+            <div class="relative w-fit">
+                {#if !active}
+                    <div
+                        class="absolute -top-2 z-10 -right-1 bg-white rounded-full p-0.5"
+                    >
+                        <img src="/lock.svg" alt="" />
+                    </div>
+                {/if}
+
+                <a href={active ? `/MockTest?id=${id}` : ""}>
+                    <button
+                        disabled={!active}
+                        type="button"
+                        class="disabled:opacity-80 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-bold rounded-lg text-lg px-5 py-2.5 text-center mr-2 mb-2"
+                    >
+                        Mock Test {id}</button
+                    >
+                </a>
+            </div>
+        {/each}
+    {:else}
+        <div class="flex justify-center items-center h-[300px]">
+            <Spinner size={12} color="green" />
+        </div>
+    {/if}
 </div>

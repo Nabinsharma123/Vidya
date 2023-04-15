@@ -16,6 +16,7 @@
         query,
         where,
         updateDoc,
+        increment,
     } from "firebase/firestore";
 
     var subject = $page.params.id;
@@ -230,6 +231,7 @@
                                 {
                                     score: userGivenAnswer.right,
                                     time: totalTime,
+                                    Attempt: increment(1),
                                 }
                             );
                         } else {
@@ -243,6 +245,7 @@
                                     name: $userAuthData.displayName,
                                     score: userGivenAnswer.right,
                                     time: totalTime,
+                                    Attempt: 1,
                                 }
                             );
                         }

@@ -86,21 +86,23 @@
                 <TableHeadCell>Name</TableHeadCell>
                 <TableHeadCell>Score</TableHeadCell>
                 <TableHeadCell>Time</TableHeadCell>
+                <TableHeadCell>No. of Attempt</TableHeadCell>
             </TableHead>
             <TableBody class="divide-y">
-                {#each userList as { name, score, time }, index}
+                {#each userList as { name, score, time, Attempt }, index}
                     <TableBodyRow>
                         <TableBodyCell>{index + 1}</TableBodyCell>
                         <TableBodyCell>{name}</TableBodyCell>
                         <TableBodyCell>{score}</TableBodyCell>
                         <TableBodyCell
                             >{Math.floor(time / 60)
-                                ? Math.floor(time / 60) + "min"
+                                ? Math.floor(time / 60) + " min"
                                 : ""}
                             {Math.floor(time % 60)
-                                ? Math.floor(time % 60) + "sec"
+                                ? Math.floor(time % 60) + " sec"
                                 : ""}</TableBodyCell
                         >
+                        <TableBodyCell>{Attempt}</TableBodyCell>
                     </TableBodyRow>
                 {/each}
             </TableBody>

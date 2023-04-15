@@ -18,6 +18,7 @@
         query,
         where,
         updateDoc,
+        increment,
     } from "firebase/firestore";
 
     function jsontohtml(Json) {
@@ -64,13 +65,15 @@
 
     var UserPannel;
 
+    var examTime = 30 * 60;
+
     var totalTime;
     var totalTimer;
     var min;
     var sec;
     function TotalTimer() {
         clearInterval(totalTimer);
-        totalTime = 120 * 60;
+        totalTime = examTime;
 
         min = Math.floor(totalTime / 60);
         sec = Math.floor(totalTime % 60);
@@ -116,7 +119,8 @@
                     ),
                     {
                         score: score,
-                        time: 120 * 60 - totalTime,
+                        time: examTime - totalTime,
+                        Attempt: increment(1),
                     }
                 );
             } else {
@@ -129,7 +133,8 @@
                     {
                         name: $userAuthData.displayName,
                         score: score,
-                        time: 120 * 60 - totalTime,
+                        time: examTime - totalTime,
+                        Attempt: 1,
                     }
                 );
             }
