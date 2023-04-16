@@ -8,19 +8,22 @@
     const dispatch = createEventDispatcher();
 </script>
 
-<div transition:fade class="h-screen w-screen top-0 left-0 fixed bg-black/50">
+<div
+    transition:fade
+    class="h-screen w-screen z-20 top-0 left-0 fixed bg-black/50"
+>
     <div
         transition:fly={{ x: -300 }}
         use:clickOutside
         on:outclick={() => dispatch("close")}
-        class=" bg-gray-900 w-fit   absolute h-full top-[50px]    "
+        class=" bg-gray-900 w-fit absolute h-full top-[50px]"
     >
         <h1
-            class="text-2xl text-center border-b py-4  font-extrabold leading-none tracking-tight text-red-400 md:text-5xl  dark:text-white"
+            class="text-2xl text-center border-b py-4 font-extrabold leading-none tracking-tight text-red-400 md:text-5xl dark:text-white"
         >
             JECA
         </h1>
-        <div class="flex  flex-col ">
+        <div class="flex flex-col">
             <a
                 on:click={() => {
                     dispatch("close");

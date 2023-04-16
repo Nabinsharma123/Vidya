@@ -122,28 +122,30 @@
 </script>
 
 <div
-    class="flex flex-1 wrapper h-screen -mx-5 lg:-mx-14 items-center justify-center"
+    class="top-0 left-0 h-50 md:h-[61px] sticky flex flex-col justify-center items-center sm:flex-row sm:justify-between py-1 bg-white"
+>
+    <Heading
+        customSize="text-2xl font-bold md:text-3xl lg:text-4xl"
+        class="py-1">◼ {subject} - Quiz</Heading
+    >
+    <div class="flex justify-center font-bold">
+        {#if Quizstatus == "start"}
+            <button
+                class=" text-center md:mt-0 bg-blue-300 w-[170px] rounded-md py-2 px-1 border border-blue-400"
+                class:blink_me={second == 0}
+            >
+                <h1 class=" text-xl">
+                    Time {second == 0 ? `Out!` : `Left : ${second}`}
+                </h1>
+            </button>
+        {/if}
+    </div>
+</div>
+
+<div
+    class="flex wrapper min-h-[inherit] -mx-3 lg:-mx-14 items-center justify-center"
 >
     <!-- heading -->
-    <div
-        class=" flex flex-col justify-center items-center sm:flex-row sm:justify-between py-1 px-3 sm:px-7 shadow-md bg-white absolute top-0 left-0 mb-5 w-full font-bold"
-    >
-        <Heading customSize="text-2xl md:text-3xl lg:text-4xl" class="py-1"
-            >◼ {subject} - Quiz</Heading
-        >
-        <div class="flex justify-center">
-            {#if Quizstatus == "start"}
-                <button
-                    class=" text-center md:mt-0 bg-blue-300 w-[170px] rounded-md py-2 px-1 border border-blue-400"
-                    class:blink_me={second == 0}
-                >
-                    <h1 class=" text-xl">
-                        Time {second == 0 ? `Out!` : `Left : ${second}`}
-                    </h1>
-                </button>
-            {/if}
-        </div>
-    </div>
 
     {#if Quizstatus == "menu"}
         <div

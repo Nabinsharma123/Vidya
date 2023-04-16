@@ -6,16 +6,14 @@
     var Leftpannel = false;
 </script>
 
-<div
-    class="relative flex flex-1 min-h-[calc(100vh-50px)] md:min-h-[calc(100vh-61px)] bg-gray-900  -mx-5 lg:-mx-14"
->
-    <div class="md:flex-1 hidden md:block sticky top-[61px]  h-fit   ">
+<div class=" md:flex min-h-[inherit] bg-gray-900 -mx-3 lg:-mx-14">
+    <div class="md:flex-1 hidden md:block sticky top-[61px] h-fit">
         <h1
-            class="text-2xl text-center border-b py-4  font-extrabold leading-none tracking-tight text-red-400 md:text-5xl  dark:text-white"
+            class="text-2xl text-center border-b py-4 font-extrabold leading-none tracking-tight text-red-400 md:text-5xl dark:text-white"
         >
             JECA
         </h1>
-        <div class="flex  flex-col ">
+        <div class="flex flex-col">
             <a
                 href="/Examprep/JECA"
                 class="p-4 hover:bg-gray-800"
@@ -55,10 +53,10 @@
             </a>
         </div>
     </div>
-    <div class="md:flex-[4] w-full p-3 md:p-5 lg:p-8  bg-gray-800">
+    <div class="md:flex-[4] min-h-[inherit] p-5 lg:p-8 bg-gray-800">
         <slot />
         <button
-            class="fixed top-16 left-2 bg-white p-2 rounded-lg  md:hidden ml-1"
+            class="fixed top-16 left-2 bg-white p-2 rounded-lg md:hidden ml-1"
             on:click={() => {
                 Leftpannel = true;
             }}

@@ -152,7 +152,7 @@
 >
     {#if TestStatus == "Menu"}
         <div
-            class="absolute flex justify-center items-center h-screen w-screen top-0 left-0 bg-white"
+            class="absolute flex justify-center items-center h-screen w-screen top-0 left-0 bg-gray-100"
         >
             <div
                 class=" select-none flex flex-col gap-3 items-center justify-center text-xl font-bold m-3 py-5 px-7 bg-white border border-gray-200 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
@@ -204,7 +204,7 @@
                     {min != 0 ? `${min} min` : ``}
                     {sec} sec
                 </div>
-                <div class="mt-4 max-h-[50vh] overflow-y-auto">
+                <div class="mt-4 max-h-[40vh] overflow-y-auto">
                     {#each Questions as Question, Qindex}
                         <a href={`#Q${Qindex + 1}`}>
                             <button
@@ -271,7 +271,7 @@
         </div>
     {:else if TestStatus == "Loading"}
         <div
-            class="absolute flex justify-center items-center h-screen w-screen top-0 left-0 bg-white"
+            class="absolute flex justify-center items-center h-screen w-screen top-0 left-0 bg-gray-100"
         >
             <div
                 class=" select-none flex flex-col gap-3 items-center justify-center text-xl font-bold m-3 py-5 px-7 bg-white border border-gray-200 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
@@ -286,7 +286,7 @@
         </div>
     {:else if TestStatus == "Ready"}
         <div
-            class="absolute flex justify-center items-center h-screen w-screen top-0 left-0 bg-white"
+            class="absolute flex justify-center items-center h-screen w-screen top-0 left-0 bg-gray-100"
         >
             <div
                 class=" select-none flex flex-col gap-3 items-center justify-center text-xl font-bold m-3 py-5 px-7 bg-white border border-gray-200 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
@@ -300,7 +300,7 @@
         </div>
     {:else if TestStatus == "Completed"}
         <div
-            class="absolute flex justify-center items-center h-screen w-screen top-0 left-0 bg-white"
+            class="absolute flex justify-center items-center h-screen w-screen top-0 left-0 bg-gray-100"
         >
             <div
                 class=" select-none flex flex-col gap-3 items-center justify-center text-xl font-bold m-3 py-5 px-7 bg-white border border-gray-200 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
@@ -319,7 +319,7 @@
         </div>
     {:else if TestStatus == "Leaderboard"}
         <div
-            class="absolute flex justify-center items-center h-screen w-screen top-0 left-0 bg-white"
+            class="absolute flex justify-center items-center h-screen w-screen top-0 left-0 bg-gray-100"
         >
             <div
                 class=" select-none flex flex-col gap-3 items-center justify-center text-xl font-bold m-3 py-5 px-7 bg-white border border-gray-200 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"

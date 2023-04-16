@@ -32,7 +32,7 @@
 
 <nav
   in:fly={{ y: -100, duration: 500 }}
-  class="sticky flex items-center z-20 top-0 left-0 w-full h-[50px] md:h-[61px] py-1 bg-white border-b shadow-md"
+  class="sticky flex items-center z-50 top-0 left-0 w-full h-[50px] md:h-[61px] py-1 bg-white border-b shadow-md"
 >
   <!-- nav bar container -->
   <div class="mx-5 w-full lg:mx-14 flex justify-between items-center">
