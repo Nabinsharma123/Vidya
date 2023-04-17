@@ -20,6 +20,7 @@
         updateDoc,
         increment,
     } from "firebase/firestore";
+    import { onDestroy } from "svelte";
 
     function jsontohtml(Json) {
         var elementLocal = document.createElement(Json.type);
@@ -65,7 +66,7 @@
 
     var UserPannel;
 
-    var examTime = 30 * 60;
+    var examTime = 120 * 60;
 
     var totalTime;
     var totalTimer;
@@ -81,7 +82,10 @@
             totalTime--;
             min = Math.floor(totalTime / 60);
             sec = Math.floor(totalTime % 60);
-            if (totalTime == 0) clearInterval(totalTimer);
+            if (totalTime == 0) {
+                clearInterval(totalTimer);
+                SubmitTest();
+            }
         }, 1000);
     }
     function StartTest() {
@@ -92,12 +96,18 @@
         }, 100);
     }
     var score = 0;
+    var TotalScore = 0;
     async function SubmitTest() {
-        score = 0;
-        for (var i = 0; i < Questions.length; i++) {
-            if (UserAnswers[i].Answer == Questions[i].Answer) score++;
-        }
         TestStatus = "Loading";
+
+        score = 0;
+        TotalScore = 0;
+        for (var i = 0; i < Questions.length; i++) {
+            TotalScore = TotalScore + Questions[i].Value;
+            if (UserAnswers[i].Answer == Questions[i].Answer)
+                score = score + Questions[i].Value;
+        }
+
         $notification = {
             color: "yellow",
             text: " We are saving your Progress please wait...",
@@ -144,6 +154,9 @@
 
         TestStatus = "Completed";
     }
+    onDestroy(() => {
+        clearInterval(totalTimer);
+    });
 </script>
 
 <div
@@ -307,7 +320,7 @@
             >
                 <div class="flex flex-col gap-3 justify-center">
                     <h1 class="text-bold text-4xl">Test Completed</h1>
-                    <h1>Your Score :- {score}/{Questions.length}</h1>
+                    <h1>Your Score :- {score}/{TotalScore}</h1>
                     <Button
                         on:click={() => {
                             TestStatus = "Menu";

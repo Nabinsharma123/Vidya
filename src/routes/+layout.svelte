@@ -20,7 +20,7 @@
         loading = false;
 
         if (user) {
-            console.log(user);
+            // console.log(user);
             $userAuthData = user;
             if (user.emailVerified) {
                 $authStatus = true;

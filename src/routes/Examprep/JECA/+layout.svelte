@@ -6,7 +6,7 @@
     var Leftpannel = false;
 </script>
 
-<div class=" md:flex min-h-[inherit] bg-gray-900 -mx-3 lg:-mx-14">
+<div class=" md:flex min-h-[inherit] bg-gray-900 -mx-3 md:-mx-5 lg:-mx-14">
     <div class="md:flex-1 hidden md:block sticky top-[61px] h-fit">
         <h1
             class="text-2xl text-center border-b py-4 font-extrabold leading-none tracking-tight text-red-400 md:text-5xl dark:text-white"
