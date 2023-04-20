@@ -122,7 +122,7 @@
 </script>
 
 <div
-    class="top-0 left-0 h-50 md:h-[61px] sticky flex flex-col justify-center items-center sm:flex-row sm:justify-between py-1 bg-white"
+    class="  md:h-[61px] sticky flex flex-col justify-center items-center sm:flex-row sm:justify-between py-1 bg-white"
 >
     <Heading
         customSize="text-2xl font-bold md:text-3xl lg:text-4xl"
@@ -143,7 +143,7 @@
 </div>
 
 <div
-    class="flex wrapper min-h-[inherit] -mx-3 lg:-mx-14 items-center justify-center"
+    class="flex wrapper min-h-[inherit] -mx-3 md:-mx-5 lg:-mx-14 items-center justify-center"
 >
     <!-- heading -->
 

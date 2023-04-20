@@ -1,15 +1,36 @@
 <div class="dark">
-    <footer class=" bg-white px-5 lg:px-14  dark:bg-gray-900">
+    <footer class=" bg-white px-5 lg:px-14 dark:bg-gray-900">
         <hr
-            class="h-px -mx-5 lg:-mx-14  mb-10 bg-gray-200 border-0 dark:bg-gray-700"
+            class="h-px -mx-5 lg:-mx-14 mb-10 bg-gray-200 border-0 dark:bg-gray-700"
         />
         <div class="md:flex md:justify-between">
-            <div class="mb-6 md:mb-0 ">
+            <div class="mb-6 md:mb-0">
                 <a href="/" class="flex items-center p-2 rounded-md bg-white">
-                    <img src="/logo.jpeg" class="h-8 mr-3 " alt="Vidya Logo" />
+                    <img src="/logo.jpeg" class="h-8 mr-3" alt="Vidya Logo" />
                 </a>
             </div>
-            <div class="grid grid-cols-2 gap-8 sm:gap-6 ">
+            <div class="grid grid-cols-3 gap-8 sm:gap-6">
+                <div>
+                    <h2
+                        class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white"
+                    >
+                        JECA
+                    </h2>
+                    <ul class="text-gray-600 dark:text-gray-400">
+                        <li class="mb-4">
+                            <a
+                                href="/Examprep/JECA/quiz"
+                                class="hover:underline">Quiz</a
+                            >
+                        </li>
+                        <li class="mb-4">
+                            <a
+                                href="/Examprep/JECA/mockTest"
+                                class="hover:underline">MockTest</a
+                            >
+                        </li>
+                    </ul>
+                </div>
                 <div>
                     <h2
                         class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white"
@@ -20,7 +41,7 @@
                         <li class="mb-4">
                             <a
                                 href="https://www.instagram.com/vidya24x7/"
-                                class="hover:underline ">Instagram</a
+                                class="hover:underline">Instagram</a
                             >
                         </li>
                         <li class="mb-4">
@@ -59,7 +80,7 @@
             </div>
         </div>
         <hr
-            class="my-6 -mx-5 lg:-mx-14  border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"
+            class="my-6 -mx-5 lg:-mx-14 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"
         />
         <div class="sm:flex sm:items-center sm:justify-between">
             <span
