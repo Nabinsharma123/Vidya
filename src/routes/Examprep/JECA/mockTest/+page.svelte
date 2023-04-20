@@ -1,10 +1,12 @@
 <script>
-    import { Heading, Button, Spinner } from "flowbite-svelte";
+    import { Heading, Button, Spinner, P, Hr } from "flowbite-svelte";
+    import { scale, fade, slide } from "svelte/transition";
     import { JECAMockTestList, notification } from "../../../store";
     import { db } from "../../../firebaseConfig";
     import { doc, getDoc } from "firebase/firestore";
 
     var tests = [];
+
     fetchdata();
     async function fetchdata() {
         try {
@@ -29,7 +31,7 @@
 <svelte:head>
     <title>JECA - Mock Test</title>
 </svelte:head>
-<div>
+<div class="relative">
     <div class="mb-6">
         <Heading
             customSize="text-3xl md:text-4xl font-bold"

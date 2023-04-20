@@ -53,7 +53,7 @@
             </a>
         </div>
     </div>
-    <div class="md:flex-[4] min-h-[inherit] p-5 lg:p-8 bg-gray-800">
+    <div class="relative md:flex-[4] min-h-[inherit] p-5 lg:p-8 bg-gray-800">
         <slot />
         <button
             class="fixed top-16 left-2 bg-white p-2 rounded-lg md:hidden ml-1"
