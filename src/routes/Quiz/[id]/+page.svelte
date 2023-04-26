@@ -88,7 +88,7 @@
 
             Quizstatus = "start";
             TotalTimer();
-            startTimer();
+            // startTimer();
         } catch (e) {
             console.log(e);
             $notification = {
@@ -99,17 +99,17 @@
         }
     }
 
-    var timer;
-    var perQuestionTime = 20;
-    var second = perQuestionTime;
-    function startTimer() {
-        timer = setInterval(() => {
-            second--;
-            if (second == 0) {
-                clearInterval(timer);
-            }
-        }, 1000);
-    }
+    // var timer;
+    // var perQuestionTime = 45;
+    // var second = perQuestionTime;
+    // function startTimer() {
+    //     timer = setInterval(() => {
+    //         second--;
+    //         if (second == 0) {
+    //             clearInterval(timer);
+    //         }
+    //     }, 1000);
+    // }
 
     var totalTime = 0;
     var totalTimer;
@@ -128,7 +128,7 @@
         customSize="text-2xl font-bold md:text-3xl lg:text-4xl"
         class="py-1">◼ {subject} - Quiz</Heading
     >
-    <div class="flex justify-center font-bold">
+    <!-- <div class="flex justify-center font-bold">
         {#if Quizstatus == "start"}
             <button
                 class=" text-center md:mt-0 bg-blue-300 w-[170px] rounded-md py-2 px-1 border border-blue-400"
@@ -139,7 +139,7 @@
                 </h1>
             </button>
         {/if}
-    </div>
+    </div> -->
 </div>
 
 <div
@@ -188,21 +188,20 @@
             <MCQ
                 Question={{ ...Question[QuestionNum - 1], num: QuestionNum }}
                 totalQuestion={Question.length}
-                timeout={second == 0}
                 lastQuestion={QuestionNum == Question.length}
                 on:nextQuestion={() => {
                     QuestionNum++;
 
-                    second = perQuestionTime;
-                    startTimer();
+                    // second = perQuestionTime;
+                    // startTimer();
                 }}
                 on:rightAnswer={() => {
-                    clearInterval(timer);
+                    // clearInterval(timer);
 
                     userGivenAnswer.right++;
                 }}
                 on:wrongAnswer={() => {
-                    clearInterval(timer);
+                    // clearInterval(timer);
                     userGivenAnswer.wrong++;
                 }}
                 on:finish={async () => {
@@ -330,11 +329,11 @@
 </div>
 
 <style>
-    .blink_me {
+    /* .blink_me {
         animation: blinker 2s linear infinite;
         @apply bg-red-300;
         @apply border-red-400;
-    }
+    } */
 
     @keyframes blinker {
         50% {
