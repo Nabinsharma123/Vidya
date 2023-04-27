@@ -1,7 +1,8 @@
 <script>
     import { Button, Heading } from "flowbite-svelte";
-    import { createEventDispatcher } from "svelte";
+    import { createEventDispatcher, onDestroy, onMount } from "svelte";
     const dispatch = createEventDispatcher();
+    import { jsontohtml } from "../lib/jsontohtml";
 
     export var Question;
     export var totalQuestion;
@@ -26,17 +27,6 @@
         }, 1000);
     }
 
-    // $: if (timeout) {
-    //     dispatch("wrongAnswer");
-    // }
-
-    // $: if (selectedAnswer != 0) {
-    //     if (selectedAnswer == Question.Answer) {
-    //         dispatch("rightAnswer");
-    //     } else {
-    //         dispatch("wrongAnswer");
-    //     }
-    // }
     var disable = true;
     $: {
         if (selectedAnswer != 0) {
@@ -47,10 +37,19 @@
             disable = false;
         }
     }
+
+    onMount(() => {
+        hljs.highlightAll();
+    });
+    function nextClicked() {
+        setTimeout(() => {
+            hljs.highlightAll();
+        }, 10);
+    }
 </script>
 
 <div
-    class="block relative select-none m-4 max-w-[600px] py-5 px-7 bg-white border border-gray-200 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+    class="block relative select-none m-4 min-w-[200px] w-full max-w-[600px] py-5 px-7 bg-white border border-gray-200 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
 >
     <div class="absolute -top-4 -right-4 flex justify-center font-bold">
         <button
@@ -60,12 +59,13 @@
             {second}
         </button>
     </div>
-    <h5
-        class="mb-2 text-xl md:text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"
-    >
-        {Question.num}.
-        {Question.Question}
-    </h5>
+    <div class="flex gap-1">
+        <div class="font-bold">
+            {Question.num}.
+        </div>
+
+        {@html jsontohtml(Question.Question).outerHTML}
+    </div>
     <div class="flex flex-col mt-5">
         {#each Question.Options as option, index}
             <button
@@ -118,6 +118,7 @@
                     second = perQuestionTime;
                     startTimer();
                     dispatch("nextQuestion");
+                    nextClicked();
                 }}
                 disabled={disable}
                 type="button"
@@ -155,5 +156,9 @@
     }
     .Right:disabled:hover {
         @apply bg-green-200;
+    }
+
+    :global(code) {
+        border-radius: 7px;
     }
 </style>

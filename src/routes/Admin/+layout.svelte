@@ -18,7 +18,9 @@
 </script>
 
 {#if isAdmin}
-    <slot />
+    <div class="mt-5">
+        <slot />
+    </div>
 {:else}
     <Spinner />
 {/if}

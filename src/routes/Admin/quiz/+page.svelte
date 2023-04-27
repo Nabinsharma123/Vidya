@@ -248,7 +248,7 @@
         </div>
     </form>
 </div>
-{#if loading}
+{#if true}
     <div
         transition:fade
         class="fixed top-0 left-0 flex justify-center items-center w-screen h-screen bg-black/50"
@@ -257,7 +257,8 @@
             transition:fly={{ y: 500, duration: 500 }}
             class=" relative p-10 justify-center bg-white rounded-md shadow-md"
         >
-            <Spinner />
+            <!-- <Spinner /> -->
+            hold on
         </div>
     </div>
 {/if}

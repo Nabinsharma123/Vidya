@@ -67,7 +67,7 @@
 </script>
 
 <div
-    class="relative bg-white m-3 max-h-[500px] h-fit overflow-auto flex-col rounded-lg py-5 px-10 flex items-center"
+    class="relative bg-white w-full max-w-[700px] m-3 md:max-h-[500px] h-fit flex-col rounded-lg py-5 px-5 md:px-10 flex items-center"
 >
     <Heading customSize="text-4xl text-center mb-5 font-bold"
         >Leaderboard</Heading
@@ -79,34 +79,67 @@
             <Spinner />
         </div>
     {:else}
-        <Table striped={true}>
-            <TableHead>
-                <TableHeadCell>NO.</TableHeadCell>
+        <!-- <div class=" w-full">
+            <Table striped={true}>
+                <TableHead>
+                    <TableHeadCell>NO.</TableHeadCell>
 
-                <TableHeadCell>Name</TableHeadCell>
-                <TableHeadCell>Score</TableHeadCell>
-                <TableHeadCell>Time</TableHeadCell>
-                <TableHeadCell>No. of Attempt</TableHeadCell>
-            </TableHead>
-            <TableBody class="divide-y">
-                {#each userList as { name, score, time, Attempt }, index}
-                    <TableBodyRow>
-                        <TableBodyCell>{index + 1}</TableBodyCell>
-                        <TableBodyCell>{name}</TableBodyCell>
-                        <TableBodyCell>{score}</TableBodyCell>
-                        <TableBodyCell
-                            >{Math.floor(time / 60)
-                                ? Math.floor(time / 60) + " min"
-                                : ""}
-                            {Math.floor(time % 60)
-                                ? Math.floor(time % 60) + " sec"
-                                : ""}</TableBodyCell
-                        >
-                        <TableBodyCell>{Attempt}</TableBodyCell>
-                    </TableBodyRow>
-                {/each}
-            </TableBody>
-        </Table>
+                    <TableHeadCell>Name</TableHeadCell>
+                    <TableHeadCell>Score</TableHeadCell>
+                    <TableHeadCell>Time</TableHeadCell>
+                    <TableHeadCell>No. of Attempt</TableHeadCell>
+                </TableHead>
+                <TableBody class="divide-y">
+                    {#each userList as { name, score, time, Attempt }, index}
+                        <TableBodyRow>
+                            <TableBodyCell>{index + 1}</TableBodyCell>
+                            <TableBodyCell>{name}</TableBodyCell>
+                            <TableBodyCell>{score}</TableBodyCell>
+                            <TableBodyCell
+                                >{Math.floor(time / 60)
+                                    ? Math.floor(time / 60) + " min"
+                                    : ""}
+                                {Math.floor(time % 60)
+                                    ? Math.floor(time % 60) + " sec"
+                                    : ""}</TableBodyCell
+                            >
+                            <TableBodyCell>{Attempt}</TableBodyCell>
+                        </TableBodyRow>
+                    {/each}
+                </TableBody>
+            </Table>
+        </div> -->
+        <div class="w-full overflow-auto">
+            <table class="table-auto m-auto text-center min-w-[490px]">
+                <thead>
+                    <tr>
+                        <th> NO. </th>
+                        <th> Name </th>
+                        <th> score </th>
+                        <th> Time </th>
+                        <th> No. of Attempt </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {#each userList as { name, score, time, Attempt }, index}
+                        <tr class="odd:bg-gray-200">
+                            <td>{index + 1}</td>
+                            <td>{name}</td>
+                            <td>{score}</td>
+                            <td
+                                >{Math.floor(time / 60)
+                                    ? Math.floor(time / 60) + " min"
+                                    : ""}
+                                {Math.floor(time % 60)
+                                    ? Math.floor(time % 60) + " sec"
+                                    : ""}</td
+                            >
+                            <td>{Attempt}</td>
+                        </tr>
+                    {/each}
+                </tbody>
+            </table>
+        </div>
     {/if}
 
     <button
@@ -117,3 +150,26 @@
         >Back</button
     >
 </div>
+
+<style>
+    th {
+        font-weight: 700;
+    }
+
+    td {
+        font-weight: 500;
+        @apply text-gray-700;
+    }
+
+    td,
+    th {
+        padding: 10px;
+    }
+
+    @media (max-width: 767px) {
+        td,
+        th {
+            padding: 5px;
+        }
+    }
+</style>

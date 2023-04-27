@@ -92,9 +92,9 @@
 <div class="">
     <!-- tagline -->
     <div
-        class=" flex flex-col items-center  mt-10 md:flex-row md:justify-center w-full  "
+        class=" flex flex-col items-center mt-10 md:flex-row md:justify-center w-full"
     >
-        <div class="flex-1 flex  flex-col md:w-1/2 ">
+        <div class="flex-1 flex flex-col md:w-1/2">
             <Heading
                 customSize="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold "
                 class=" mb-5 "
@@ -116,7 +116,7 @@
             >
 
             <p
-                class="text-base sm:text-xl font-normal text-gray-500  dark:text-gray-400"
+                class="text-base sm:text-xl font-normal text-gray-500 dark:text-gray-400"
             >
                 Unlock your potential with our interactive online courses and
                 take your learning to the next level!
@@ -130,7 +130,7 @@
                 </a>
             </div>
         </div>
-        <div class="w-full flex-1 flex justify-center ">
+        <div class="w-full flex-1 flex justify-center">
             <!-- <TaglineImg /> -->
             <img class="flex-1" src="/front.svg" alt="" />
         </div>
@@ -142,7 +142,7 @@
         id="start"
     />
     <!-- choose what to learn -->
-    <div class="mb-16 ">
+    <div class="mb-16">
         <Heading
             customSize="text-3xl sm:text-6xl text-center font-extrabold "
             class=" mb-5 "
@@ -153,16 +153,16 @@
         </Heading>
     </div>
     <div class="flex justify-center gap-5 mb-20">
-        <div class="flex-[4] lg:flex lg:items-center hidden ">
+        <div class="flex-[4] lg:flex lg:items-center hidden">
             <img class="" src="/Choose.svg" alt="" />
         </div>
-        <div class="flex-[6] flex flex-col   ">
+        <div class="flex-[6] flex flex-col">
             {#if SubjectList.length != 0}
                 <div class="option-container gap-5">
                     {#each SubjectList as Subject}
                         <a
                             href={Subject.replace(/ /g, "-")}
-                            class=" rounded-md shadow-md hover:shadow-xl flex items-center border-2 p-5   transition hover:scale-110   "
+                            class=" rounded-md shadow-md hover:shadow-xl flex items-center border-2 p-5 transition hover:scale-110"
                         >
                             <div>
                                 <img

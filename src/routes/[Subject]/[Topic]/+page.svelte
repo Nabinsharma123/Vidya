@@ -15,6 +15,8 @@
     import { Spinner } from "flowbite-svelte";
     import ContentLeftPannel from "../../../lib/ContentLeftPannel.svelte";
 
+    import { jsontohtml } from "../../../lib/jsontohtml";
+
     var TopicList;
     var TopicData;
     var TopicDataHead;
@@ -73,18 +75,6 @@
 
             TopicData.innerHTML = "Commimg Soon";
         }
-    }
-    function jsontohtml(Json) {
-        var elementLocal = document.createElement(Json.type);
-        Json.attributes.forEach((e) => {
-            elementLocal.setAttribute(e.name, e.value);
-        });
-        Json.content.forEach((e) => {
-            if (e.type == "text")
-                elementLocal.innerHTML = elementLocal.innerHTML + e.textContent;
-            else elementLocal.appendChild(jsontohtml(e, elementLocal));
-        });
-        return elementLocal;
     }
 
     var selectedTopic;

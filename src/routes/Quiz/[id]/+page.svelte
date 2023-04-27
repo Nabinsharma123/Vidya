@@ -184,80 +184,67 @@
         </div>
     {:else if Quizstatus == "start"}
         <!-- quiz start -->
-        <div>
-            <MCQ
-                Question={{ ...Question[QuestionNum - 1], num: QuestionNum }}
-                totalQuestion={Question.length}
-                lastQuestion={QuestionNum == Question.length}
-                on:nextQuestion={() => {
-                    QuestionNum++;
 
-                    // second = perQuestionTime;
-                    // startTimer();
-                }}
-                on:rightAnswer={() => {
-                    // clearInterval(timer);
+        <MCQ
+            Question={{ ...Question[QuestionNum - 1], num: QuestionNum }}
+            totalQuestion={Question.length}
+            lastQuestion={QuestionNum == Question.length}
+            on:nextQuestion={() => {
+                QuestionNum++;
 
-                    userGivenAnswer.right++;
-                }}
-                on:wrongAnswer={() => {
-                    // clearInterval(timer);
-                    userGivenAnswer.wrong++;
-                }}
-                on:finish={async () => {
-                    Quizstatus = "loading";
-                    $notification = {
-                        color: "yellow",
-                        text: " We are saving your Progress please wait...",
-                    };
-                    try {
-                        clearInterval(totalTimer);
+                // second = perQuestionTime;
+                // startTimer();
+            }}
+            on:rightAnswer={() => {
+                // clearInterval(timer);
 
-                        var LeaderboardDocRef = doc(
-                            db,
-                            "JECA",
-                            "QuizLeaderboard"
+                userGivenAnswer.right++;
+            }}
+            on:wrongAnswer={() => {
+                // clearInterval(timer);
+                userGivenAnswer.wrong++;
+            }}
+            on:finish={async () => {
+                Quizstatus = "loading";
+                $notification = {
+                    color: "yellow",
+                    text: " We are saving your Progress please wait...",
+                };
+                try {
+                    clearInterval(totalTimer);
+
+                    var LeaderboardDocRef = doc(db, "JECA", "QuizLeaderboard");
+
+                    var userQuizData = await getDoc(
+                        doc(LeaderboardDocRef, subject, $userAuthData.uid)
+                    );
+                    if (userQuizData.exists()) {
+                        await updateDoc(
+                            doc(LeaderboardDocRef, subject, $userAuthData.uid),
+                            {
+                                score: userGivenAnswer.right,
+                                time: totalTime,
+                                Attempt: increment(1),
+                            }
                         );
-
-                        var userQuizData = await getDoc(
-                            doc(LeaderboardDocRef, subject, $userAuthData.uid)
+                    } else {
+                        await setDoc(
+                            doc(LeaderboardDocRef, subject, $userAuthData.uid),
+                            {
+                                name: $userAuthData.displayName,
+                                score: userGivenAnswer.right,
+                                time: totalTime,
+                                Attempt: 1,
+                            }
                         );
-                        if (userQuizData.exists()) {
-                            await updateDoc(
-                                doc(
-                                    LeaderboardDocRef,
-                                    subject,
-                                    $userAuthData.uid
-                                ),
-                                {
-                                    score: userGivenAnswer.right,
-                                    time: totalTime,
-                                    Attempt: increment(1),
-                                }
-                            );
-                        } else {
-                            await setDoc(
-                                doc(
-                                    LeaderboardDocRef,
-                                    subject,
-                                    $userAuthData.uid
-                                ),
-                                {
-                                    name: $userAuthData.displayName,
-                                    score: userGivenAnswer.right,
-                                    time: totalTime,
-                                    Attempt: 1,
-                                }
-                            );
-                        }
-                    } catch (e) {
-                        console.log(e);
                     }
+                } catch (e) {
+                    console.log(e);
+                }
 
-                    Quizstatus = "finished";
-                }}
-            />
-        </div>
+                Quizstatus = "finished";
+            }}
+        />
     {:else if Quizstatus == "finished"}
         <!-- finished -->
         <div
