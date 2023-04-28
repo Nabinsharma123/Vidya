@@ -23,7 +23,9 @@
     } from "firebase/firestore";
     import { onDestroy } from "svelte";
     import { jsontohtml } from "../../../lib/jsontohtml";
+    import Feedback from "../../../lib/Feedback.svelte";
 
+    var feedback = false;
     var Questions = [];
     var UserAnswers = [];
     var testId = $page.params.id;
@@ -181,7 +183,7 @@
         } catch (e) {
             console.log(e);
         }
-
+        feedback = true;
         TestStatus = "Completed";
     }
     onDestroy(() => {
@@ -424,6 +426,14 @@
                 </div>
             </div>
         </div>
+    {/if}
+    {#if feedback}
+        <Feedback
+            from={`${testId}-MockTest`}
+            on:close={() => {
+                feedback = false;
+            }}
+        />
     {/if}
 </div>
 

@@ -49,7 +49,7 @@
 
     {#if tests.length != 0}
         {#each tests as { name, active }}
-            <div class="relative w-fit">
+            <div class="relative w-fit inline-block">
                 {#if !active}
                     <div
                         class="absolute -top-2 z-10 -right-1 bg-white rounded-full p-0.5"

@@ -6,6 +6,7 @@
     import { Heading } from "flowbite-svelte";
     import { db } from "../../firebaseConfig";
     import { notification, userAuthData } from "../../store";
+    import Feedback from "../../../lib/Feedback.svelte";
     import {
         collection,
         doc,
@@ -22,6 +23,7 @@
     var subject = $page.params.id;
 
     var QuestionNum = 1;
+    var feedback = false;
 
     var userGivenAnswer = {
         right: 0,
@@ -241,7 +243,7 @@
                 } catch (e) {
                     console.log(e);
                 }
-
+                feedback = true;
                 Quizstatus = "finished";
             }}
         />
@@ -310,6 +312,15 @@
             prop={{ type: "Quiz", subject: subject }}
             on:back={() => {
                 Quizstatus = "menu";
+            }}
+        />
+    {/if}
+
+    {#if feedback}
+        <Feedback
+            from={`${subject}-Quiz`}
+            on:close={() => {
+                feedback = false;
             }}
         />
     {/if}
