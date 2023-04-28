@@ -1,12 +1,12 @@
 <script>
     import { page } from "$app/stores";
-    import { db } from "../firebaseConfig";
+    import { db } from "../../firebaseConfig";
     // import Questions from "./qus";
     import { Heading, Button, Spinner, Hr, P } from "flowbite-svelte";
 
     import { fade, slide } from "svelte/transition";
-    import { notification, userAuthData } from "../store";
-    import Leaderboard from "../../lib/Leaderboard.svelte";
+    import { notification, userAuthData } from "../../store";
+    import Leaderboard from "../../../lib/Leaderboard.svelte";
 
     import {
         collection,
@@ -22,11 +22,11 @@
         onSnapshot,
     } from "firebase/firestore";
     import { onDestroy } from "svelte";
-    import { jsontohtml } from "../../lib/jsontohtml";
+    import { jsontohtml } from "../../../lib/jsontohtml";
 
     var Questions = [];
     var UserAnswers = [];
-    var testId = $page.url.searchParams.get("id");
+    var testId = $page.params.id;
     var warningPopUp;
     var lockStartButton = false;
 
@@ -37,11 +37,7 @@
     fetchUserData();
     async function fetchUserData() {
         userTestData = await getDoc(
-            doc(
-                doc(db, "JECA", "MockTestUserInfo"),
-                `MockTest${testId}`,
-                $userAuthData.uid
-            )
+            doc(doc(db, "JECA", "MockTestUserInfo"), testId, $userAuthData.uid)
         );
         if (userTestData.exists()) {
             if (userTestData.data().availableAttempt == 0)
@@ -53,7 +49,7 @@
             await setDoc(
                 doc(
                     doc(db, "JECA", "MockTestUserInfo"),
-                    `MockTest${testId}`,
+                    testId,
                     $userAuthData.uid
                 ),
                 {
@@ -65,11 +61,7 @@
         }
 
         unsubscribe = onSnapshot(
-            doc(
-                doc(db, "JECA", "MockTestUserInfo"),
-                `MockTest${testId}`,
-                $userAuthData.uid
-            ),
+            doc(doc(db, "JECA", "MockTestUserInfo"), testId, $userAuthData.uid),
             (res) => {
                 console.log(res.data());
                 userTestData = res;
@@ -86,17 +78,13 @@
     async function fetchTestData() {
         TestStatus = "Loading";
         await updateDoc(
-            doc(
-                doc(db, "JECA", "MockTestUserInfo"),
-                `MockTest${testId}`,
-                $userAuthData.uid
-            ),
+            doc(doc(db, "JECA", "MockTestUserInfo"), testId, $userAuthData.uid),
             {
                 availableAttempt: increment(-1),
             }
         );
         var res = await getDocs(
-            collection(doc(db, "JECA", "MockTest"), `MockTest${testId}`)
+            collection(doc(db, "JECA", "MockTest"), testId)
         );
         Questions = [];
         res.forEach((doc) => {
@@ -168,15 +156,11 @@
             var LeaderboardDocRef = doc(db, "JECA", "MockTestLeaderboard");
 
             var userTestData = await getDoc(
-                doc(LeaderboardDocRef, `MockTest${testId}`, $userAuthData.uid)
+                doc(LeaderboardDocRef, testId, $userAuthData.uid)
             );
             if (userTestData.exists()) {
                 await updateDoc(
-                    doc(
-                        LeaderboardDocRef,
-                        `MockTest${testId}`,
-                        $userAuthData.uid
-                    ),
+                    doc(LeaderboardDocRef, testId, $userAuthData.uid),
                     {
                         score: score,
                         time: examTime - totalTime,
@@ -185,11 +169,7 @@
                 );
             } else {
                 await setDoc(
-                    doc(
-                        LeaderboardDocRef,
-                        `MockTest${testId}`,
-                        $userAuthData.uid
-                    ),
+                    doc(LeaderboardDocRef, testId, $userAuthData.uid),
                     {
                         name: $userAuthData.displayName,
                         score: score,
@@ -219,7 +199,7 @@
                 class=" select-none flex flex-col gap-3 items-center justify-center text-xl font-bold m-3 py-5 px-7 bg-white border border-gray-200 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
             >
                 <Heading customSize="text-4xl text-extrabold text-center"
-                    >MockTest {testId}</Heading
+                    >{testId}</Heading
                 >
                 <Hr />
                 <div class="flex relative gap-8 flex-col p-8">
@@ -403,7 +383,7 @@
                 class=" select-none flex flex-col gap-3 items-center justify-center text-xl font-bold m-3 py-5 px-7 bg-white border border-gray-200 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
             >
                 <Leaderboard
-                    prop={{ type: "MockTest", subject: `MockTest${testId}` }}
+                    prop={{ type: "MockTest", subject: testId }}
                     on:back={() => {
                         TestStatus = "Menu";
                     }}

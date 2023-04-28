@@ -58,7 +58,7 @@
         </div>
     {:else}
         <div class="   ">
-            {#if $page.route.id != "/Quiz/[id]" && $page.route.id != "/MockTest"}
+            {#if $page.route.id != "/Quiz/[id]" && $page.route.id != "/MockTest/[id]"}
                 <Navbar />
             {/if}
 
@@ -68,7 +68,7 @@
             >
                 <slot />
             </div>
-            {#if $page.route.id != "/Quiz/[id]" && $page.route.id != "/MockTest"}
+            {#if $page.route.id != "/Quiz/[id]" && $page.route.id != "/MockTest/[id]"}
                 <div class="">
                     <Footer />
                 </div>

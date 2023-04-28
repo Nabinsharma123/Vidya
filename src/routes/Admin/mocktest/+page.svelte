@@ -1,20 +1,29 @@
 <script>
     import { Button, Spinner } from "flowbite-svelte";
     import { fade, fly } from "svelte/transition";
-    import { onMount } from "svelte";
+    import { onMount, onDestroy } from "svelte";
     import { notification } from "../../store";
-    import { addDoc, doc, collection } from "firebase/firestore";
+    import {
+        addDoc,
+        doc,
+        collection,
+        onSnapshot,
+        updateDoc,
+        arrayUnion,
+    } from "firebase/firestore";
     import { db } from "../../firebaseConfig";
     import { htmltojson } from "../../../lib/htmltojson";
 
     var mainData = {
+        id: 0,
         Question: {},
         Options: ["", "", "", ""],
-        Answer: null,
-        Value: null,
+        Answer: 1,
+        Value: 1,
     };
     var loading = false;
     var EditorToolbar, Editor;
+    var SelectedTest = 0;
     onMount(async () => {
         loading = true;
         // await fetchInitialData();
@@ -59,6 +68,42 @@
         };
     });
 
+    var MockTestList = [];
+    var newTest;
+    var MockTestdocRef = doc(db, "JECA", "MockTest");
+    const unsubscribe = onSnapshot(
+        MockTestdocRef,
+        (res) => {
+            MockTestList = [];
+
+            res.data().test.forEach((e) => {
+                MockTestList = [
+                    ...MockTestList,
+                    {
+                        name: e,
+
+                        lastId: res.data().lastId[e].lastId,
+                        active: res.data().lastId[e].active,
+                    },
+                ];
+            });
+
+            // subjects.map((a, index) => {
+            //     if (a.name == prevsub) {
+            //         SelectedSubject = index;
+            //     }
+            // });
+            loading = false;
+        },
+        (err) => {
+            console.log(err);
+        }
+    );
+
+    onDestroy(() => {
+        unsubscribe();
+    });
+
     async function UploadData() {
         loading = true;
         var dom = document.createElement("div");
@@ -66,24 +111,99 @@
         var data = htmltojson(dom);
         console.log(data);
         mainData.Question = { data };
-        var res = await addDoc(
-            collection(doc(db, "JECA", "MockTest"), "MockTest1"),
-            mainData
-        );
+        mainData.id = MockTestList[SelectedTest].lastId + 1;
+        await Promise.all([
+            await addDoc(
+                collection(MockTestdocRef, MockTestList[SelectedTest].name),
+                mainData
+            ),
+            await updateDoc(MockTestdocRef, {
+                [`lastId.${MockTestList[SelectedTest].name}.lastId`]:
+                    mainData.id,
+                // [`lastId.${subjects[SelectedSubject].name}`]: increment(1),
+            }),
+        ]);
         mainData = {
+            id: 0,
             Question: {},
             Options: ["", "", "", ""],
-            Answer: null,
-            Value: null,
+            Answer: 1,
+            Value: 1,
         };
         Editor.ckeditorInstance.setData("");
         loading = false;
-        console.log(res);
     }
 </script>
 
 <div class="mt-7">
     <form action="" on:submit={UploadData}>
+        <div class="flex gap-2 mb-3">
+            <select required bind:value={SelectedTest} name="" id="">
+                {#each MockTestList as Test, index}
+                    <option value={index}>{Test.name}</option>
+                {/each}
+            </select>
+
+            <div
+                class="rounded-md bg-blue-600 flex justify-center items-center text-white px-2 font-bold"
+            >
+                Total Question : {MockTestList[SelectedTest]
+                    ? MockTestList[SelectedTest].lastId
+                    : ""}
+            </div>
+            <div>
+                Active
+                <select
+                    value={MockTestList[SelectedTest]
+                        ? MockTestList[SelectedTest].active
+                        : ""}
+                    on:change={(e) => {
+                        updateDoc(MockTestdocRef, {
+                            [`lastId.${MockTestList[SelectedTest].name}.active`]:
+                                e.target.value == "true" ? true : false,
+                        });
+                    }}
+                    name=""
+                    id=""
+                >
+                    <option value={true}>True</option>
+                    <option value={false}>False</option>
+                </select>
+            </div>
+        </div>
+        <div class="mt-3">
+            <input
+                bind:value={newTest}
+                type="text"
+                placeholder="Add new Test"
+            />
+            <Button
+                on:click={async () => {
+                    try {
+                        if (newTest != "" || newTest != " ") {
+                            loading = true;
+                            await updateDoc(MockTestdocRef, {
+                                [`lastId.${newTest}.lastId`]: 0,
+                                [`lastId.${newTest}.active`]: false,
+
+                                test: arrayUnion(newTest),
+                            });
+                            $notification = {
+                                color: "green",
+                                text: "Added",
+                            };
+                            newTest = "";
+                        }
+                    } catch (e) {
+                        loading = false;
+                        $notification = {
+                            color: "red",
+                            text: e,
+                        };
+                    }
+                }}>Add</Button
+            >
+        </div>
         <div>
             <h1>Question</h1>
             <div class="my-4">

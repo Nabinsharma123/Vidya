@@ -14,7 +14,14 @@
                 tests = $JECAMockTestList;
             } else {
                 var res = await getDoc(doc(db, "JECA", "MockTest"));
-                tests = res.data().test;
+                // tests = res.data().test
+                tests = [];
+                res.data().test.forEach((e) => {
+                    tests = [
+                        ...tests,
+                        { name: e, active: res.data().lastId[e].active },
+                    ];
+                });
                 console.log(tests);
 
                 $JECAMockTestList = tests;
@@ -41,7 +48,7 @@
     </div>
 
     {#if tests.length != 0}
-        {#each tests as { id, active }}
+        {#each tests as { name, active }}
             <div class="relative w-fit">
                 {#if !active}
                     <div
@@ -51,13 +58,13 @@
                     </div>
                 {/if}
 
-                <a href={active ? `/MockTest?id=${id}` : ""}>
+                <a href={active ? `/MockTest/${name}` : ""}>
                     <button
                         disabled={!active}
                         type="button"
                         class="disabled:opacity-80 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-bold rounded-lg text-lg px-5 py-2.5 text-center mr-2 mb-2"
                     >
-                        Mock Test {id}</button
+                        {name}</button
                     >
                 </a>
             </div>

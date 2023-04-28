@@ -3,7 +3,7 @@
     import { fade, fly } from "svelte/transition";
     import { notification, authStatus } from "../../store";
     import { db } from "../../firebaseConfig";
-
+    import { htmltojson } from "../../../lib/htmltojson";
     import {
         collection,
         updateDoc,
@@ -12,42 +12,74 @@
         getDoc,
         addDoc,
         increment,
+        onSnapshot,
     } from "firebase/firestore";
-
+    import { onMount, onDestroy } from "svelte";
     var loading = false;
     var subjects = [];
     var newSubject = "";
     var prevsub;
     var SelectedSubject = 0;
-    $: console.log(subjects[SelectedSubject]);
+    // $: console.log(subjects[SelectedSubject]);
+
+    var EditorToolbar, Editor;
+    onMount(async () => {
+        loading = true;
+        // await fetchInitialData();
+        let script = document.createElement("script");
+        script.src = "/editor/ckeditor.js";
+        document.head.append(script);
+        script.onload = function () {
+            DecoupledDocumentEditor.create(Editor, {
+                codeBlock: {
+                    languages: [
+                        { language: "plaintext", label: "Plain text" },
+                        { language: "c", label: "C" },
+
+                        { language: "cpp", label: "C++" },
+                        { language: "css", label: "CSS" },
+                        { language: "sql", label: "SQL" },
+
+                        { language: "html", label: "HTML" },
+                        { language: "java", label: "Java" },
+                        { language: "javascript", label: "JavaScript" },
+
+                        { language: "python", label: "Python" },
+                    ],
+                },
+            })
+                .then((editor) => {
+                    const toolbarContainer = EditorToolbar;
+
+                    toolbarContainer.appendChild(
+                        editor.ui.view.toolbar.element
+                    );
+                    loading = false;
+                })
+                .catch((error) => {
+                    console.error(error);
+                    $notification = {
+                        color: "red",
+
+                        text: error,
+                    };
+                });
+        };
+    });
 
     var mainData = {
         id: 0,
-        Question: "",
+        Question: {},
         Options: ["", "", "", ""],
         Answer: 1,
     };
 
     const QuizdocRef = doc(db, "JECA", "Quiz");
 
-    getSubjectList();
-    async function getSubjectList() {
-        try {
-            var res = await getDoc(QuizdocRef);
-
+    const unsubscribe = onSnapshot(
+        QuizdocRef,
+        (res) => {
             subjects = [];
-            // subjects = res.data();
-
-            // for (const key in res.data()) {
-            //     subjects = [
-            //         ...subjects,
-            //         {
-            //             name: key,
-
-            //             lastId: res.data()[key],
-            //         },
-            //     ];
-            // }
 
             res.data().subjectList.forEach((e) => {
                 subjects = [
@@ -60,24 +92,26 @@
                 ];
             });
 
-            console.log(subjects);
             subjects.map((a, index) => {
                 if (a.name == prevsub) {
                     SelectedSubject = index;
                 }
             });
             loading = false;
-        } catch (e) {
-            loading = false;
-            $notification = {
-                color: "red",
-                text: e,
-            };
+        },
+        (err) => {
+            console.log(err);
         }
-    }
+    );
+
+    onDestroy(() => {
+        unsubscribe();
+    });
 
     async function addQuestion() {
         try {
+            console.log(subjects[SelectedSubject]);
+
             loading = true;
             mainData.id = subjects[SelectedSubject].lastId + 1;
             prevsub = subjects[SelectedSubject].name;
@@ -85,6 +119,12 @@
                 QuizdocRef,
                 subjects[SelectedSubject].name
             );
+
+            var dom = document.createElement("div");
+            dom.innerHTML = Editor.ckeditorInstance.getData();
+            var data = htmltojson(dom);
+            console.log(data);
+            mainData.Question = data;
 
             await Promise.all([
                 await addDoc(QuizcolRef, mainData),
@@ -94,7 +134,7 @@
                 }),
             ]);
 
-            getSubjectList();
+            // getSubjectList();
 
             $notification = {
                 color: "green",
@@ -102,10 +142,11 @@
             };
             mainData = {
                 id: 0,
-                Question: "",
+                Question: {},
                 Options: ["", "", "", ""],
                 Answer: 1,
             };
+            Editor.ckeditorInstance.setData("");
 
             loading = false;
         } catch (e) {
@@ -116,34 +157,6 @@
                 text: e,
             };
         }
-
-        // addDoc(QuizcolRef, mainData)
-        //     .then((e) => {
-        //         console.log(e);
-
-        //         updateDoc(QuizdocRef, {
-        //             subjects: newSublist,
-        //         }).then(() => {
-        //             getSubjectList();
-
-        //             $notification = {
-        //                 color: "green",
-        //                 text: "Added",
-        //             };
-        //             mainData = {
-        //                 id: 0,
-        //                 Question: "",
-        //                 Options: ["", "", "", ""],
-        //                 Answer: 1,
-        //             };
-        //         });
-        //     })
-        //     .catch((e) => {
-        //         $notification = {
-        //             color: "red",
-        //             text: e,
-        //         };
-        //     });
     }
 </script>
 
@@ -151,11 +164,21 @@
     <form action="" on:submit={addQuestion}>
         <h1 class="mb-3 text-xl">Choose subject</h1>
         <div>
-            <select required bind:value={SelectedSubject} name="" id="">
-                {#each subjects as subject, index}
-                    <option value={index}>{subject.name}</option>
-                {/each}
-            </select>
+            <div class="flex gap-2">
+                <select required bind:value={SelectedSubject} name="" id="">
+                    {#each subjects as subject, index}
+                        <option value={index}>{subject.name}</option>
+                    {/each}
+                </select>
+
+                <div
+                    class="rounded-md bg-blue-600 flex justify-center items-center text-white px-2 font-bold"
+                >
+                    Total Question : {subjects[SelectedSubject]
+                        ? subjects[SelectedSubject].lastId
+                        : ""}
+                </div>
+            </div>
             <div class="mt-3">
                 <input
                     bind:value={newSubject}
@@ -167,20 +190,11 @@
                         try {
                             if (newSubject != "" || newSubject != " ") {
                                 loading = true;
-                                // await updateDoc(QuizdocRef, {
-                                //     subjects: arrayUnion({
-                                //         name: newSubject,
-                                //         lastId: 0,
-                                //     }),
-                                // });
 
                                 await updateDoc(QuizdocRef, {
                                     [`lastId.${newSubject}`]: 0,
                                     subjectList: arrayUnion(newSubject),
                                 });
-                                await getSubjectList();
-
-                                loading = false;
 
                                 $notification = {
                                     color: "green",
@@ -206,13 +220,15 @@
         <div class="mt-7">
             <div>
                 <h1>Question</h1>
-                <input
-                    required
-                    bind:value={mainData.Question}
-                    id="question"
-                    class="w-[600px]"
-                    type="text"
-                />
+                <div class="my-4">
+                    <div bind:this={EditorToolbar} />
+                    <div
+                        style="border: 1px solid gray; min-height: 50px; overflow: auto;"
+                        bind:this={Editor}
+                    >
+                        write here
+                    </div>
+                </div>
             </div>
             <h1>Options</h1>
             <div class="grid grid-cols-2 w-[600px] gap-2 mb-4">
@@ -248,7 +264,7 @@
         </div>
     </form>
 </div>
-{#if true}
+{#if loading}
     <div
         transition:fade
         class="fixed top-0 left-0 flex justify-center items-center w-screen h-screen bg-black/50"
@@ -257,8 +273,7 @@
             transition:fly={{ y: 500, duration: 500 }}
             class=" relative p-10 justify-center bg-white rounded-md shadow-md"
         >
-            <!-- <Spinner /> -->
-            hold on
+            <Spinner />
         </div>
     </div>
 {/if}

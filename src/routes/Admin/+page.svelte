@@ -1,12 +1,12 @@
 <script>
     import { Button } from "flowbite-svelte";
-    import { notification } from "../store";
-    import { onMount } from "svelte";
-    import { htmltojson } from "../../lib/htmltojson";
-    import { jsontohtml } from "../../lib/jsontohtml";
-    import { db } from "../firebaseConfig";
-    import { getDocs, doc, collection, updateDoc } from "firebase/firestore";
-    var EditorToolbar, Editor;
+    // import { notification } from "../store";
+    // import { onMount } from "svelte";
+    // import { htmltojson } from "../../lib/htmltojson";
+    // import { jsontohtml } from "../../lib/jsontohtml";
+    // import { db } from "../firebaseConfig";
+    // import { getDocs, doc, collection, updateDoc } from "firebase/firestore";
+    // var EditorToolbar, Editor;
 
     // onMount(async () => {
     //     // await fetchInitialData();
