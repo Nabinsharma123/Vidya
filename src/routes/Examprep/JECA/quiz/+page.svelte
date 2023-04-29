@@ -18,10 +18,7 @@
                 $JECAQuizList = subjects;
             }
         } catch (e) {
-            $notification = {
-                color: "red",
-                text: e,
-            };
+            console.log(e);
         }
     }
 </script>
@@ -35,15 +32,15 @@
 >
 
 {#if subjects.length != 0}
-    <div class="mt-7 ">
+    <div class="mt-7">
         {#each subjects as subject}
             <a
                 href={`/Quiz/${subject}`}
-                class="button inline-block mr-4 mt-4 group hover:-translate-y-2 hover:shadow-xl hover:shadow-yellow-400/70  hover:bg-yellow-400 hover:border-yellow-400 max-w-sm p-4 bg-gray-800 border border-yellow-400 rounded-lg shadow  dark:bg-gray-800  dark:border-yellow-400 dark:hover:bg-yellow-400"
+                class="button inline-block mr-4 mt-4 group hover:-translate-y-2 hover:shadow-xl hover:shadow-yellow-400/70 hover:bg-yellow-400 hover:border-yellow-400 max-w-sm p-4 bg-gray-800 border border-yellow-400 rounded-lg shadow dark:bg-gray-800 dark:border-yellow-400 dark:hover:bg-yellow-400"
                 style="transition: 0.3s;"
             >
                 <h1
-                    class="text-xl md:text-2xl font-extrabold leading-none tracking-tight text-yellow-400  dark:text-white"
+                    class="text-xl md:text-2xl font-extrabold leading-none tracking-tight text-yellow-400 dark:text-white"
                 >
                     {subject}
                 </h1>

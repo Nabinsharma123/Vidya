@@ -27,10 +27,7 @@
                 $JECAMockTestList = tests;
             }
         } catch (e) {
-            $notification = {
-                color: "red",
-                text: e,
-            };
+            console.log(e);
         }
     }
 </script>

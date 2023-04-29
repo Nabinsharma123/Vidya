@@ -183,7 +183,6 @@
         } catch (e) {
             console.log(e);
         }
-        feedback = true;
         TestStatus = "Completed";
     }
     onDestroy(() => {
@@ -373,6 +372,7 @@
                     <Button
                         on:click={() => {
                             TestStatus = "Menu";
+                            feedback = true;
                         }}
                         size="xl">Back</Button
                     >

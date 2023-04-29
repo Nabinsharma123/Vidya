@@ -77,6 +77,21 @@
         </div>
     {/if}
 </div>
+{#if !$authStatus && $page.route.id != "/"}
+    <div
+        transition:fade
+        class="fixed top-0 z-20 left-0 flex justify-center items-center w-screen h-screen bg-black/40"
+    >
+        <div class="bg-white/20 rounded-md">
+            <div
+                transition:fly={{ y: 500, duration: 500 }}
+                class="text-2xl text-center md:text-3xl h-[70vh] p-4 w-[90vw] text-red-500 font-bold border-2 bg-red-200/50 border-red-500 rounded-md z-10 flex justify-center items-center backdrop-blur-md"
+            >
+                You need to Log in with a verified email
+            </div>
+        </div>
+    </div>
+{/if}
 
 {#if $notification}
     <Notification

@@ -93,16 +93,6 @@
 </svelte:head> -->
 
 <div class="relative">
-    {#if !$authStatus}
-        <div
-            class="absolute border-2 bg-red-200/50 border-red-500 rounded-md z-10 flex justify-center items-center backdrop-blur-sm w-full h-full top-0 left-0"
-        >
-            <h1 class="text-xl text-red-500 font-bold">
-                You need to Log with a verified email
-            </h1>
-        </div>
-    {/if}
-
     <button
         class="fixed z-10 border border-gray-800 top-16 left-5 bg-white p-2 rounded-lg md:hidden"
         on:click={() => {

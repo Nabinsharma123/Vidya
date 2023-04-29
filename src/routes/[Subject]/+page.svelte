@@ -43,15 +43,6 @@
 </svelte:head>
 
 <div class="relative my-10">
-    {#if !$authStatus}
-        <div
-            class="absolute border-2 bg-red-200/50 border-red-500 rounded-md z-10 flex justify-center items-center backdrop-blur-sm w-full h-full top-0 left-0"
-        >
-            <h1 class="text-xl text-red-500 font-bold">
-                You need to Log with a verified email
-            </h1>
-        </div>
-    {/if}
     <div class="my-12">
         <div class="flex flex-col md:flex-row">
             <div class="flex-1 flex justify-center md:block">

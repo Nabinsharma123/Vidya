@@ -27,7 +27,7 @@
 >
     <div
         transition:fly={{ y: 500, duration: 500 }}
-        class=" relative p-8 bg-white w-full md:w-[500px] rounded-md shadow-md"
+        class=" relative p-8 pb-32 md:pb-8 bg-white w-full md:w-[500px] rounded-md shadow-md"
     >
         <button
             on:click={() => {

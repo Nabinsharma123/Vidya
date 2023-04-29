@@ -12,9 +12,16 @@
     function sendmail() {
         sendEmailVerification($userAuthData, {
             url: "https://vidyaa.netlify.app/",
-        }).then(() => {
-            ismailSend = true;
-        });
+        })
+            .then(() => {
+                ismailSend = true;
+            })
+            .catch((error) => {
+                $notification = {
+                    text: error.code,
+                    color: "red",
+                };
+            });
     }
     function SignOut() {
         const auth = getAuth();

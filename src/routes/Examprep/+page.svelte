@@ -12,15 +12,6 @@
     in:fly={{ y: 200, duration: 500 }}
     class=" mt-7 flex flex-1 justify-center"
 >
-    {#if !$authStatus}
-        <div
-            class="absolute border-2 bg-red-200/50 border-red-500 rounded-md z-10 flex justify-center items-center backdrop-blur-sm w-full h-screen top-0 left-0"
-        >
-            <h1 class="  text-xl text-red-500 font-bold">
-                You need to Log with a verified email
-            </h1>
-        </div>
-    {/if}
     <div
         class="block p-6 shadow-xl bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
     >
