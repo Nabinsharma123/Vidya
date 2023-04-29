@@ -2,28 +2,43 @@
     import { fade, fly } from "svelte/transition";
     import { clickOutside } from "./click_outside.js";
     import { createEventDispatcher } from "svelte";
-    import { sendEmailVerification } from "firebase/auth";
-    import { userAuthData } from "../routes/store.js";
-    import { Heading, Button } from "flowbite-svelte";
+    import { sendEmailVerification, getAuth, signOut } from "firebase/auth";
+    import { userAuthData, authStatus, notification } from "../routes/store.js";
+    import { Heading, Button, P } from "flowbite-svelte";
+
     const dispatch = createEventDispatcher();
 
     var ismailSend = false;
     function sendmail() {
-        sendEmailVerification($userAuthData).then(() => {
+        sendEmailVerification($userAuthData, {
+            url: "https://vidyaa.netlify.app/",
+        }).then(() => {
             ismailSend = true;
         });
+    }
+    function SignOut() {
+        const auth = getAuth();
+        signOut(auth)
+            .then(() => {
+                $authStatus = false;
+                $userAuthData = false;
+            })
+            .catch((error) => {
+                $notification = {
+                    text: error.code,
+                    color: "red",
+                };
+            });
     }
 </script>
 
 <div
     transition:fade
-    class="fixed top-0 left-0 flex justify-center items-center w-screen h-screen bg-black/50"
+    class="fixed top-0 z-20 left-0 flex justify-center items-center w-screen h-screen bg-black/50"
 >
     <div
-        use:clickOutside
-        on:outclick={() => dispatch("close")}
         transition:fly={{ y: 500, duration: 500 }}
-        class=" relative   p-10 justify-center  bg-white   rounded-md shadow-md "
+        class=" relative p-10 justify-center bg-white rounded-md shadow-md"
     >
         {#if ismailSend}
             <div class="text-center flex flex-col items-center">
@@ -35,9 +50,6 @@
                 </div>
                 <Heading customSize="text-xl font-bold"
                     >Please Check your inbox
-                </Heading>
-                <Heading customSize="text-xl font-bold"
-                    >*Reload the page after verify your email
                 </Heading>
             </div>
         {:else}
@@ -51,5 +63,8 @@
                 >
             </div>
         {/if}
+        <button on:click={SignOut} class="w-full underline mt-1"
+            >Use another email</button
+        >
     </div>
 </div>

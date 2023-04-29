@@ -132,96 +132,110 @@
     transition:fly={{ y: 500, duration: 500 }}
     use:clickOutside
     on:outclick={() => dispatch("close")}
-    class=" relative  flex p-8 justify-center  bg-white w-full md:w-[800px] rounded-md shadow-md "
+    class=" relative flex p-8 justify-center bg-white pb-32 md:pb-8 w-full md:w-[800px] rounded-md shadow-md"
   >
-    <div class="w-full  md:pr-8">
-      <h1 class="text-3xl mb-5 ">Register</h1>
-      <div class="flex gap-2 items-center mb-3 ">
-        <div class="flex-1">
-          <div class="relative">
-            <input
-              bind:value={userData.userName}
-              type="text"
-              id="username"
-              class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-500 peer"
-              placeholder=" "
-            />
-            <label
-              for="username"
-              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-green-500 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-              >Username</label
+    <div class="w-full md:pr-8">
+      <h1 class="text-3xl mb-5">Register</h1>
+
+      <form
+        action=""
+        on:submit={(e) => {
+          e.preventDefault();
+          submitData();
+        }}
+      >
+        <div class="flex gap-2 items-center mb-3">
+          <div class="flex-1">
+            <div class="relative">
+              <input
+                bind:value={userData.userName}
+                type="text"
+                id="username"
+                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-500 peer"
+                placeholder=" "
+                required
+              />
+              <label
+                for="username"
+                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-green-500 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+                >Username</label
+              >
+            </div>
+          </div>
+          <div class="" style="flex-basis: 100px; flex-grow: 0;flex-shrink: 0;">
+            <Select
+              id="countries"
+              class=" px-2.5 pb-2.5 pt-4 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-500"
+              bind:value={userData.gender}
+              placeholder=""
             >
+              <option value="F">Female</option>
+              <option value="M">Male</option>
+            </Select>
+          </div>
+          <div class=" " style="flex-basis:48px ;flex-grow: 0;flex-shrink: 0;">
+            <img class=" rounded-md" src={avatar} alt="" />
           </div>
         </div>
-        <div class="" style="flex-basis: 100px; flex-grow: 0;flex-shrink: 0;">
-          <Select
-            id="countries"
-            class=" px-2.5 pb-2.5 pt-4 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-500"
-            bind:value={userData.gender}
-            placeholder=""
+
+        <div class="relative mb-3">
+          <input
+            bind:value={userData.email}
+            type="email"
+            id="email"
+            class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-500 peer"
+            placeholder=" "
+            required
+          />
+          <label
+            for="email"
+            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-green-500 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+            >Email</label
           >
-            <option value="F">Female</option>
-            <option value="M">Male</option>
-          </Select>
         </div>
-        <div class=" " style="flex-basis:48px ;flex-grow: 0;flex-shrink: 0;">
-          <img class=" rounded-md " src={avatar} alt="" />
+        <div class="relative mb-3">
+          <input
+            bind:value={userData.password}
+            type="password"
+            id="password"
+            class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-500 peer"
+            placeholder=" "
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{`{8,}`}"
+            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+            required
+          />
+          <label
+            for="password"
+            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-green-500 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+            >Password</label
+          >
         </div>
-      </div>
+        <div class="w-full flex justify-end">
+          <button
+            on:click={() => {
+              dispatch("oldUser");
+            }}
+            class="text-md font-semibold hover:text-blue-700 cursor-pointer"
+          >
+            Already have an account?
+          </button>
+        </div>
 
-      <div class="relative mb-3">
-        <input
-          bind:value={userData.email}
-          type="email"
-          id="email"
-          class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-500 peer"
-          placeholder=" "
-        />
-        <label
-          for="email"
-          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-green-500 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-          >Email</label
-        >
-      </div>
-      <div class="relative mb-3">
-        <input
-          bind:value={userData.password}
-          type="password"
-          id="password"
-          class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-500 peer"
-          placeholder=" "
-        />
-        <label
-          for="password"
-          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-green-500 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-          >Password</label
-        >
-      </div>
-      <div class="w-full flex justify-end">
         <button
-          on:click={() => {
-            dispatch("oldUser");
-          }}
-          class="text-md font-semibold hover:text-blue-700 cursor-pointer"
+          type="submit"
+          class="w-full text-md mt-2 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg px-5 py-2.5 text-center mr-2 mb-2"
         >
-          Already have an account?
+          Register
         </button>
-      </div>
-
-      <button
-        on:click={submitData}
-        class="w-full text-md mt-2 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg  px-5 py-2.5 text-center mr-2 mb-2"
-      >
-        Register
-      </button>
+      </form>
 
       <div class="my-2 w-full flex items-center justify-center">
-        <hr class="border w-full " />
+        <hr class="border w-full" />
         <h1 class=" mx-2 text-lg font-bold">Or</h1>
-        <hr class="border w-full " />
+        <hr class="border w-full" />
       </div>
 
-      <div class=" w-full flex justify-center ">
+      <div class=" w-full flex justify-center">
         <button
           class="w-fit p-2 rounded-md"
           style="box-shadow: 0 1px 4px .1px ;"
@@ -241,9 +255,9 @@
     </div>
 
     <div
-      class=" hidden border-l border-gray-600 pl-3 w-full  md:flex items-center justify-center "
+      class=" hidden border-l border-gray-600 pl-3 w-full md:flex items-center justify-center"
     >
-      <img class="w-full " src="/Sighup.svg" alt="" />
+      <img class="w-full" src="/Sighup.svg" alt="" />
     </div>
     {#if loading}
       <div

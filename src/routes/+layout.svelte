@@ -18,9 +18,8 @@
 
     onAuthStateChanged(auth, (user) => {
         loading = false;
-
         if (user) {
-            // console.log(user);
+            console.log(user);
             $userAuthData = user;
             if (user.emailVerified) {
                 $authStatus = true;
@@ -28,6 +27,8 @@
                 $authStatus = false;
                 emailvarification = true;
             }
+        } else {
+            emailvarification = false;
         }
     });
 </script>
@@ -88,11 +89,7 @@
     />
 {/if}
 {#if emailvarification}
-    <Emailvarification
-        on:close={() => {
-            emailvarification = false;
-        }}
-    />
+    <Emailvarification />
 {/if}
 
 <style>

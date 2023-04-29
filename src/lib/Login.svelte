@@ -83,69 +83,78 @@
 
 <div
   transition:fade
-  class="fixed z-20 top-0 left-0 flex justify-center items-end md:items-center w-screen h-screen bg-black/50 "
+  class="fixed z-20 top-0 left-0 flex justify-center items-end md:items-center w-screen h-screen bg-black/50"
 >
   <div
     transition:fly={{ y: 500, duration: 500 }}
     use:clickOutside
     on:outclick={() => dispatch("close")}
-    class=" flex relative p-8  bg-white w-full md:w-[700px] rounded-md shadow-md "
+    class=" flex relative p-8 bg-white w-full pb-32 md:pb-8 md:w-[700px] rounded-md shadow-md"
   >
-    <div class="w-full  md:pr-8">
+    <div class="w-full md:pr-8">
       <h1 class="text-3xl mb-5">Log In</h1>
-
-      <div class="relative mb-3">
-        <input
-          bind:value={userData.email}
-          type="email"
-          id="email"
-          class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-          placeholder=" "
-        />
-        <label
-          for="email"
-          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-          >Email</label
-        >
-      </div>
-      <div class="relative mb-3">
-        <input
-          bind:value={userData.password}
-          type="password"
-          id="password"
-          class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-          placeholder=" "
-        />
-        <label
-          for="password"
-          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-          >Password</label
-        >
-      </div>
-
-      <div class="w-full flex justify-end">
-        <button
-          on:click={() => {
-            dispatch("newUser");
-          }}
-          class="text-md font-semibold hover:text-blue-700 cursor-pointer"
-        >
-          New? SignUp here
-        </button>
-      </div>
-      <button
-        class="w-full mt-3 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2"
-        on:click={submitData}
+      <form
+        action=""
+        on:submit={(e) => {
+          e.preventDefault();
+          submitData();
+        }}
       >
-        Log In
-      </button>
+        <div class="relative mb-3">
+          <input
+            bind:value={userData.email}
+            type="email"
+            id="email"
+            class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" "
+            required
+          />
+          <label
+            for="email"
+            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+            >Email</label
+          >
+        </div>
+        <div class="relative mb-3">
+          <input
+            bind:value={userData.password}
+            type="password"
+            id="password"
+            class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" "
+            required
+          />
+          <label
+            for="password"
+            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+            >Password</label
+          >
+        </div>
+
+        <div class="w-full flex justify-end">
+          <button
+            on:click={() => {
+              dispatch("newUser");
+            }}
+            class="text-md font-semibold hover:text-blue-700 cursor-pointer"
+          >
+            New? SignUp here
+          </button>
+        </div>
+        <button
+          type="submit"
+          class="w-full mt-3 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2"
+        >
+          Log In
+        </button>
+      </form>
       <div class="my-2 w-full flex items-center justify-center">
-        <hr class="border w-full " />
+        <hr class="border w-full" />
         <h1 class=" mx-2 text-lg font-bold">Or</h1>
-        <hr class="border w-full " />
+        <hr class="border w-full" />
       </div>
 
-      <div class=" w-full flex justify-center ">
+      <div class=" w-full flex justify-center">
         <button
           class="w-fit p-2 rounded-md"
           style="box-shadow: 0 1px 4px .1px ;"
@@ -164,7 +173,7 @@
       </div>
     </div>
     <div
-      class=" hidden border-l border-gray-600 pl-3 w-full md:flex items-center justify-center "
+      class=" hidden border-l border-gray-600 pl-3 w-full md:flex items-center justify-center"
     >
       <img class="w-full" src="/Login.svg" alt="" />
     </div>
