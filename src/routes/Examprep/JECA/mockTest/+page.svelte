@@ -49,9 +49,9 @@
             <div class="relative w-fit inline-block">
                 {#if !active}
                     <div
-                        class="absolute -top-2 z-10 -right-1 bg-white rounded-full p-0.5"
+                        class="absolute flex justify-center items-center -top-2 z-10 -right-1 bg-white w-6 h-6 rounded-full"
                     >
-                        <img src="/lock.svg" alt="" />
+                        <i class="fa-solid fa-lock" style="color: #000000;" />
                     </div>
                 {/if}
 

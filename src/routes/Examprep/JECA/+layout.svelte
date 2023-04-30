@@ -56,12 +56,12 @@
     <div class="relative md:flex-[4] min-h-[inherit] p-5 lg:p-8 bg-gray-800">
         <slot />
         <button
-            class="fixed top-16 left-2 bg-white p-2 rounded-lg md:hidden ml-1"
+            class="fixed top-16 left-4 bg-white px-3 py-2 rounded-lg md:hidden ml-1"
             on:click={() => {
                 Leftpannel = true;
             }}
         >
-            <img class="h-4" src="/menu.svg" alt="" />
+            <i class="fa-solid fa-bars fa-lg" />
         </button>
     </div>
 </div>

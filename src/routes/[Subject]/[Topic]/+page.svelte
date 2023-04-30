@@ -94,12 +94,12 @@
 
 <div class="relative">
     <button
-        class="fixed z-10 border border-gray-800 top-16 left-5 bg-white p-2 rounded-lg md:hidden"
+        class="fixed z-10 border border-gray-800 top-16 left-5 bg-white px-3 py-2 rounded-lg md:hidden"
         on:click={() => {
             Leftpannel = true;
         }}
     >
-        <img class="h-4" src="/menu.svg" alt="" />
+        <i class="fa-solid fa-bars fa-lg" />
     </button>
 
     <div bind:this={TopicDataContainer} class="my-1">
