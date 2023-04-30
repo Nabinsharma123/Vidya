@@ -50,7 +50,7 @@
     {#if loading}
         <div
             transition:fade
-            class=" absolute top-0 left-0 w-screen h-screen flex justify-center items-center bg-white"
+            class=" absolute z-[100] top-0 left-0 w-screen h-screen flex justify-center items-center bg-white"
         >
             <div class="flex flex-col justify-center">
                 <img class="h-[50px]" src="/logo.jpeg" alt="" />
@@ -77,12 +77,12 @@
         </div>
     {/if}
 </div>
-{#if !$authStatus && $page.route.id != "/"}
+{#if !$authStatus && $page.route.id != "/" && $page.route.id != "/About"}
     <div
         transition:fade
         class="fixed top-0 z-20 left-0 flex justify-center items-center w-screen h-screen bg-black/40"
     >
-        <div class="bg-white/20 rounded-md">
+        <div class="bg-white/50 rounded-md">
             <div
                 transition:fly={{ y: 500, duration: 500 }}
                 class="text-2xl text-center md:text-3xl h-[70vh] p-4 w-[90vw] text-red-500 font-bold border-2 bg-red-200/50 border-red-500 rounded-md z-10 flex justify-center items-center backdrop-blur-md"

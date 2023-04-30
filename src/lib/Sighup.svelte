@@ -126,13 +126,13 @@
 
 <div
   transition:fade
-  class="fixed z-20 top-0 left-0 flex justify-center items-end md:items-center w-screen h-screen bg-black/50"
+  class="fixed z-50 top-0 left-0 flex justify-center items-end md:items-center w-screen h-screen bg-black/50"
 >
   <div
     transition:fly={{ y: 500, duration: 500 }}
     use:clickOutside
     on:outclick={() => dispatch("close")}
-    class=" relative flex p-8 justify-center bg-white pb-32 md:pb-8 w-full md:w-[800px] rounded-md shadow-md"
+    class=" relative flex p-8 max-h-screen overflow-auto justify-center bg-white pb-32 md:pb-8 w-full md:w-[800px] rounded-md shadow-md"
   >
     <div class="w-full md:pr-8">
       <h1 class="text-3xl mb-5">Register</h1>
