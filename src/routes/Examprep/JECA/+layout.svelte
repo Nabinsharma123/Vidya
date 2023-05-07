@@ -5,8 +5,8 @@
     import { onMount } from "svelte";
 
     // var Leftpannel = false;
-    var topic = $page.route.id.slice(15);
-    $: topic = $page.route.id.slice(15);
+    var topic = $page.route.id.slice(15).replace(/-/g, " ");
+    $: topic = $page.route.id.slice(15).replace(/-/g, " ");
     var Leftpannel, icon;
     onMount(() => {
         if (window.innerWidth <= 500) {
@@ -51,6 +51,16 @@
                 >
             </a>
             <a
+                href="/Examprep/JECA/Previous-Years"
+                class="p-4 hover:bg-gray-800"
+                class:bg-gray-800={$page.route.id ==
+                    "/Examprep/JECA/Previous-Years"}
+            >
+                <Heading customSize="text-2xl font-bold" class="text-white"
+                    >Previous Years</Heading
+                >
+            </a>
+            <a
                 href="/Examprep/JECA/Mocktest"
                 class="p-4 hover:bg-gray-800"
                 class:bg-gray-800={$page.route.id == "/Examprep/JECA/Mocktest"}
@@ -70,7 +80,9 @@
             </a>
         </div>
     </div>
-    <div class=" flex-[4] min-w-[350px] min-h-[inherit] p-5 md:p-8 bg-gray-800">
+    <div
+        class="relative flex-[4] min-w-[350px] min-h-[inherit] p-5 md:p-8 bg-gray-800"
+    >
         <div class="mb-6 flex items-center gap-5 border-b pb-2">
             <button
                 class="top-16 h-fit left-4 border-2 border-gray-900 bg-white px-2.5 py-1.5 rounded-lg ml-1"

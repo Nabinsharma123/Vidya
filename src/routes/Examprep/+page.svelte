@@ -68,6 +68,8 @@
     </div>
 </div>
 
+<canvas id="pdf_renderer" />
+
 <style>
     .button:hover h1 {
         color: #fff;

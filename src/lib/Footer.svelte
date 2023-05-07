@@ -19,13 +19,13 @@
                     <ul class="text-gray-600 dark:text-gray-400">
                         <li class="mb-4">
                             <a
-                                href="/Examprep/JECA/quiz"
+                                href="/Examprep/JECA/Quiz"
                                 class="hover:underline">Quiz</a
                             >
                         </li>
                         <li class="mb-4">
                             <a
-                                href="/Examprep/JECA/mockTest"
+                                href="/Examprep/JECA/Mocktest"
                                 class="hover:underline">MockTest</a
                             >
                         </li>
