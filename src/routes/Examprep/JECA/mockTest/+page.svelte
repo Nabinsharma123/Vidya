@@ -36,14 +36,6 @@
     <title>JECA - Mock Test</title>
 </svelte:head>
 <div class="relative">
-    <div class="mb-6">
-        <Heading
-            customSize="text-3xl md:text-4xl font-bold"
-            class="text-white text-right md:text-left pb-2 border-b"
-            >Mock Test</Heading
-        >
-    </div>
-
     {#if tests.length != 0}
         {#each tests as { name, active }}
             <div class="relative w-fit inline-block">

@@ -24,6 +24,7 @@
     import { onDestroy } from "svelte";
     import { jsontohtml } from "../../../lib/jsontohtml";
     import Feedback from "../../../lib/Feedback.svelte";
+    import { onMount } from "svelte";
 
     var feedback = false;
     var Questions = [];
@@ -35,6 +36,7 @@
     var TestStatus = "Loading";
     var userTestData;
     var unsubscribe;
+    var Leftpannel, icon;
 
     fetchUserData();
     async function fetchUserData() {
@@ -133,6 +135,10 @@
         TotalTimer();
         setTimeout(() => {
             hljs.highlightAll();
+            if (window.innerWidth <= 500) {
+                Leftpannel.style.display = "none";
+                icon.style.rotate = "90deg";
+            }
         }, 100);
     }
     var score = 0;
@@ -239,7 +245,7 @@
                         class=" text-white disabled:opacity-60 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-2xl px-5 py-2 text-center"
                         >Leaderboard</button
                     >
-                    <a href="/Examprep/JECA/mockTest">
+                    <a href="/Examprep/JECA/Mocktest">
                         <button
                             class="w-full text-white disabled:opacity-60 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-2xl px-5 py-2 text-center"
                             >Back</button
@@ -249,9 +255,10 @@
             </div>
         </div>
     {:else if TestStatus == "Start"}
-        <div class="flex w-full h-full gap-2 p-4 bg-gray-200">
+        <div class="flex w-full h-full gap-2 p-2 bg-gray-200 overflow-auto">
             <div
-                class=" p-4 flex-[2] bg-white rounded-md shadow-md overflow-y-auto"
+                bind:this={Leftpannel}
+                class=" min-w-[280px] p-4 flex-[2] bg-white rounded-md shadow-md"
             >
                 <Heading class="text-center" tag="h3">Mock Test 1</Heading>
                 <div class="flex flex-col justify-center mt-5 items-center">
@@ -263,13 +270,7 @@
                     <h5 class="text-lg font-bold">
                         {$userAuthData.displayName}
                     </h5>
-                    <div
-                        class="border mt-5 text-black rounded-md font-bold border-blue-700 p-2 bg-blue-300"
-                    >
-                        Time Left :
-                        {min != 0 ? `${min} min` : ``}
-                        {sec} sec
-                    </div>
+
                     <div class="mt-4 max-h-[40vh] overflow-y-auto">
                         {#each Questions as Question, Qindex}
                             <a href={`#Q${Qindex + 1}`}>
@@ -301,17 +302,47 @@
                 </div>
             </div>
             <div
-                class="flex-[6] p-4 bg-white rounded-md shadow-md overflow-y-auto"
+                class="flex-[6] min-w-[310px] relative p-4 pt-0 bg-white rounded-md shadow-md overflow-auto"
             >
-                <div>
+                <div
+                    class="sticky flex justify-between px-4 py-1.5 shadow-md -mx-4 top-0 bg-white"
+                >
+                    <button
+                        class="h-fit left-4 border-2 border-gray-900 bg-white shadow-md px-2.5 py-1.5 rounded-lg ml-1"
+                        on:click={() => {
+                            if (Leftpannel.style.display == "none") {
+                                Leftpannel.style.display = "block";
+                                icon.style.rotate = "-90deg";
+                            } else {
+                                Leftpannel.style.display = "none";
+                                icon.style.rotate = "90deg";
+                            }
+                        }}
+                    >
+                        <i
+                            bind:this={icon}
+                            class="fa-solid fa-chevron-up fa-lg"
+                            style="rotate: -90deg;"
+                        />
+                    </button>
+                    <div
+                        class="border text-black rounded-md font-bold border-blue-700 p-2 bg-blue-300"
+                    >
+                        Time :
+                        {min != 0 ? `${min} min` : ``}
+                        {sec} sec
+                    </div>
+                </div>
+                <div class="">
                     {#each Questions as { Question, Options, Answer, Value }, Qindex}
                         <div id={`Q${Qindex + 1}`} class="my-4">
                             <div class="flex gap-1 questions">
                                 <div class="font-bold">
                                     {Qindex + 1}.
                                 </div>
-
-                                {@html jsontohtml(Question.data).outerHTML}
+                                <div class="w-[calc(100%-20px)]">
+                                    {@html jsontohtml(Question.data).innerHTML}
+                                </div>
                             </div>
 
                             <div class="grid grid-cols-2">
@@ -355,7 +386,9 @@
                 class=" select-none flex flex-col gap-3 items-center justify-center text-xl font-bold m-3 py-5 px-7 bg-white border border-gray-200 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
             >
                 <div class="flex flex-col gap-3 justify-center">
-                    <Heading>Your Test is Ready!!</Heading>
+                    <Heading customSize="text-3xl md:text-4xl font-extrabold"
+                        >Your Test is Ready!!</Heading
+                    >
 
                     <Button on:click={StartTest} size="xl">Start Test</Button>
                 </div>
@@ -496,8 +529,10 @@
         @apply bg-green-500;
         @apply border-green-700;
     }
-
-    .questions :global(code) {
+    /* :global(pre){
+        
+    } */
+    :global(code) {
         margin: 20px 0;
         border-radius: 7px;
     }

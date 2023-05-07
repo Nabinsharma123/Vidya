@@ -55,12 +55,12 @@
     <title>JECA - Dashboard</title>
 </svelte:head>
 
-<Heading
+<!-- <Heading
     customSize=" text-3xl md:text-4xl  font-bold "
     class="text-white text-right md:text-left pb-2 border-b">Dashboard</Heading
->
+> -->
 
-<div class="bg-gray-900 mt-14 p-4 rounded-lg">
+<div class="bg-gray-900 p-4 rounded-lg">
     <h1
         class="text-2xl mb-4 font-bold leading-none tracking-tight text-blue-400 dark:text-white"
     >

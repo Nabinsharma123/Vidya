@@ -5,13 +5,8 @@
 <svelte:head>
     <title>JECA - Instuction</title>
 </svelte:head>
-<Heading
-    customSize="text-3xl md:text-4xl font-bold"
-    class="text-white text-right md:text-left pb-2 border-b"
-    >Insructions</Heading
->
 
-<div class="flex my-7 justify-center">
+<div class="flex justify-center">
     <div class="max-w-[700px]">
         <h1
             class="text-green-400 font-extrabold text-2xl md:text-4xl text-center mb-6"
