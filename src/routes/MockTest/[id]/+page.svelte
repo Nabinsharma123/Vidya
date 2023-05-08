@@ -302,10 +302,10 @@
                 </div>
             </div>
             <div
-                class="flex-[6] min-w-[310px] relative p-4 pt-0 bg-white rounded-md shadow-md overflow-auto"
+                class="flex-[6] min-w-[310px] relative bg-white rounded-md shadow-md"
             >
                 <div
-                    class="sticky flex justify-between px-4 py-1.5 shadow-md -mx-4 top-0 bg-white"
+                    class=" flex h-[50px] justify-between px-4 py-1.5 rounded-t-md shadow-md top-0 bg-white"
                 >
                     <button
                         class="h-fit left-4 border-2 border-gray-900 bg-white shadow-md px-2.5 py-1.5 rounded-lg ml-1"
@@ -333,7 +333,7 @@
                         {sec} sec
                     </div>
                 </div>
-                <div class="">
+                <div class="overflow-auto p-4 pt-0 h-[calc(100%-50px)]">
                     {#each Questions as { Question, Options, Answer, Value }, Qindex}
                         <div id={`Q${Qindex + 1}`} class="my-4">
                             <div class="flex gap-1 questions">

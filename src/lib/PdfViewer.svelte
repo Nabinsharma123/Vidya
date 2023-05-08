@@ -5,7 +5,6 @@
     import { Button } from "flowbite-svelte";
 
     export var year;
-    $: console.log(myState);
 
     var myState = {
         pdf: null,
@@ -13,11 +12,13 @@
         zoom: 0.7,
     };
 
-    pdfjsLib.getDocument(`/${year}.pdf`).then((pdf) => {
+    pdfjsLib.getDocument("/2022.pdf").promise.then((pdf) => {
         myState.pdf = pdf;
+        console.log(pdf);
         console.log(pdf);
         render();
     });
+
     function render() {
         myState.pdf.getPage(myState.currentPage).then((page) => {
             var canvas = document.getElementById("pdf_renderer");

@@ -50,7 +50,7 @@
                     >Instructions</Heading
                 >
             </a>
-            <a
+            <!-- <a
                 href="/Examprep/JECA/Previous-Years"
                 class="p-4 hover:bg-gray-800"
                 class:bg-gray-800={$page.route.id ==
@@ -59,7 +59,7 @@
                 <Heading customSize="text-2xl font-bold" class="text-white"
                     >Previous Years</Heading
                 >
-            </a>
+            </a> -->
             <a
                 href="/Examprep/JECA/Mocktest"
                 class="p-4 hover:bg-gray-800"
