@@ -118,7 +118,7 @@
     <div class="bg-gray-900 flex-1 p-2 md:p-4 rounded-lg">
         <Heading
             customSize="text-xl md:text-2xl lg:text-4xl font-extrabold"
-            class="text-white">8th July</Heading
+            class="text-white">14th July</Heading
         >
         <h1
             class="text-lg mt-2 font-bold leading-none tracking-tight text-blue-400 dark:text-white"
