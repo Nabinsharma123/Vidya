@@ -2,7 +2,7 @@
     import { Heading } from "flowbite-svelte";
 
     var now = new Date().getTime();
-    var countDownDate = new Date("July 8, 2023 10:0:0").getTime();
+    var countDownDate = new Date("July 14, 2024 10:0:0").getTime();
 
     var distance = countDownDate - now;
 
