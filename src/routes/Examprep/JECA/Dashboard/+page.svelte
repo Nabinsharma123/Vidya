@@ -2,7 +2,7 @@
     import { Heading } from "flowbite-svelte";
 
     var now = Date.now();
-    var countDownDate = new Date("2025-03-30")
+    var countDownDate = new Date("2025-05-30")
 
     var distance = countDownDate - now;
 
@@ -118,7 +118,7 @@
     <div class="bg-gray-900 flex-1 p-2 md:p-4 rounded-lg">
         <Heading
             customSize="text-xl md:text-2xl lg:text-4xl font-extrabold"
-            class="text-white">30th March</Heading
+            class="text-white">30th May</Heading
         >
         <h1
             class="text-lg mt-2 font-bold leading-none tracking-tight text-blue-400 dark:text-white"
